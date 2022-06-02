@@ -1,12 +1,15 @@
 {
-  "name": "communism",
+  "name": "landings",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint --quiet src/**/*.{ts,tsx}",
+    "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
+    "stylelint": "stylelint '**/*{.css,.scss}'",
+    "stylelint:fix": "stylelint '**/*{.css,.scss}' --fix"
   },
   "dependencies": {
     "axios": "^0.24.0",
@@ -16,7 +19,7 @@
     "next": "12.1.5",
     "react": "18.0.0",
     "react-dom": "18.0.0",
-    "sass": "^1.45.1"
+    "sass": "^1.51.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.2.1",
@@ -36,10 +39,29 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-webpack-plugin": "^2.5.4",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.4.0",
+    "postcss": "^8.4.12",
+    "postcss-scss": "^4.0.4",
     "prettier": "^2.6.2",
+    "stylelint": "^14.8.0",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-standard-scss": "^3.0.0",
+    "stylelint-order": "^5.0.0",
+    "stylelint-scss": "^4.2.0",
     "typescript": "4.6.3"
   },
   "main": "index.js",
   "author": "RB",
-  "license": "ISC"
+  "license": "ISC",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.(css|scss)": [
+      "stylelint --fix"
+    ]
+  }
 }

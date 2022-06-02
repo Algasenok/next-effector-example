@@ -1,26 +1,29 @@
 /** @type {import('next').NextConfig} */
+// const StylelintPlugin = require("stylelint-webpack-plugin");
 
 const nextConfig = {
+  distDir: 'dist',
   reactStrictMode: true,
   sassOptions: {
     includePaths: ['./src/assets/styles'],
-    prependData: `@import "variables.scss";`
+    prependData: `@import "_mixins.sass";`,
   },
-  webpack(config, options) {
+  webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
       issuer: { and: [/\.(ts)x?$/] },
       use: [
         {
-          loader: "@svgr/webpack",
+          loader: '@svgr/webpack',
           options: {
             svgoConfig: { plugins: [{ removeViewBox: false }] },
           },
         },
       ],
     });
+    // config.plugins.push(new StylelintPlugin());
     return config;
-  }
-}
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
