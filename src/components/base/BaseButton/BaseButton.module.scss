@@ -1,0 +1,54 @@
+.button {
+    display: inline-block;
+    border: none;
+    padding: 12px;
+    margin: 0;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+    transition: background 250ms ease-in-out, transform 150ms ease;
+    font-family: Poppins, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 22px;
+    border-radius: 4px;
+
+    &_common {
+        background: $bg-common-button;
+        color: $font-common-button;
+    }
+
+    &_second {
+        background: $bg-second-button;
+        color: $font-second-button;
+    }
+
+    &_extra-small {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 28px;
+        padding: 4px 12px;
+        border-radius: 4px;
+    }
+
+    &_small {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 22px;
+        padding: 8px 12px;
+    }
+
+    &_middle {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 22px;
+        padding: 13px;
+        border-radius: 8px;
+
+        @media #{$laptop} {
+            padding: 13px 16px;
+        }
+    }
+}

@@ -1,0 +1,127 @@
+.header {
+  background: transparent;
+  padding: 20px 0;
+
+  @media #{$laptop} {
+    padding: 26px 10px 26px 0;
+  }
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.headerMenuContainer {
+  order: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  @media #{$tablet} {
+    order: 2;
+    width: calc(100% - 241px);
+  }
+
+  @media #{$laptop} {
+    width: auto;
+  }
+}
+
+.headerLogo {
+  width: 105px;
+  height: auto;
+  order: 2;
+
+  @media #{$tablet} {
+    order: 1;
+  }
+
+  @media #{$tablet} {
+    width: 125px;
+  }
+
+  @media #{$desktop} {
+    width: 137px;
+  }
+}
+
+.headerMenuIcon {
+  width: 16px;
+  height: 16px;
+
+  @media #{$tablet} {
+    margin-right: 6px;
+  }
+}
+
+.headerMenuText {
+  display: none;
+
+  @media #{$tablet} {
+    display: block;
+  }
+}
+
+.headerMenubutton {
+  display: flex;
+  align-items: center;
+  width: auto;
+}
+
+.headerMenuLink {
+  display: none;
+
+  @media #{$laptop} {
+    display: initial;
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 500;
+    color: $font-white;
+    text-decoration: none;
+    margin-left: 16px;
+    white-space: nowrap;
+
+    @media #{$desktop} {
+      margin-left: 40px;
+    }
+  }
+}
+
+.headerInfoContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  order: 3;
+}
+
+.headerButton {
+  display: none;
+
+  @media #{$laptop} {
+    display: initial;
+    color: $font-accent;
+    padding: 14px 16px;
+  }
+}
+
+.headerUserIcon {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  margin-left: 16px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  @media #{$laptop} {
+    &:first-child {
+      margin-left: inherit;
+    }
+  }
+
+  @media #{$desktop} {
+    margin-left: 30px;
+  }
+}

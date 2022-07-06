@@ -2,11 +2,10 @@
 // const StylelintPlugin = require("stylelint-webpack-plugin");
 
 const nextConfig = {
-  distDir: 'dist',
-  reactStrictMode: true,
+  reactStrictMode: false,
   sassOptions: {
-    includePaths: ['./src/assets/styles'],
-    prependData: `@import "_mixins.sass";`,
+    includePaths: ['src/styles'],
+    prependData: `@import "_mixins.sass"; @import "variables.scss";`,
   },
   webpack(config) {
     config.module.rules.push({
