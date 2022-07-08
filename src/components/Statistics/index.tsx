@@ -43,11 +43,9 @@ export function Statistics() {
         </div>
         <div className={styles.statisticsCardContainer}>
           {cards.map(({ value, description }, index) => (
-            <div key={`statistics${index}`} className={styles.statisticsCardWrapper}>
-              <div className={styles.statisticsCard}>
-                <div className={styles.statisticsCardValue}>{value}</div>
-                <div className={styles.statisticsCardDescription}>{description}</div>
-              </div>
+            <div key={`statistics${index}`} className={styles.statisticsCard}>
+              <div className={styles.statisticsCardValue}>{value}</div>
+              <div className={styles.statisticsCardDescription}>{description}</div>
             </div>
           ))}
         </div>
