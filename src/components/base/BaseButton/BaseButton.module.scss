@@ -25,6 +25,11 @@
         color: $font-second-button;
     }
 
+    &_accent {
+        background: $bg-accent-button;
+        color: $font-accent-button;
+    }
+
     &_extra-small {
         font-weight: 400;
         font-size: 16px;

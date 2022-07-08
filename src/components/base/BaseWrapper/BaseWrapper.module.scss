@@ -17,4 +17,18 @@
         }
 
     }
+
+    &_layout {
+        max-width: 1160px;
+        padding: 80px 20px;
+        margin: 0 auto;
+
+        @media #{$laptop} {
+            padding: 100px 40px;
+        }
+
+        @media #{$desktop} {
+            padding: 100px 140px;
+        }
+    }
 }

@@ -17,7 +17,9 @@ export function Header() {
   return (
     <div className={styles.header}>
       <BaseWrapper type="wide" className={styles.headerContainer}>
-        <img src="/images/logo.svg" className={styles.headerLogo} alt="" />
+        <BaseLink href="/" className={styles.headerLogo}>
+          <img src="/images/logo.svg" alt="" />
+        </BaseLink>
         <div className={styles.headerMenuContainer}>
           <BaseButton
             color="common"

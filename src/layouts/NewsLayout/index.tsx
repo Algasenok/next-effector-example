@@ -43,7 +43,7 @@ export function NewsLayout({ children }: LayoutProps) {
     <div className={styles.newsLayout}>
       <Header />
       <NewsTopBanner />
-      <BaseWrapper className={styles.newsLayoutContainer}>
+      <BaseWrapper type="layout" className={styles.newsLayoutContainer}>
         <NewsSidebar className={styles.newsLayoutContainerSidebar} />
         <div className={styles.newsLayoutContainerTitle}>{title}</div>
         <TabsBar

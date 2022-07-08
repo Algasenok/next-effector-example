@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 
 export interface BaseButtonsProps {
   children: ReactNode;
+  href?: string;
   color?: string;
   size?: string;
   className?: string;
@@ -24,4 +25,10 @@ export interface tab {
   name: string;
   sysname: string;
   isActive: boolean;
+}
+
+export interface BaseTitleProps {
+  children: ReactNode;
+  size?: string;
+  className?: string;
 }

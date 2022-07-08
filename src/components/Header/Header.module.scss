@@ -29,20 +29,23 @@
 }
 
 .headerLogo {
-  width: 105px;
-  height: auto;
   order: 2;
 
   @media #{$tablet} {
     order: 1;
   }
 
-  @media #{$tablet} {
-    width: 125px;
-  }
+  img {
+    width: 105px;
+    height: auto;
 
-  @media #{$desktop} {
-    width: 137px;
+    @media #{$tablet} {
+      width: 125px;
+    }
+
+    @media #{$desktop} {
+      width: 137px;
+    }
   }
 }
 
@@ -77,7 +80,7 @@
     font-size: 14px;
     line-height: 22px;
     font-weight: 500;
-    color: $font-white;
+    color: $font-main;
     text-decoration: none;
     margin-left: 16px;
     white-space: nowrap;

@@ -3,8 +3,6 @@
 }
 
 .newsLayoutContainer {
-  max-width: 1160px;
-  margin: 80px auto;
   display: grid;
   grid-gap: 0;
   grid-template-areas:
@@ -13,7 +11,6 @@
     "wrapper";
 
   @media #{$laptop} {
-    margin: 100px auto;
     grid-template-columns: 266px auto;
     grid-gap: 0 34px;
     grid-template-areas:
@@ -59,6 +56,6 @@
     font-weight: 500;
     font-size: 22px;
     line-height: 33px;
-    color: $font-white;
+    color: $font-main;
   }
 }
