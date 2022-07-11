@@ -1,0 +1,17 @@
+.linkArrow {
+  width: 16px;
+  height: 16px;
+  background: url('/images/icons/arrow-right.svg') no-repeat 100%;
+  margin-left: 6px;
+}
+
+.linkNeedHover {
+  &:hover {
+    color: $bg-accent-button;
+
+    .linkArrow {
+      background: url('/images/icons/arrow-right-accent.svg') no-repeat 100%;
+    }
+  }
+}
+

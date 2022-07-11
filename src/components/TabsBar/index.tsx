@@ -1,10 +1,10 @@
 import styles from './TabsBar.module.scss';
 import { BaseButton } from '@/components';
-import { tab } from '@/types/types';
+import { Tab } from '@/types/types';
 import cn from 'classnames';
 
 interface tabsBarProps {
-  tabs?: tab[];
+  tabs?: Tab[];
   onClickHandler?: (sysname: string) => void;
   className?: string;
 }

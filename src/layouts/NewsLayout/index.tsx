@@ -1,6 +1,6 @@
 import styles from './NewsLayout.module.scss';
 import { ReactNode, useState, useEffect } from 'react';
-import { tab } from '@/types/types';
+import { Tab } from '@/types/types';
 import { Header, Footer, NewsSidebar, NewsTopBanner, BaseWrapper, TabsBar } from '@/components';
 
 interface LayoutProps {
@@ -9,7 +9,7 @@ interface LayoutProps {
 
 export function NewsLayout({ children }: LayoutProps) {
   const title = 'News & Blog';
-  const [tabs, setTabs] = useState<tab[]>([]);
+  const [tabs, setTabs] = useState<Tab[]>([]);
 
   useEffect(() => {
     setTabs([

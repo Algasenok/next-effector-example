@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { ROUTES_NAME } from '@/utils/const/routesName';
 import { BaseLink } from '@/components';
-import { breadcrumbsTypes } from '@/types/types';
+import { BreadcrumbsTypes } from '@/types/types';
 
 interface breadcrumbProps {
   className?: string;
@@ -11,7 +11,7 @@ interface breadcrumbProps {
 
 export function Breadcrumbs({ className = '' }: breadcrumbProps) {
   const router = useRouter();
-  const [breadcrumbs, setBreadcrumbs] = useState<breadcrumbsTypes[]>([]);
+  const [breadcrumbs, setBreadcrumbs] = useState<BreadcrumbsTypes[]>([]);
 
   const convertBreadcrumb = (pathName: string) => {
     return pathName.replace(/-/g, ' ').toUpperCase();

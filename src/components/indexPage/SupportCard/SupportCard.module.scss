@@ -1,0 +1,83 @@
+.supportCard {
+  background: $bg-common;
+  border-radius: 12px;
+  width: 300px;
+  overflow: hidden;
+  text-align: left;
+
+  @media #{$tablet} {
+    width: 272px;
+    margin-right: 16px;
+    margin-bottom: 16px;
+
+    &:nth-child(2n) {
+      margin-right: 0;
+    }
+  }
+
+  @media #{$laptop} {
+    width: 300px;
+
+    &:not(:nth-child(3n)) {
+      margin-right: 21px;
+    }
+
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+  }
+
+  @media #{$desktop} {
+    width: 360px;
+
+    &:not(:nth-child(3n)) {
+      margin-right: 40px;
+    }
+  }
+}
+
+.supportCardHeader {
+  white-space: nowrap;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  color: $font-gray;
+  padding: 30px 30px 12px;
+
+  @media #{$tablet} {
+    padding: 30px 30px 24px;
+  }
+}
+
+.supportCardDescription {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 28px;
+  color: $font-main;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  background: $bg-second;
+  padding: 30px;
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(145.3deg, #1C2739 15.39%, #43669F 100%);
+    top: 0;
+    left: 0;
+  }
+}
+
+.supportCardText {
+  margin-bottom: 16px;
+}
+
+.supportCardLink {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}

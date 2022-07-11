@@ -32,7 +32,6 @@ export function NewsSidebar({ className = '' }) {
         spaceBetween={24}
         mousewheel
         slidesPerView="auto"
-        className={styles.sidebarCategoryList}
         breakpoints={{
           1024: {
             allowTouchMove: false,
