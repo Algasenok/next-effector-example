@@ -1,3 +1,13 @@
+.link {
+  &_light {
+    color: $font-main;
+  }
+
+  &_second {
+    color: $font-second-link;
+  }
+}
+
 .linkArrow {
   width: 16px;
   height: 16px;
@@ -6,6 +16,9 @@
 }
 
 .linkNeedHover {
+  display: flex;
+  align-items: center;
+
   &:hover {
     color: $bg-accent-button;
 

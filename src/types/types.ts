@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import {string} from "prop-types";
 
 export interface BaseButtonsProps {
   children: ReactNode;
@@ -15,6 +16,7 @@ export interface BaseLinkProps {
   className?: string;
   needHover?: boolean;
   needArrow?: boolean;
+  color?: string;
 }
 
 export interface LinkProps {
@@ -44,4 +46,27 @@ export interface SupportCardProps {
   title: string;
   text: string;
   link: string;
+}
+
+export interface Tag {
+  tagName: string;
+}
+
+export interface Category {
+  name: string;
+  description: string;
+  sysname: string;
+}
+
+export interface SinglePage {
+  id: number;
+  attributes: {
+    title: string;
+    url: string;
+    description: string;
+    img: string;
+    content: string;
+    tags: Tag[];
+    category: Category;
+  };
 }

@@ -41,21 +41,23 @@ export function NewsLayout({ children }: LayoutProps) {
 
   return (
     <div className={styles.newsLayout}>
-      <Header />
-      <NewsTopBanner />
-      <BaseWrapper type="layout" className={styles.newsLayoutContainer}>
-        <NewsSidebar className={styles.newsLayoutContainerSidebar} />
-        <div className={styles.newsLayoutContainerTitle}>{title}</div>
-        <TabsBar
-          tabs={tabs}
-          onClickHandler={sysname => changeTabActive(sysname)}
-          className={styles.newsLayoutContainerTabs}
-        />
-        <div className={styles.contentWrapper}>
-          <div>{children}</div>
-        </div>
-      </BaseWrapper>
-      <Footer />
+      <div className={styles.newsLayoutWrapper}>
+        <Header />
+        <NewsTopBanner />
+        <BaseWrapper type="layout" className={styles.newsLayoutContainer}>
+          <NewsSidebar className={styles.newsLayoutContainerSidebar} />
+          <div className={styles.newsLayoutContainerTitle}>{title}</div>
+          <TabsBar
+            tabs={tabs}
+            onClickHandler={sysname => changeTabActive(sysname)}
+            className={styles.newsLayoutContainerTabs}
+          />
+          <div className={styles.contentWrapper}>
+            <div>{children}</div>
+          </div>
+        </BaseWrapper>
+        <Footer />
+      </div>
     </div>
   );
 }

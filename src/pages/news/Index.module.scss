@@ -1,5 +1,11 @@
 .newsContainer {
   width: 100%;
-  background: $bg-common;
-  height: 100vh;
+}
+
+.newsCardsContainer {
+  margin-bottom: 60px;
+
+  @media #{$desktop} {
+    margin-bottom: 32px;
+  }
 }

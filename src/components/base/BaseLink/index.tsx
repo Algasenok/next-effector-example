@@ -9,6 +9,7 @@ export function BaseLink({
   className = '',
   needHover = false,
   needArrow = false,
+  color = '',
 }: BaseLinkProps) {
   const isExternalLink = href.includes('http');
 
@@ -18,7 +19,12 @@ export function BaseLink({
         <a
           target="_blank"
           href={href}
-          className={cn(styles.link, needHover ? styles.linkNeedHover : '', className)}
+          className={cn(
+            styles.link,
+            needHover ? styles.linkNeedHover : '',
+            styles[`link_${color}`],
+            className,
+          )}
           rel="noreferrer"
         >
           {children}
@@ -26,7 +32,14 @@ export function BaseLink({
         </a>
       ) : (
         <Link href={href}>
-          <a className={cn(styles.link, needHover ? styles.linkNeedHover : '', className)}>
+          <a
+            className={cn(
+              styles.link,
+              needHover ? styles.linkNeedHover : '',
+              styles[`link_${color}`],
+              className,
+            )}
+          >
             {children}
             {needArrow && <div className={styles.linkArrow} />}
           </a>

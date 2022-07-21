@@ -1,21 +1,21 @@
 .topBanner {
   width: 100%;
   padding: 60px 0 80px;
-  background: url('/images/topBanner/back_mob.png') no-repeat 100% 0 / 100%;
+  background: url('/images/topBanner/back_mob.png') no-repeat 100% 0 / 100% 100%;
   position: relative;
   overflow: hidden;
 
   @media #{$tablet} {
-    background: url('/images/topBanner/back_tab.png') no-repeat 100% 0 / 100%;
+    background: url('/images/topBanner/back_tab.png') no-repeat 100% 0 / 100% 100%;
   }
 
   @media #{$laptop} {
-    background: url('/images/topBanner/back_lap.png') no-repeat 100% 0 / 100%;
+    background: url('/images/topBanner/back_lap.png') no-repeat 100% 0 / 100% 100%;
     padding: 80px 0 100px;
   }
 
   @media #{$desktop} {
-    background: url('/images/topBanner/back_desk.png') no-repeat 100% 0 / 100%;
+    background: url('/images/topBanner/back_desk.png') no-repeat 100% 0 / 100% 100%;
   }
 
   &::after {

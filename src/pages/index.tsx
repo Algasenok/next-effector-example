@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { BaseLayout } from '@/layouts/BaseLayout';
-import { TopBanner, Statistics, Support, Guides, ReportingContainer } from '@/components';
+import { TopBanner, Statistics, Support, Guides, ReportingContainer, Video } from '@/components';
 
 function Home() {
   return (
@@ -14,6 +14,7 @@ function Home() {
       <Statistics />
       <Support />
       <Guides />
+      <Video />
       <ReportingContainer />
     </BaseLayout>
   );

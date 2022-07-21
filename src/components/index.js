@@ -20,3 +20,7 @@ export { Support } from './Support';
 export { LinksContainer } from './LinksContainer';
 export { Guides } from './indexPage/Guides';
 export { ReportingContainer } from './indexPage/ReportingContainer';
+export { NewsCardItem } from './newsCardItem';
+export { Menu } from './Menu';
+export { Pagination } from './Pagination';
+export { Video } from './Video';

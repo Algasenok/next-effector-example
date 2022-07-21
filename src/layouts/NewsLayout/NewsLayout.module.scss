@@ -2,7 +2,13 @@
   background: $bg-blue-3;
 }
 
+.newsLayoutWrapper {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
 .newsLayoutContainer {
+  width: 100%;
   display: grid;
   grid-gap: 0;
   grid-template-areas:

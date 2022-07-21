@@ -1,9 +1,18 @@
 import styles from './Header.module.scss';
-import { BaseButton, BaseLink, BaseWrapper } from '@/components';
+import { useState } from 'react';
+import { BaseButton, BaseLink, BaseWrapper, Menu } from '@/components';
 
 export function Header() {
-  const handleClickMenu = () => {
-    console.log('Меню');
+  const [isShowMenu, setIsShowMenu] = useState(false);
+
+  const showMenu = () => {
+    console.log('mouseenter');
+    setIsShowMenu(true);
+  };
+
+  const closeMenu = () => {
+    console.log('mouseOut');
+    setIsShowMenu(false);
   };
 
   const handleClickButton = () => {
@@ -20,25 +29,20 @@ export function Header() {
         <BaseLink href="/" className={styles.headerLogo}>
           <img src="/images/logo.svg" alt="" />
         </BaseLink>
-        <div className={styles.headerMenuContainer}>
-          <BaseButton
-            color="common"
-            size="small"
-            className={styles.headerMenubutton}
-            onClickHandler={() => handleClickMenu()}
-          >
+        <div
+          className={styles.headerMenuContainer}
+          onMouseOut={() => closeMenu()}
+          onMouseOver={() => showMenu()}
+          onFocus={() => showMenu()}
+        >
+          <div className={styles.headerMenubutton}>
             <img src="/images/icons/menu.svg" className={styles.headerMenuIcon} alt="" />
             <span className={styles.headerMenuText}>Menu</span>
-          </BaseButton>
-          <BaseLink href="/" className={styles.headerMenuLink}>
-            Public and Players
-          </BaseLink>
-          <BaseLink href="/" className={styles.headerMenuLink}>
-            Industry and Regulators
-          </BaseLink>
-          <BaseLink href="/" className={styles.headerMenuLink}>
-            About RGN
-          </BaseLink>
+          </div>
+          <div className={styles.headerMenuLink}>Public and Players</div>
+          <div className={styles.headerMenuLink}>Industry and Regulators</div>
+          <div className={styles.headerMenuLink}>About RGN</div>
+          {isShowMenu && <Menu />}
         </div>
         <div className={styles.headerInfoContainer}>
           <BaseButton
