@@ -1,0 +1,87 @@
+.newsLayout {
+  background: $bg-blue-3;
+
+  &_about {
+    .newsLayoutContainerTitle,
+    .newsLayoutContainerTabs {
+      display: none;
+    }
+
+    .contentWrapper {
+      @media #{$laptop} {
+        padding-top: 0;
+      }
+    }
+
+    .newsLayoutContainer {
+      @media #{$laptop} {
+        grid-template-areas:
+          "sidebar wrapper wrapper";
+      }
+    }
+  }
+}
+
+.newsLayoutWrapper {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.newsLayoutContainer {
+  width: 100%;
+  display: grid;
+  grid-gap: 0;
+  grid-template-areas:
+    "tabs"
+    "sidebar"
+    "wrapper";
+
+  @media #{$laptop} {
+    grid-template-columns: 266px auto;
+    grid-gap: 0 34px;
+    grid-template-areas:
+      "sidebar title tabs"
+      "sidebar wrapper wrapper"
+      "sidebar wrapper wrapper";
+  }
+
+  @media #{$desktop} {
+    grid-gap: 0 20px;
+  }
+}
+
+.newsLayoutContainerSidebar {
+  grid-area: sidebar;
+}
+
+.newsLayoutContainerTabs {
+  grid-area: tabs;
+  margin-bottom: 16px;
+
+  @media #{$laptop} {
+    justify-self: end;
+    margin-bottom: 0;
+  }
+}
+
+.contentWrapper {
+  padding-top: 40px;
+  grid-area: wrapper;
+
+  @media #{$laptop} {
+    padding-top: 32px;
+  }
+}
+
+.newsLayoutContainerTitle {
+  display: none;
+  grid-area: title;
+
+  @media #{$laptop} {
+    display: block;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 33px;
+    color: $font-main;
+  }
+}

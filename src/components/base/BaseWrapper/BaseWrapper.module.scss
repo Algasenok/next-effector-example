@@ -1,0 +1,35 @@
+.baseWrapper {
+    overflow: hidden;
+    padding: 0 20px;
+
+    @media #{$laptop} {
+        padding: 0 40px;
+    }
+
+    @media #{$desktop} {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 140px;
+    }
+
+    &_wide {
+        @media #{$desktop} {
+            padding: 0 70px;
+        }
+
+    }
+
+    &_layout {
+        max-width: 1160px;
+        padding: 80px 20px;
+        margin: 0 auto;
+
+        @media #{$laptop} {
+            padding: 100px 40px;
+        }
+
+        @media #{$desktop} {
+            padding: 100px 140px;
+        }
+    }
+}

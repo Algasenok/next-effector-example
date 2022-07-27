@@ -1,0 +1,30 @@
+.link {
+  &_light {
+    color: $font-main;
+  }
+
+  &_second {
+    color: $font-second-link;
+  }
+}
+
+.linkArrow {
+  width: 16px;
+  height: 16px;
+  background: url('/images/icons/arrow-right.svg') no-repeat 100%;
+  margin-left: 6px;
+}
+
+.linkNeedHover {
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    color: $bg-accent-button;
+
+    .linkArrow {
+      background: url('/images/icons/arrow-right-accent.svg') no-repeat 100%;
+    }
+  }
+}
+

@@ -1,0 +1,27 @@
+<svg width="1009" height="732" xmlns="http://www.w3.org/2000/svg" fill="none">
+ <defs>
+  <linearGradient y2="0.62433" x2="0.80823" y1="0" x1="0.37604" id="paint0_linear_1902_26198">
+   <stop stop-color="#1C2739"/>
+   <stop stop-color="#43669F" offset="0.29131"/>
+   <stop stop-color="#4D549F" offset="0.71828"/>
+   <stop stop-color="#202B3F" offset="1"/>
+  </linearGradient>
+  <linearGradient gradientUnits="userSpaceOnUse" y2="509.339" x2="814.406" y1="-119.678" x1="378.917" id="svg_2">
+   <stop stop-color="#1C2739"/>
+   <stop stop-color="#43669F" offset="0.29131"/>
+   <stop stop-color="#4D549F" offset="0.71828"/>
+   <stop stop-color="#202B3F" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g>
+  <title>Layer 1</title>
+  <path id="svg_1" stroke="url(#paint0_linear_1902_26198)" d="m1007.5,-59.7051c10,584.0001 -497.1,1007.5001 -1007.5,1007.5001"/>
+  <g>
+   <path stroke="url(#svg_2)" d="m937.17725,-140.75c10,584 -497.1,1007.5 -1007.5,1007.5"/>
+
+  </g>
+  <g>
+   <path stroke="#2953A2" d="m679.17725,-125.75c10,584 -497.1,1007.5 -1007.5,1007.5"/>
+  </g>
+ </g>
+</svg>

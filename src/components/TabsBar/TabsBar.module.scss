@@ -1,0 +1,13 @@
+.tabsBarButton {
+  width: auto;
+  margin-right: 16px;
+
+  @media #{$laptop} {
+    min-width: 140px;
+    margin-right: 12px;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}

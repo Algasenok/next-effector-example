@@ -1,0 +1,50 @@
+.sidebar {
+  overflow: hidden;
+  width: 100%;
+  padding: 10px 0;
+
+  @media #{$laptop} {
+    width: 266px;
+    height: max-content;
+    padding: 40px 32px;
+    background: $bg-common;
+    border-radius: 8px;
+  }
+}
+
+.sidebarItem {
+  width: auto !important;
+}
+
+.sidebarLink {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  color: $font-second-light;
+  padding: 5px 0;
+  margin-right: 24px;
+  white-space: nowrap;
+
+  @media #{$laptop} {
+    font-size: 16px;
+    line-height: 28px;
+  }
+
+  &Active {
+    font-weight: 600;
+    color: $font-gray;
+  }
+}
+
+.sidebarTitle {
+  display: none;
+
+  @media #{$laptop} {
+    display: block;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 33px;
+    color: $font-main;
+    margin-bottom: 24px;
+  }
+}

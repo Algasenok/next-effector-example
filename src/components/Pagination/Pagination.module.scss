@@ -1,0 +1,83 @@
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.paginationArrowLeft,
+.paginationArrowRight {
+    display: none;
+
+    @media #{$tablet} {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        background: $bg-common;
+        border-radius: 73px;
+        width: 48px;
+        height: 48px;
+
+        img {
+            width: 24px;
+            height: 24px;
+        }
+
+        &:active {
+            background: $bg-accent;
+        }
+    }
+
+    @media #{$laptop} {
+        &:hover {
+            background: $bg-accent;
+        }
+    }
+}
+
+.paginationArrowRight {
+    img {
+        transform: rotate(180deg);
+    }
+}
+
+.paginationList {
+    padding: 9px 0;
+
+    @media #{$tablet} {
+        padding: 9px 40px;
+    }
+}
+
+.paginationItem {
+    background: none;
+    border: none;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 30px;
+    color: $font-second-button;
+    margin-right: 24px;
+    border-radius: 6px;
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    &Active,
+    &:active {
+        color: $font-main;
+        background: $bg-accent;
+    }
+
+    @media #{$laptop} {
+        &:hover {
+            color: $font-main;
+            background: $bg-accent;
+        }
+    }
+}
