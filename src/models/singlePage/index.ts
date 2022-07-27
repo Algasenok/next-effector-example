@@ -1,17 +1,11 @@
-import {
-  attach,
-  combine,
-  createEffect,
-  createEvent,
-  createStore,
-  forward,
-  restore,
-  sample,
-} from 'effector-next';
+import { combine, createEffect, createEvent, createStore, restore, sample } from 'effector';
 import { SinglePage } from '@/types/types';
 import { API } from '@/api';
+import { StaticPageContext } from 'nextjs-effector';
+import { API_CRM_URL_DEV } from 'config';
+import { getCategoryTagsForSinglePage } from '@/models/menu';
 
-const $singlePage = createStore<any | null>(null);
+const $singlePage = createStore<SinglePage>({});
 const $urlCurrentPage = createStore<string>('');
 
 const getSinglePageFx = createEffect(async (url: string) => {
@@ -19,30 +13,30 @@ const getSinglePageFx = createEffect(async (url: string) => {
   return data.data[0];
 });
 
-export const getSinglePage = createEvent<string>();
+export const getSinglePageItem = createEvent<StaticPageContext<{ url: string }>>();
 
-$singlePage.on(getSinglePageFx.doneData, (_, data) => data);
-$urlCurrentPage.on(getSinglePage, (store, url) => url);
+$singlePage.on(getSinglePageFx.doneData, (_, data) => {
+  const formattedData = {
+    ...data.attributes,
+    id: data.id,
+    // TODO Убрать это после того как картинки будут храниться в яндекс клауде
+    img: `${API_CRM_URL_DEV}${data.attributes.img.data.attributes.url}`,
+    tags: data.attributes.tags.data.map((tag: any) => ({ id: tag.id, ...tag.attributes })),
+    category: { id: data.attributes.category.data.id, ...data.attributes.category.data.attributes },
+  };
+  return formattedData;
+});
+$urlCurrentPage.on(getSinglePageItem, (_, params) => params.params.url);
 
-// sample({
-//   clock: getSinglePage,
-//   source: $urlCurrentPage,
-//   target: getSinglePageFx,
-// });
-
-// export const getPage = attach({
-//   effect: getSinglePageFx,
-//   mapParams: url => url,
-// });
-
-forward({
-  from: getSinglePage.map(url => url),
-  to: getSinglePageFx,
+sample({
+  source: getSinglePageItem,
+  fn: ({ params }) => params!.url,
+  target: [getSinglePageFx, getCategoryTagsForSinglePage],
 });
 
 const $fetchGetSinglePageError = restore(getSinglePageFx.failData, null);
 
-export const $pageData = combine({
+export const $singlePageData = combine({
   loading: getSinglePageFx.pending,
   data: $singlePage,
   error: $fetchGetSinglePageError,

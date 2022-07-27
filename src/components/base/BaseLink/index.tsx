@@ -10,6 +10,7 @@ export function BaseLink({
   needHover = false,
   needArrow = false,
   color = '',
+  onClickHandler,
 }: BaseLinkProps) {
   const isExternalLink = href.includes('http');
 
@@ -26,6 +27,7 @@ export function BaseLink({
             className,
           )}
           rel="noreferrer"
+          onClick={onClickHandler}
         >
           {children}
           {needArrow && <div className={styles.linkArrow} />}
@@ -39,6 +41,7 @@ export function BaseLink({
               styles[`link_${color}`],
               className,
             )}
+            onClick={onClickHandler}
           >
             {children}
             {needArrow && <div className={styles.linkArrow} />}

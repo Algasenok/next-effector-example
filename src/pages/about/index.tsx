@@ -1,13 +1,19 @@
-import styles from './Index.module.scss';
-import { NewsLayout } from '@/layouts/NewsLayout';
+import { NextPage } from 'next';
+import { createGSP } from '@/models/shared';
+import { getAboutPagesList, $aboutPages } from '@/models/about';
+import { useStore } from 'effector-react';
+import Router from 'next/router';
+import { useEffect } from 'react';
 
-export async function getServerSideProps() {
-  console.log('aboutPageGet');
+const About: NextPage = () => {
+  const pages = useStore($aboutPages);
 
-  return {
-    props: {},
-  };
-}
+  useEffect(() => {
+    if (pages.length) {
+      const route = pages[0].link;
+      Router.push(route || '/');
+    }
+  }, [pages]);
 
 function AboutRG() {
   return (
@@ -19,4 +25,8 @@ function AboutRG() {
   );
 }
 
-export default AboutRG;
+export const getStaticProps = createGSP({
+  pageEvent: getAboutPagesList,
+});
+
+export default About;

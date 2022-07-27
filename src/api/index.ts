@@ -26,4 +26,46 @@ export class API {
     );
     return Api.get(`${apiUrl}/api/single-pages?${query}`);
   };
+  static getAboutPagesList = (): AxiosPromise => {
+    const query = qs.stringify(
+      {
+        filters: {
+          category: {
+            sysname: {
+              $eq: 'about',
+            },
+          },
+        },
+        fields: ['url', 'title'],
+      },
+      {
+        encodeValuesOnly: true,
+      },
+    );
+    return Api.get(`${apiUrl}/api/single-pages?${query}`);
+  };
+  static getPagesForCategory = (params: any): AxiosPromise => {
+    const query = qs.stringify(
+      {
+        ...defaultParams,
+        ...params,
+      },
+      {
+        encodeValuesOnly: true,
+      },
+    );
+    return Api.get(`${apiUrl}/api/single-pages?${query}`);
+  };
+  static getCategories = (params: any): AxiosPromise => {
+    const query = qs.stringify(
+      {
+        ...defaultParams,
+        ...params,
+      },
+      {
+        encodeValuesOnly: true,
+      },
+    );
+    return Api.get(`${apiUrl}/api/categories?${query}`);
+  };
 }

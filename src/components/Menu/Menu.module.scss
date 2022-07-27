@@ -1,4 +1,18 @@
+.menuContainer {
+  width: 100%;
+  left: 0;
+  right: 0;
+  bottom: 20px;
+  z-index: 100;
+  transform: translate(0, 100%);
+
+  @media #{$laptop} {
+    bottom: 26px;
+  }
+}
+
 .menu {
+  margin-top: 20px;
   width: 100%;
   background: $bg-blue-3;
   padding: 20px 20px 40px;
@@ -6,15 +20,14 @@
   flex-wrap: wrap;
   justify-content: center;
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 100;
-  transform: translate(0, 100%);
 
   @media #{$tablet} {
     padding: 20px 40px 40px;
     justify-content: space-between;
+  }
+
+  @media #{$laptop} {
+    margin-top: 26px;
   }
 
   @media #{$desktop} {

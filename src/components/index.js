@@ -24,3 +24,8 @@ export { NewsCardItem } from './newsCardItem';
 export { Menu } from './Menu';
 export { Pagination } from './Pagination';
 export { Video } from './Video';
+
+// Pages
+export { AboutItem } from './pages/AboutItem';
+export { KnowledgePage } from './pages/Knowledge';
+export { KnowledgeItem } from './pages/KnowledgeItem';

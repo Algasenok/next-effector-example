@@ -6,12 +6,10 @@ export function Header() {
   const [isShowMenu, setIsShowMenu] = useState(false);
 
   const showMenu = () => {
-    console.log('mouseenter');
     setIsShowMenu(true);
   };
 
   const closeMenu = () => {
-    console.log('mouseOut');
     setIsShowMenu(false);
   };
 

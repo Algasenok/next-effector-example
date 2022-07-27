@@ -1,8 +1,9 @@
+import { NextPage } from 'next';
 import Head from 'next/head';
 import { BaseLayout } from '@/layouts/BaseLayout';
 import { TopBanner, Statistics, Support, Guides, ReportingContainer, Video } from '@/components';
 
-function Home() {
+const Home: NextPage = () => {
   return (
     <BaseLayout>
       <Head>
@@ -18,6 +19,6 @@ function Home() {
       <ReportingContainer />
     </BaseLayout>
   );
-}
+};
 
 export default Home;

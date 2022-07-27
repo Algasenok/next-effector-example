@@ -17,11 +17,13 @@ export interface BaseLinkProps {
   needHover?: boolean;
   needArrow?: boolean;
   color?: string;
+  onClickHandler?: (params: any) => void;
 }
 
 export interface LinkProps {
   text: string;
-  link: string;
+  link?: string;
+  sysname?: string;
 }
 
 export interface BreadcrumbsTypes {
@@ -49,24 +51,27 @@ export interface SupportCardProps {
 }
 
 export interface Tag {
+  id?: number;
   tagName: string;
+  sysname: string;
+  link?: string;
 }
 
 export interface Category {
   name: string;
   description: string;
   sysname: string;
+  tags: Tag[];
 }
 
 export interface SinglePage {
   id: number;
-  attributes: {
-    title: string;
-    url: string;
-    description: string;
-    img: string;
-    content: string;
-    tags: Tag[];
-    category: Category;
-  };
+  title: string;
+  url: string;
+  description: string;
+  publishedAt: string;
+  img: string;
+  content: string;
+  tags: Tag[];
+  category: Category;
 }

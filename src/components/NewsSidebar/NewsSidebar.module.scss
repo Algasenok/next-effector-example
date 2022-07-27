@@ -29,6 +29,11 @@
     font-size: 16px;
     line-height: 28px;
   }
+
+  &Active {
+    font-weight: 600;
+    color: $font-gray;
+  }
 }
 
 .sidebarTitle {

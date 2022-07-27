@@ -1,5 +1,25 @@
 .newsLayout {
   background: $bg-blue-3;
+
+  &_about {
+    .newsLayoutContainerTitle,
+    .newsLayoutContainerTabs {
+      display: none;
+    }
+
+    .contentWrapper {
+      @media #{$laptop} {
+        padding-top: 0;
+      }
+    }
+
+    .newsLayoutContainer {
+      @media #{$laptop} {
+        grid-template-areas:
+          "sidebar wrapper wrapper";
+      }
+    }
+  }
 }
 
 .newsLayoutWrapper {

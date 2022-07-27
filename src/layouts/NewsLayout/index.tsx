@@ -1,14 +1,17 @@
 import styles from './NewsLayout.module.scss';
 import { ReactNode, useState, useEffect } from 'react';
 import { Tab } from '@/types/types';
+import cn from 'classnames';
 import { Header, Footer, NewsSidebar, NewsTopBanner, BaseWrapper, TabsBar } from '@/components';
 
 interface LayoutProps {
+  title: string;
+  description: string;
+  place?: string;
   children: ReactNode;
 }
 
-export function NewsLayout({ children }: LayoutProps) {
-  const title = 'News & Blog';
+export function NewsLayout({ children, title, description, place = 'news' }: LayoutProps) {
   const [tabs, setTabs] = useState<Tab[]>([]);
 
   useEffect(() => {
@@ -40,12 +43,12 @@ export function NewsLayout({ children }: LayoutProps) {
   };
 
   return (
-    <div className={styles.newsLayout}>
+    <div className={cn(styles.newsLayout, styles[`newsLayout_${place}`])}>
       <div className={styles.newsLayoutWrapper}>
         <Header />
-        <NewsTopBanner />
+        <NewsTopBanner title={title} description={description} />
         <BaseWrapper type="layout" className={styles.newsLayoutContainer}>
-          <NewsSidebar className={styles.newsLayoutContainerSidebar} />
+          <NewsSidebar className={styles.newsLayoutContainerSidebar} place={place} />
           <div className={styles.newsLayoutContainerTitle}>{title}</div>
           <TabsBar
             tabs={tabs}

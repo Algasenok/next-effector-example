@@ -78,23 +78,25 @@ export function Menu() {
   ];
 
   return (
-    <div className={styles.menu}>
-      {menu.map(({ title, items }, index) => (
-        <div key={`menu${index}`} className={styles.menuItem}>
-          <div className={styles.menuTitle}>{title}</div>
-          {items.map(({ linkText, url }, index) => (
-            <BaseLink
-              key={`menuItem${index}`}
-              href={url}
-              needHover
-              color="light"
-              className={styles.menuLink}
-            >
-              {linkText}
-            </BaseLink>
-          ))}
-        </div>
-      ))}
+    <div className={styles.menuContainer}>
+      <div className={styles.menu}>
+        {menu.map(({ title, items }, index) => (
+          <div key={`menu${index}`} className={styles.menuItem}>
+            <div className={styles.menuTitle}>{title}</div>
+            {items.map(({ linkText, url }, index) => (
+              <BaseLink
+                key={`menuItem${index}`}
+                href={url}
+                needHover
+                color="light"
+                className={styles.menuLink}
+              >
+                {linkText}
+              </BaseLink>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
