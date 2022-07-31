@@ -15,15 +15,8 @@ const About: NextPage = () => {
     }
   }, [pages]);
 
-function AboutRG() {
-  return (
-    <NewsLayout>
-      <div className={styles.aboutContainer}>
-        Этой страницы вообще не будет - в middleware надо будет прописать редирект
-      </div>
-    </NewsLayout>
-  );
-}
+  return <></>;
+};
 
 export const getStaticProps = createGSP({
   pageEvent: getAboutPagesList,

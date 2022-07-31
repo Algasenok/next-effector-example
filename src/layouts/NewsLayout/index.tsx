@@ -1,6 +1,6 @@
 import styles from './NewsLayout.module.scss';
 import { ReactNode, useState, useEffect } from 'react';
-import { Tab } from '@/types/types';
+import { LinkProps, Tab } from '@/types/types';
 import cn from 'classnames';
 import { Header, Footer, NewsSidebar, NewsTopBanner, BaseWrapper, TabsBar } from '@/components';
 
@@ -9,9 +9,16 @@ interface LayoutProps {
   description: string;
   place?: string;
   children: ReactNode;
+  categories: LinkProps[];
 }
 
-export function NewsLayout({ children, title, description, place = 'news' }: LayoutProps) {
+export function NewsLayout({
+  children,
+  title,
+  description,
+  place = 'news',
+  categories,
+}: LayoutProps) {
   const [tabs, setTabs] = useState<Tab[]>([]);
 
   useEffect(() => {
@@ -48,7 +55,11 @@ export function NewsLayout({ children, title, description, place = 'news' }: Lay
         <Header />
         <NewsTopBanner title={title} description={description} />
         <BaseWrapper type="layout" className={styles.newsLayoutContainer}>
-          <NewsSidebar className={styles.newsLayoutContainerSidebar} place={place} />
+          <NewsSidebar
+            className={styles.newsLayoutContainerSidebar}
+            categories={categories}
+            place={place}
+          />
           <div className={styles.newsLayoutContainerTitle}>{title}</div>
           <TabsBar
             tabs={tabs}

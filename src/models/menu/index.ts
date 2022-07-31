@@ -1,5 +1,5 @@
 import { createEffect, createEvent, createStore, sample } from 'effector';
-import { Tag } from '@/types/types';
+import {LinkProps, Tag} from '@/types/types';
 import { API } from '@/api';
 
 const getTagsForCurrentCategoryFx = createEffect(async (url: string) => {
@@ -18,7 +18,7 @@ const getTagsForCurrentCategoryFx = createEffect(async (url: string) => {
 });
 
 export const $sidebarActiveTab = createStore<string>('');
-export const $tagsListForCategory = createStore<Tag[]>([]);
+export const $tagsListForCategory = createStore<LinkProps[]>([]);
 
 export const setSidebarActiveTab = createEvent<string>();
 export const getCategoryTagsForSinglePage = createEvent<string>('');
@@ -29,7 +29,7 @@ $sidebarActiveTab.on(setSidebarActiveTab, (_, tabName) => tabName);
 $tagsListForCategory.on(getTagsForCurrentCategoryFx.doneData, (_, data) => {
   return data.attributes.tags.data.map((tag: any) => ({
     id: tag.id,
-    tagName: tag.attributes.tagName,
+    text: tag.attributes.tagName,
     sysname: tag.attributes.sysname,
     link: `/${data.attributes.sysname}`,
   }));

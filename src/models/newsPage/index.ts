@@ -2,29 +2,44 @@ import { combine, createEffect, createEvent, createStore, sample } from 'effecto
 import { API } from '@/api';
 import { API_CRM_URL_DEV } from 'config';
 import { getCategoryTags } from '@/models/menu';
-import {Category} from "@/types/types";
+import { Category, SinglePageCard } from '@/types/types';
 
-export const getPagesForCategoryFx = createEffect(async (category: string) => {
-  const params = {
-    filters: {
-      category: {
-        sysname: {
-          $eq: category,
+interface getPagesProps {
+  category: string;
+  pageNumber?: number;
+  tag?: string;
+}
+
+export const getPagesForCategoryFx = createEffect(
+  async ({ category, pageNumber = 1, tag = '' }: getPagesProps) => {
+    const params = {
+      filters: {
+        category: {
+          sysname: {
+            $eq: category,
+          },
         },
       },
-    },
-    populate: ['img', 'tags'],
-    sort: ['publishedAt:asc'],
-    pagination: {
-      page: 1,
-      pageSize: 10,
-    },
-  };
-  const { data } = await API.getPagesForCategory(params);
-  return { data: data.data, category };
-});
+      populate: ['img', 'tags'],
+      sort: ['publishedAt:asc'],
+      pagination: {
+        page: pageNumber,
+        pageSize: 10,
+      },
+    };
+    if (tag) {
+      params.filters.tags = {
+        sysname: {
+          $eq: tag,
+        },
+      };
+    }
+    const { data } = await API.getPagesForCategory(params);
+    return { data: data.data, pagination: data.meta, category };
+  },
+);
 
-const getCategoryInfoFx = createEffect(async (category: string) => {
+const getCategoryInfoFx = createEffect(async ({ category }: any) => {
   const params = {
     filters: {
       sysname: {
@@ -38,10 +53,12 @@ const getCategoryInfoFx = createEffect(async (category: string) => {
 });
 
 export const initNewsPage = createEvent();
-export const changeCurrentCategory = createEvent<string>('');
+export const changePageNumber = createEvent<number>();
+export const changeCurrentTag = createEvent<string>();
 
-const $pagesForCategoryPage = createStore<any>({});
-export const $currentCategory = createStore<Category>({});
+export const $pagesForCategoryPage = createStore<SinglePageCard[]>([]);
+export const $paginationData = createStore<any>({});
+export const $currentCategory = createStore<Category | null>(null);
 
 $pagesForCategoryPage.on(getPagesForCategoryFx.doneData, (_, data) => {
   return data.data.map((page: any) => ({
@@ -53,6 +70,8 @@ $pagesForCategoryPage.on(getPagesForCategoryFx.doneData, (_, data) => {
     tags: page.attributes.tags.data.map((tag: any) => ({ id: tag.id, ...tag.attributes })),
   }));
 });
+
+$paginationData.on(getPagesForCategoryFx.doneData, (_, { pagination }) => pagination.pagination);
 
 $currentCategory.on(getCategoryInfoFx.doneData, (_, data) => {
   const formattedData = {
@@ -69,8 +88,20 @@ $currentCategory.on(getCategoryInfoFx.doneData, (_, data) => {
 
 sample({
   source: initNewsPage,
-  fn: () => 'knowledge',
+  fn: () => ({ category: 'knowledge' }),
   target: [getPagesForCategoryFx, getCategoryInfoFx],
+});
+
+sample({
+  source: changePageNumber,
+  fn: page => ({ category: 'knowledge', pageNumber: page }),
+  target: [getPagesForCategoryFx],
+});
+
+sample({
+  source: changeCurrentTag,
+  fn: tag => ({ category: 'knowledge', tag }),
+  target: [getPagesForCategoryFx],
 });
 
 export const $categoryPageData = combine({

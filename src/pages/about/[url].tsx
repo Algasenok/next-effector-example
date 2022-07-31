@@ -1,17 +1,23 @@
 import { NextPage, GetStaticPaths } from 'next';
-import { usePageEvent } from 'nextjs-effector';
 import { AboutItem } from '@/components';
-import { createGSP, appStarted } from '@/models/shared';
+import { createGSP } from '@/models/shared';
 import { API } from '@/api';
-import { getAboutPageItem } from '@/models/about';
+import { getAboutPageItem, $aboutPageItem, $aboutPages } from '@/models/about';
+import { useStore } from 'effector-react';
+import { LinkProps, SinglePage } from '@/types/types';
 
 const AboutRG: NextPage = () => {
-  usePageEvent(appStarted, { runOnce: true });
-  return <AboutItem />;
+  const pageItem = useStore<SinglePage | null>($aboutPageItem);
+  const pagesForCategory = useStore<LinkProps[]>($aboutPages);
+
+  return <AboutItem pageItem={pageItem} pagesForCategory={pagesForCategory} />;
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data } = await API.getAboutPagesList();
+  const params = {
+    fields: ['url'],
+  };
+  const { data } = await API.getAboutPages(params);
   return {
     paths: data.data.map((post: any) => ({
       params: { url: post.attributes.url },

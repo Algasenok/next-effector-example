@@ -1,6 +1,8 @@
 import '@/styles/globals.scss';
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
+import * as effectorReact from 'effector-react/scope'
+import { withEffector } from 'nextjs-effector'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -16,4 +18,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default withEffector(MyApp, { effectorReact });

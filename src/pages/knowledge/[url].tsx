@@ -1,20 +1,32 @@
 import { NextPage, GetStaticPaths } from 'next';
-import { usePageEvent } from 'nextjs-effector';
 import { KnowledgeItem } from '@/components';
-import { createGSP, appStarted } from '@/models/shared';
+import { createGSP } from '@/models/shared';
 import { getSinglePageItem } from '@/models/singlePage';
-import { getPagesForCategoryFx } from '@/models/newsPage';
+import { API } from '@/api';
+import { LinkProps, SinglePage } from '@/types/types';
+import { useStore } from 'effector-react';
+import { $tagsListForCategory } from '@/models/menu';
+import { $singlePage } from '@/models/singlePage';
 
 const KnowledgeItemPage: NextPage = () => {
-  usePageEvent(appStarted, { runOnce: true });
-  return <KnowledgeItem />;
+  const singlePage = useStore<SinglePage | null>($singlePage);
+  const tags = useStore<LinkProps[]>($tagsListForCategory);
+  return <KnowledgeItem singlePage={singlePage} tags={tags} />;
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // TODO убрать прямой вызов запроса (и согласовать его с остальными параметрами фильтрации)
-  const { data } = await getPagesForCategoryFx('knowledge');
+  const params = {
+    filters: {
+      category: {
+        sysname: {
+          $eq: 'knowledge',
+        },
+      },
+    },
+  };
+  const { data } = await API.getPagesForCategory(params);
   return {
-    paths: data.map((post: any) => ({
+    paths: data.data.map((post: any) => ({
       params: { url: post.attributes.url },
     })),
     fallback: false,

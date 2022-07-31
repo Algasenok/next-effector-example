@@ -5,11 +5,17 @@ import { StaticPageContext } from 'nextjs-effector';
 import { API_CRM_URL_DEV } from 'config';
 import { getCategoryTagsForSinglePage } from '@/models/menu';
 
-const $singlePage = createStore<SinglePage>({});
-const $urlCurrentPage = createStore<string>('');
+export const $singlePage = createStore<SinglePage | null>(null);
 
 const getSinglePageFx = createEffect(async (url: string) => {
-  const { data } = await API.getSinglePageItem(url);
+  const params = {
+    filters: {
+      url: {
+        $eq: url,
+      },
+    },
+  };
+  const { data } = await API.getSinglePageItem(params);
   return data.data[0];
 });
 
@@ -26,7 +32,6 @@ $singlePage.on(getSinglePageFx.doneData, (_, data) => {
   };
   return formattedData;
 });
-$urlCurrentPage.on(getSinglePageItem, (_, params) => params.params.url);
 
 sample({
   source: getSinglePageItem,

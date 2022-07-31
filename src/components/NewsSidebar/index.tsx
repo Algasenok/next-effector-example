@@ -2,35 +2,47 @@ import styles from './NewsSidebar.module.scss';
 import { SwiperSlide, Swiper } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
-import { BaseLink } from '@/components';
-import { $aboutPagesList } from '@/models/about';
-import { $tagsListForCategory } from '@/models/menu';
+import { BaseButton } from '@/components';
 import cn from 'classnames';
 import { useStore } from 'effector-react';
 import { useEffect, useState } from 'react';
 import { LinkProps } from '@/types/types';
 import { setSidebarActiveTab, $sidebarActiveTab } from '@/models/menu';
+import { useRouter } from 'next/router';
+import { changeCurrentTag } from '@/models/newsPage';
 
-export function NewsSidebar({ className = '', place = 'news' }) {
-  const { data: aboutPages } = useStore($aboutPagesList);
-  const tags = useStore($tagsListForCategory);
+interface Props {
+  className: string;
+  place: string;
+  categories: LinkProps[];
+}
+
+export function NewsSidebar({ className = '', place = 'news', categories = [] }: Props) {
   const activeTab = useStore($sidebarActiveTab);
-  const [categories, setCategories] = useState<LinkProps[]>([]);
+  const router = useRouter();
   const [title, setTitle] = useState<string>('Topics');
 
   useEffect(() => {
     if (place === 'about') {
-      setCategories(aboutPages);
+      const path = router.asPath;
+      const tabNameActive = categories.find(item => item.link === path)?.text;
+      setSidebarActiveTab(tabNameActive || '');
       setTitle('About Us');
     } else {
       setTitle('Topics');
-      const links = tags.map(tag => ({ text: tag.tagName, link: tag.link, sysname: tag.sysname}));
-      setCategories(links);
+      setSidebarActiveTab('');
     }
   }, []);
 
-  const changeTab = (tabName: string) => {
-    setSidebarActiveTab(tabName);
+  const hangleClick = ({ text, link, sysname }: any) => {
+    setSidebarActiveTab(text);
+    if (place !== 'about') {
+      console.log('changeCurrentTag', sysname);
+      changeCurrentTag(sysname);
+    }
+    router.push(link, '', {
+      scroll: false,
+    });
   };
 
   return (
@@ -49,18 +61,17 @@ export function NewsSidebar({ className = '', place = 'news' }) {
         }}
       >
         {categories.length &&
-          categories.map(({ text, link }, index) => (
+          categories.map(({ text, link, sysname }, index) => (
             <SwiperSlide key={`category${index}`} className={styles.sidebarItem}>
-              <BaseLink
-                href={link || ''}
+              <BaseButton
                 className={cn(
                   styles.sidebarLink,
                   activeTab === text ? styles.sidebarLinkActive : '',
                 )}
-                onClickHandler={() => changeTab(text)}
+                onClickHandler={() => hangleClick({ text, link, sysname })}
               >
                 {text}
-              </BaseLink>
+              </BaseButton>
             </SwiperSlide>
           ))}
       </Swiper>

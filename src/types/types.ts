@@ -75,3 +75,15 @@ export interface SinglePage {
   tags: Tag[];
   category: Category;
 }
+
+export interface SinglePageCard {
+  id: number;
+  title: string;
+  url: string;
+  description: string;
+  publishedAt: string;
+  img: string;
+  content: string;
+  tags: Tag[];
+  category: Category;
+}

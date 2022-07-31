@@ -1,5 +1,6 @@
 import styles from './NewsTopBanner.module.scss';
 import { BaseWrapper, Breadcrumbs } from '@/components';
+import ReactHtmlParser from 'react-html-parser';
 
 interface NewsTopBannerProps {
   title: string;
@@ -15,7 +16,7 @@ export function NewsTopBanner({ title, description }: NewsTopBannerProps) {
       <BaseWrapper className={styles.newsTopBannerWrapper}>
         <Breadcrumbs className={styles.newsTopBannerBreadcrumbs} />
         <div className={styles.newsTopBannerTitle}>{title}</div>
-        <div className={styles.newsTopBannerDescription}>{description}</div>
+        <div className={styles.newsTopBannerDescription}>{ReactHtmlParser(description)}</div>
       </BaseWrapper>
     </div>
   );

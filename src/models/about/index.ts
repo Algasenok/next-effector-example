@@ -1,27 +1,37 @@
-import { combine, createEffect, createEvent, createStore, restore, sample } from 'effector';
+import { createEffect, createEvent, createStore, sample } from 'effector';
 import { StaticPageContext } from 'nextjs-effector';
 import { API } from '@/api';
 import { LinkProps, SinglePage } from '@/types/types';
 import { setSidebarActiveTab } from '@/models/menu';
 
-const getAboutPageItemFx = createEffect(async (url: string) => {
-  // TODO Поменять апи запрос
-  const { data } = await API.getSinglePageItem(url);
-  return { id: data.data[0].id, ...data.data[0].attributes };
+export const getAboutPageItemFx = createEffect(async (url: string) => {
+  const params = {
+    filters: {
+      url: {
+        $eq: url,
+      },
+    },
+  };
+  const { data } = await API.getAboutPages(params);
+  return data.data[0];
 });
 
-const getAboutPagesFx = createEffect(async () => {
-  const { data } = await API.getAboutPagesList();
+export const getAboutPagesFx = createEffect(async () => {
+  const params = {
+    fields: ['url', 'title'],
+  };
+  const { data } = await API.getAboutPages(params);
   return data.data;
 });
 
 export const getAboutPageItem = createEvent<StaticPageContext<{ url: string }>>();
 export const getAboutPagesList = createEvent();
 
-export const $aboutPageItem = createStore<SinglePage>({});
+export const $aboutPageItem = createStore<SinglePage | null>(null);
 $aboutPageItem.on(getAboutPageItemFx.doneData, (_, data) => {
-  setSidebarActiveTab(data.title);
-  return data;
+  const formattedData = { id: data.id, ...data.attributes };
+  setSidebarActiveTab(formattedData.title);
+  return formattedData;
 });
 
 export const $aboutPages = createStore<LinkProps[]>([]);
@@ -35,8 +45,6 @@ $aboutPages.on(getAboutPagesFx.doneData, (_, data) => {
   return aboutPages;
 });
 
-const $fetchGetAboutPagesError = restore(getAboutPageItemFx.failData, null);
-
 sample({
   source: getAboutPageItem,
   fn: ({ params }) => params!.url,
@@ -46,15 +54,4 @@ sample({
 sample({
   source: getAboutPagesList,
   target: getAboutPagesFx,
-});
-
-export const $aboutPageData = combine({
-  loading: getAboutPageItemFx.pending,
-  data: $aboutPageItem,
-  error: $fetchGetAboutPagesError,
-});
-
-export const $aboutPagesList = combine({
-  loading: getAboutPagesFx.pending,
-  data: $aboutPages,
 });

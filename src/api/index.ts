@@ -10,15 +10,11 @@ const defaultParams = {
 };
 
 export class API {
-  static getSinglePageItem = (url: string): AxiosPromise => {
+  static getSinglePageItem = (params: any): AxiosPromise => {
     const query = qs.stringify(
       {
         ...defaultParams,
-        filters: {
-          url: {
-            $eq: url,
-          },
-        },
+        ...params,
       },
       {
         encodeValuesOnly: true,
@@ -26,24 +22,20 @@ export class API {
     );
     return Api.get(`${apiUrl}/api/single-pages?${query}`);
   };
-  static getAboutPagesList = (): AxiosPromise => {
+
+  static getAboutPages = (params: any): AxiosPromise => {
     const query = qs.stringify(
       {
-        filters: {
-          category: {
-            sysname: {
-              $eq: 'about',
-            },
-          },
-        },
-        fields: ['url', 'title'],
+        ...defaultParams,
+        ...params,
       },
       {
         encodeValuesOnly: true,
       },
     );
-    return Api.get(`${apiUrl}/api/single-pages?${query}`);
+    return Api.get(`${apiUrl}/api/about-pages?${query}`);
   };
+
   static getPagesForCategory = (params: any): AxiosPromise => {
     const query = qs.stringify(
       {

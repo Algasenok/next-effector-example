@@ -1,10 +1,11 @@
 import styles from './NewsCardItem.module.scss';
 import { BaseLink } from '@/components';
 import { getShortDate } from '@/utils';
-import { SinglePage } from '@/types/types';
+import { SinglePageCard } from '@/types/types';
+import ReactHtmlParser from 'react-html-parser';
 
 interface NewsCardItemProps {
-  data: SinglePage;
+  data: SinglePageCard;
 }
 
 export function NewsCardItem({ data }: NewsCardItemProps) {
@@ -34,7 +35,7 @@ export function NewsCardItem({ data }: NewsCardItemProps) {
           </div>
         </div>
         <div className={styles.newsCardItemTitle}>{data.title}</div>
-        <div className={styles.newsCardItemDescription}>{data.description}</div>
+        <div className={styles.newsCardItemDescription}>{ReactHtmlParser(data.description)}</div>
         <BaseLink href={data.url} needHover needArrow color="second">
           Read more
         </BaseLink>

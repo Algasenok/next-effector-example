@@ -19,6 +19,7 @@
         border-radius: 73px;
         width: 48px;
         height: 48px;
+        cursor: pointer;
 
         img {
             width: 24px;
@@ -63,6 +64,7 @@
     color: $font-second-button;
     margin-right: 24px;
     border-radius: 6px;
+    cursor: pointer;
 
     &:last-child {
         margin-right: 0;
