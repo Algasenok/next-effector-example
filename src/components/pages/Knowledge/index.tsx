@@ -2,7 +2,7 @@ import styles from './Knowledge.module.scss';
 import { NewsLayout } from '@/layouts/NewsLayout';
 import { NewsCardItem, Pagination } from '@/components';
 import { changePageNumber } from '@/models/newsPage';
-import {Category, LinkProps, SinglePage, SinglePageCard} from '@/types/types';
+import { Category, LinkProps, SinglePageCard } from '@/types/types';
 import { useEffect, useState } from 'react';
 
 interface Props {
@@ -45,7 +45,9 @@ export function KnowledgePage({ pagesList, categoryInfo, pagination }: Props) {
           <NewsCardItem key={`newsCard${index}`} data={page} />
         ))}
       </div>
-      <Pagination pagination={pagination} onClickHandler={value => pageNumberChange(value)} />
+      {pagination.pageCount > 1 && (
+        <Pagination pagination={pagination} onClickHandler={value => pageNumberChange(value)} />
+      )}
     </NewsLayout>
   );
 }

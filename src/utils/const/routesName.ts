@@ -1,3 +1,4 @@
 export const ROUTES_NAME: { [key: string]: string } = {
-  news: 'News & Blog',
+  knowledge: 'News & Blog',
+  about: 'About',
 };

@@ -64,6 +64,12 @@ export interface Category {
   tags: Tag[];
 }
 
+export interface Author {
+  id: number;
+  name: string;
+  avatar: string;
+}
+
 export interface SinglePage {
   id: number;
   title: string;
@@ -74,6 +80,9 @@ export interface SinglePage {
   content: string;
   tags: Tag[];
   category: Category;
+  author: Author;
+  prevPage: string;
+  nextPage: string;
 }
 
 export interface SinglePageCard {

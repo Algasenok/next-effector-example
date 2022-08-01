@@ -37,7 +37,6 @@ export function NewsSidebar({ className = '', place = 'news', categories = [] }:
   const hangleClick = ({ text, link, sysname }: any) => {
     setSidebarActiveTab(text);
     if (place !== 'about') {
-      console.log('changeCurrentTag', sysname);
       changeCurrentTag(sysname);
     }
     router.push(link, '', {
@@ -46,10 +45,9 @@ export function NewsSidebar({ className = '', place = 'news', categories = [] }:
   };
 
   return (
-    <div className={cn(styles.sidebar, className)}>
+    <div className={cn(styles.sidebar, className, styles[`sidebar_${place}`])}>
       <div className={styles.sidebarTitle}>{title}</div>
       <Swiper
-        spaceBetween={24}
         mousewheel
         slidesPerView="auto"
         breakpoints={{

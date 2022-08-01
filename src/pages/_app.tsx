@@ -1,8 +1,9 @@
 import '@/styles/globals.scss';
+import '@/styles/singlePageStyles.scss';
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
-import * as effectorReact from 'effector-react/scope'
-import { withEffector } from 'nextjs-effector'
+import * as effectorReact from 'effector-react/scope';
+import { withEffector } from 'nextjs-effector';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

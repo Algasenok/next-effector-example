@@ -15,8 +15,30 @@
 
     .newsLayoutContainer {
       @media #{$laptop} {
+        grid-template-columns: 260px auto;
         grid-template-areas:
           "sidebar wrapper wrapper";
+        grid-gap: 0 40px;
+      }
+    }
+  }
+
+  &_newsItem {
+    .contentWrapper {
+      position: relative;
+
+      @media #{$laptop} {
+        padding-top: 56px;
+
+        &:after {
+          position: absolute;
+          content: '';
+          background: linear-gradient(145.3deg, #4D549F 4.58%, #202B3F 69.96%);
+          width: 100%;
+          height: 1px;
+          top: 24px;
+          left: 0;
+        }
       }
     }
   }

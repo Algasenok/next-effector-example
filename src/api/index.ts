@@ -60,4 +60,21 @@ export class API {
     );
     return Api.get(`${apiUrl}/api/categories?${query}`);
   };
+
+  static getAuthorCurrentPage = (params: any): AxiosPromise => {
+    const query = qs.stringify(
+      {
+        ...defaultParams,
+        ...params,
+      },
+      {
+        encodeValuesOnly: true,
+      },
+    );
+    return Api.get(`${apiUrl}/api/authors?${query}`);
+  };
+
+  static getFooterMenu = (): AxiosPromise => {
+    return Api.get(`${apiUrl}/api/footer-menu`);
+  };
 }

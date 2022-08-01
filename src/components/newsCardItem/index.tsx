@@ -29,9 +29,15 @@ export function NewsCardItem({ data }: NewsCardItemProps) {
               </div>
             ))}
           </div>
-          <div className={styles.newsCardItemDate}>
-            <img src="/images/icons/time.svg" alt="" />
-            {getShortDate(data.publishedAt)}
+          <div className={styles.newsCardItemDateContainer}>
+            <div className={styles.newsCardItemDate}>
+              <img src="/images/icons/time.svg" alt="" />
+              {getShortDate(data.publishedAt)}
+            </div>
+            <div className={styles.newsCardItemDateInfoDot} />
+            <div className={styles.newsCardIteReadTime}>
+              {Math.ceil(data.content.length / 800)} min read
+            </div>
           </div>
         </div>
         <div className={styles.newsCardItemTitle}>{data.title}</div>

@@ -68,24 +68,32 @@
   margin: 0 8px 4px 0;
 }
 
-.newsCardItemDate {
+.newsCardItemDateContainer {
   display: flex;
+  justify-content: flex-start;
   align-items: center;
   font-weight: 400;
   font-size: 12px;
   line-height: 24px;
   color: #EDEDED;
-  padding: 6px 0;
   white-space: nowrap;
 
   @media #{$laptop} {
     font-size: 14px;
     line-height: 24px;
-    padding: 4px 0;
     order: 1;
-    display: flex;
     justify-content: flex-end;
     margin-bottom: 6px;
+  }
+}
+
+.newsCardItemDate {
+  display: flex;
+  align-items: center;
+  padding: 6px 0;
+
+  @media #{$laptop} {
+    padding: 4px 0;
   }
 
   img {
@@ -131,5 +139,26 @@
   @media #{$laptop} {
     font-size: 14px;
     line-height: 22px;
+  }
+}
+
+.newsCardItemDateInfoDot {
+  display: none;
+
+  @media #{$laptop} {
+    display: block;
+    width: 4px;
+    height: 4px;
+    background: #7195DB;
+    border-radius: 50%;
+    margin: 0 8px;
+  }
+}
+
+.newsCardIteReadTime {
+  display: none;
+
+  @media #{$laptop} {
+    display: block;
   }
 }

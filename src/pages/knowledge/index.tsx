@@ -16,6 +16,8 @@ const Knowledge: NextPage = () => {
   const categoryInfo = useStore<Category | null>($currentCategory);
   const pagination = useStore<any>($paginationData);
 
+  console.log('pagesList', pagesList);
+
   useEffect(() => {
     console.log('getState', pagesList);
   }, [loading]);

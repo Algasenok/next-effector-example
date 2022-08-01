@@ -29,7 +29,7 @@ export const getAboutPagesList = createEvent();
 
 export const $aboutPageItem = createStore<SinglePage | null>(null);
 $aboutPageItem.on(getAboutPageItemFx.doneData, (_, data) => {
-  const formattedData = { id: data.id, ...data.attributes };
+  const formattedData = { id: data.id, ...data.attributes, url: `/about/${data.attributes.url}` };
   setSidebarActiveTab(formattedData.title);
   return formattedData;
 });

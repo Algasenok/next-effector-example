@@ -24,6 +24,8 @@ export { NewsCardItem } from './newsCardItem';
 export { Menu } from './Menu';
 export { Pagination } from './Pagination';
 export { Video } from './Video';
+export { PagePrevAndNextButton } from './PagePrevAndNextButton';
+export { PageSubheadings } from './PageSubheadings';
 
 // Pages
 export { AboutItem } from './pages/AboutItem';

@@ -1,16 +1,16 @@
 import { NextPage, GetStaticPaths } from 'next';
 import { KnowledgeItem } from '@/components';
 import { createGSP } from '@/models/shared';
-import { getSinglePageItem } from '@/models/singlePage';
+import { getSinglePageItem, $singlePage } from '@/models/singlePage';
 import { API } from '@/api';
 import { LinkProps, SinglePage } from '@/types/types';
 import { useStore } from 'effector-react';
 import { $tagsListForCategory } from '@/models/menu';
-import { $singlePage } from '@/models/singlePage';
 
 const KnowledgeItemPage: NextPage = () => {
   const singlePage = useStore<SinglePage | null>($singlePage);
   const tags = useStore<LinkProps[]>($tagsListForCategory);
+
   return <KnowledgeItem singlePage={singlePage} tags={tags} />;
 };
 

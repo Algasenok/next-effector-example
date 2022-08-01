@@ -10,6 +10,34 @@
     background: $bg-common;
     border-radius: 8px;
   }
+
+  &_about {
+    .sidebarLink {
+      padding: 4px 12px;
+      background: $bg-common;
+      border-radius: 4px;
+      font-size: 16px;
+      line-height: 28px;
+      color: $font-second-button;
+
+      @media #{$laptop} {
+        color: $font-second-light;
+        background: none;
+        padding: 0;
+      }
+
+      &Active {
+        font-weight: 400;
+        background: $bg-second-button;
+
+        @media #{$laptop} {
+          background: none;
+          font-weight: 600;
+          color: $font-gray;
+        }
+      }
+    }
+  }
 }
 
 .sidebarItem {
@@ -20,6 +48,7 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 18px;
+  background: none;
   color: $font-second-light;
   padding: 5px 0;
   margin-right: 24px;
@@ -28,6 +57,8 @@
   @media #{$laptop} {
     font-size: 16px;
     line-height: 28px;
+    margin-right: 0;
+    padding: 0;
   }
 
   &Active {

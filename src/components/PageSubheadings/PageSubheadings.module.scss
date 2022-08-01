@@ -1,0 +1,46 @@
+.pageSubheadings {
+  overflow: hidden;
+  width: 100%;
+  margin-bottom: 24px;
+
+  @media #{$laptop} {
+    height: max-content;
+    margin-bottom: 32px;
+  }
+
+  @media #{$desktop} {
+    width: auto;
+  }
+}
+
+.pageSubheadingsItem {
+  width: auto !important;
+}
+
+.pageSubheadingsLink {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  background: none;
+  color: $font-second-light;
+  padding: 15px 0;
+  white-space: nowrap;
+
+  @media #{$laptop} {
+    font-size: 16px;
+    line-height: 28px;
+    padding: 0;
+  }
+}
+
+.pageSubheadingsTitle {
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 33px;
+  color: $font-main;
+  margin-bottom: 12px;
+
+  @media #{$laptop} {
+    margin-bottom: 24px;
+  }
+}
