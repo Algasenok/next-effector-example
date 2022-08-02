@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
-import { createGSP } from '@/models/shared';
+import { createGIP, createGSP } from '@/models/shared';
 import { getAboutPagesList, $aboutPages } from '@/models/about';
-import { useStore } from 'effector-react';
+import { useStore } from 'effector-react/scope';
 import Router from 'next/router';
 import { useEffect } from 'react';
 
@@ -18,7 +18,11 @@ const About: NextPage = () => {
   return <></>;
 };
 
-export const getStaticProps = createGSP({
+// export const getStaticProps = createGSP({
+//   pageEvent: getAboutPagesList,
+// });
+
+About.getInitialProps = createGIP({
   pageEvent: getAboutPagesList,
 });
 

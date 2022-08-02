@@ -2211,6 +2211,13 @@ eslint-plugin-disable@^2.0.1:
   dependencies:
     resolve "^1.1.6"
 
+eslint-plugin-effector@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-effector/-/eslint-plugin-effector-0.8.1.tgz#2bce23432b4861630e8fec84d2754fb20aaea5d2"
+  integrity sha512-r+wV4qkyxdrmBjKhuqbrhcIQReCPGFLQS5z2s0w+pmyRExZ2Ge2BkwWs6TCIN0xTYU98CmD2q31BqQOj2yUFZQ==
+  dependencies:
+    prettier "^2.3.2"
+
 eslint-plugin-import@^2.22.1:
   version "2.26.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.26.0.tgz#f812dc47be4f2b72b478a021605a59fc6fe8b88b"
@@ -3621,6 +3628,11 @@ prettier-linter-helpers@^1.0.0:
   integrity sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==
   dependencies:
     fast-diff "^1.1.2"
+
+prettier@^2.3.2:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.7.1.tgz#e235806850d057f97bb08368a4f7d899f7760c64"
+  integrity sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==
 
 prettier@^2.6.2:
   version "2.6.2"

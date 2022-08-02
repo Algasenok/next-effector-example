@@ -26,7 +26,6 @@ const getSinglePageFx = createEffect(async (url: string) => {
       },
     },
   };
-  console.log('params', params);
   const response = await Promise.all([
     API.getSinglePageItem(params),
     API.getAuthorCurrentPage(paramsAuthor),
@@ -66,8 +65,6 @@ const getSinglePageFx = createEffect(async (url: string) => {
     API.getSinglePageItem({ ...paramsAnother, ...paramsPrev }),
     API.getSinglePageItem({ ...paramsAnother, ...paramsNext }),
   ]);
-  console.log('response', response);
-  console.log('response2', response2);
   return {
     data: response[0].data.data[0],
     author: response[1].data.data[0],

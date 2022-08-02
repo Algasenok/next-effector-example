@@ -1,9 +1,8 @@
-import { NextPage, GetStaticPaths } from 'next';
+import { NextPage } from 'next';
 import { AboutItem } from '@/components';
-import { createGSP } from '@/models/shared';
-import { API } from '@/api';
+import { createGIP } from '@/models/shared';
 import { getAboutPageItem, $aboutPageItem, $aboutPages } from '@/models/about';
-import { useStore } from 'effector-react';
+import { useStore } from 'effector-react/scope';
 import { LinkProps, SinglePage } from '@/types/types';
 
 const AboutRG: NextPage = () => {
@@ -13,20 +12,24 @@ const AboutRG: NextPage = () => {
   return <AboutItem pageItem={pageItem} pagesForCategory={pagesForCategory} />;
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const params = {
-    fields: ['url'],
-  };
-  const { data } = await API.getAboutPages(params);
-  return {
-    paths: data.data.map((post: any) => ({
-      params: { url: post.attributes.url },
-    })),
-    fallback: false,
-  };
-};
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const params = {
+//     fields: ['url'],
+//   };
+//   const { data } = await API.getAboutPages(params);
+//   return {
+//     paths: data.data.map((post: any) => ({
+//       params: { url: post.attributes.url },
+//     })),
+//     fallback: false,
+//   };
+// };
+//
+// export const getStaticProps = createGSP({
+//   pageEvent: getAboutPageItem,
+// });
 
-export const getStaticProps = createGSP({
+AboutRG.getInitialProps = createGIP({
   pageEvent: getAboutPageItem,
 });
 

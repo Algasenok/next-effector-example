@@ -1,33 +1,30 @@
 import { NextPage } from 'next';
 import { KnowledgePage } from '@/components';
-import { createGSP } from '@/models/shared';
+import { createGIP } from '@/models/shared';
 import {
   initNewsPage,
   $currentCategory,
   $paginationData,
-  $categoryPageData,
+  $pagesForCategoryPage,
 } from '@/models/newsPage';
-import { useStore } from 'effector-react';
+import { useStore } from 'effector-react/scope';
 import { Category } from '@/types/types';
-import { useEffect } from 'react';
 
 const Knowledge: NextPage = () => {
-  const { data: pagesList, loading } = useStore<any>($categoryPageData);
+  const pagesList = useStore<any>($pagesForCategoryPage);
   const categoryInfo = useStore<Category | null>($currentCategory);
   const pagination = useStore<any>($paginationData);
-
-  console.log('pagesList', pagesList);
-
-  useEffect(() => {
-    console.log('getState', pagesList);
-  }, [loading]);
 
   return (
     <KnowledgePage pagesList={pagesList} categoryInfo={categoryInfo} pagination={pagination} />
   );
 };
 
-export const getStaticProps = createGSP({
+// export const getStaticProps = createGSP({
+//   pageEvent: initNewsPage,
+// });
+
+Knowledge.getInitialProps = createGIP({
   pageEvent: initNewsPage,
 });
 

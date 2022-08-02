@@ -6,6 +6,8 @@
   },
   "extends": [
     "plugin:@typescript-eslint/recommended",
+    "plugin:effector/recommended",
+    "plugin:effector/scope",
     "airbnb",
     "prettier"
   ],
@@ -15,7 +17,8 @@
     "react",
     "prettier",
     "disable",
-    "react-hooks"
+    "react-hooks",
+    "effector"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -130,7 +133,8 @@
     "prefer-destructuring": "off",
     "react-hooks/exhaustive-deps": "off",
     "no-nested-ternary": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "effector/enforce-store-naming-convention": "off"
   },
   "settings": {
     "eslint-plugin-disable": {

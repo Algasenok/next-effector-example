@@ -34,7 +34,9 @@ export const getPagesForCategoryFx = createEffect(
         },
       };
     }
+    console.log('getPagesForCategoryFx params', params);
     const { data } = await API.getPagesForCategory(params);
+    console.log('getPagesForCategoryFx data', data);
     return { data: data.data, pagination: data.meta, category };
   },
 );
@@ -64,7 +66,6 @@ $pagesForCategoryPage.on(getPagesForCategoryFx.doneData, (_, data) => {
   return data.data.map((page: any) => ({
     ...page.attributes,
     id: page.id,
-    // TODO Убрать это после того как картинки будут храниться в яндекс клауде
     img: `${API_CRM_URL_DEV}${page.attributes.img.data.attributes.url}`,
     url: `/${data.category}/${page.attributes.url}`,
     tags: page.attributes.tags.data.map((tag: any) => ({ id: tag.id, ...tag.attributes })),

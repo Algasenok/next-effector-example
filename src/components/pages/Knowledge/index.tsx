@@ -4,6 +4,7 @@ import { NewsCardItem, Pagination } from '@/components';
 import { changePageNumber } from '@/models/newsPage';
 import { Category, LinkProps, SinglePageCard } from '@/types/types';
 import { useEffect, useState } from 'react';
+import { useEvent } from 'effector-react/scope';
 
 interface Props {
   pagesList: SinglePageCard[];
@@ -15,6 +16,7 @@ export function KnowledgePage({ pagesList, categoryInfo, pagination }: Props) {
   const pages = pagesList;
   const currentCategory = categoryInfo;
   const [categories, setCategories] = useState<LinkProps[]>([]);
+  const [pageNumberChange] = useEvent([changePageNumber]);
 
   useEffect(() => {
     if (categoryInfo) {
@@ -28,10 +30,6 @@ export function KnowledgePage({ pagesList, categoryInfo, pagination }: Props) {
       );
     }
   }, []);
-
-  const pageNumberChange = value => {
-    changePageNumber(value);
-  };
 
   return (
     <NewsLayout

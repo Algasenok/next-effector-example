@@ -4,7 +4,7 @@ import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 import { BaseButton } from '@/components';
 import cn from 'classnames';
-import { useStore } from 'effector-react';
+import { useStore, useEvent } from 'effector-react/scope';
 import { useEffect, useState } from 'react';
 import { LinkProps } from '@/types/types';
 import { setSidebarActiveTab, $sidebarActiveTab } from '@/models/menu';
@@ -21,27 +21,31 @@ export function NewsSidebar({ className = '', place = 'news', categories = [] }:
   const activeTab = useStore($sidebarActiveTab);
   const router = useRouter();
   const [title, setTitle] = useState<string>('Topics');
+  const [changeTag, changeSidebarActiveTab] = useEvent([changeCurrentTag, setSidebarActiveTab]);
 
   useEffect(() => {
     if (place === 'about') {
       const path = router.asPath;
       const tabNameActive = categories.find(item => item.link === path)?.text;
-      setSidebarActiveTab(tabNameActive || '');
+      changeSidebarActiveTab(tabNameActive || '');
       setTitle('About Us');
     } else {
       setTitle('Topics');
-      setSidebarActiveTab('');
+      changeSidebarActiveTab('');
     }
   }, []);
 
   const hangleClick = ({ text, link, sysname }: any) => {
-    setSidebarActiveTab(text);
+    changeSidebarActiveTab(text);
+    const routeOptions = { scroll: false };
     if (place !== 'about') {
-      changeCurrentTag(sysname);
+      changeTag(sysname);
+      routeOptions.shallow = false;
     }
-    router.push(link, '', {
-      scroll: false,
-    });
+    console.log('routeOptions', routeOptions);
+    if (router.route !== link) {
+      router.push(link, undefined, routeOptions);
+    }
   };
 
   return (
