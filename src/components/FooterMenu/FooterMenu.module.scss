@@ -1,0 +1,68 @@
+.footerMenu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media #{$tablet} {
+    height: 120px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  @media #{$laptop} {
+    height: 215px;
+  }
+
+  @media #{$desktop} {
+    height: 100px;
+  }
+}
+
+.footerMenuLink {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+  color: $font-main;
+  margin-bottom: 16px;
+
+  @media #{$tablet} {
+    margin-right: calc((100% - 413px)/2);
+
+    &:nth-child(4n) {
+      margin-bottom: 0;
+    }
+  }
+
+  @media #{$laptop} {
+    font-size: 14px;
+    line-height: 22px;
+    margin-right: 64px;
+
+    &:not(:nth-child(6n)) {
+      margin-bottom: 16px;
+    }
+
+    &:nth-child(6n) {
+      margin-bottom: 0;
+    }
+
+    &:nth-child(n + 6) {
+      margin-right: 0;
+    }
+  }
+
+  @media #{$desktop} {
+    &:nth-child(n + 6) {
+      margin-right: 16px;
+    }
+
+    &:nth-child(6n) {
+      margin-bottom: 16px;
+    }
+
+    &:nth-child(3n) {
+      margin-bottom: 0;
+    }
+  }
+}

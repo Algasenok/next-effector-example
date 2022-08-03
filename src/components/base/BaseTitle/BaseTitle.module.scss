@@ -1,0 +1,22 @@
+.baseTitle {
+  font-weight: 500;
+  color: $font-main;
+  margin-bottom: 16px;
+  font-size: 28px;
+  line-height: 42px;
+
+  @media #{$laptop} {
+    font-size: 38px;
+    line-height: 48px;
+  }
+
+  &_large {
+    font-size: 38px;
+    line-height: 48px;
+
+    @media #{$laptop} {
+      font-size: 74px;
+      line-height: 111px;
+    }
+  }
+}

@@ -1,0 +1,40 @@
+.linksContainerLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: $font-second-link;
+  margin-bottom: 24px;
+
+  @media #{$tablet} {
+    justify-content: flex-start;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.linksContainerTitle {
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 33px;
+  color: $font-main;
+  margin-bottom: 24px;
+}
+
+.linksContainer {
+  width: 100%;
+  padding: 40px 30px;
+  background: #1F2F46;
+  backdrop-filter: blur(30px);
+  border-radius: 12px;
+  margin-bottom: 32px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

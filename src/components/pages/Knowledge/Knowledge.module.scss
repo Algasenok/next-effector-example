@@ -1,0 +1,11 @@
+.newsContainer {
+  width: 100%;
+}
+
+.newsCardsContainer {
+  margin-bottom: 60px;
+
+  @media #{$desktop} {
+    margin-bottom: 32px;
+  }
+}
