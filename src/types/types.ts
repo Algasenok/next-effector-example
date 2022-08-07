@@ -26,6 +26,11 @@ export interface LinkProps {
   sysname?: string;
 }
 
+export interface HeaderMenu {
+  name: string;
+  links: LinkProps[];
+}
+
 export interface BreadcrumbsTypes {
   breadcrumb: string;
   href: string;

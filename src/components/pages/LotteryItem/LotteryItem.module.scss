@@ -1,0 +1,52 @@
+.lotteryItem {
+  width: 100%;
+  margin-bottom: 24px;
+
+  @media #{$laptop} {
+    margin-bottom: 32px;
+  }
+}
+
+.lotteryItemTitle {
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 42px;
+  color: $font-main;
+  margin-bottom: 24px;
+
+  @media #{$laptop} {
+    font-size: 38px;
+    line-height: 48px;
+    margin-bottom: 32px;
+  }
+}
+
+.lotteryItemAuthorInfo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 24px;
+
+  @media #{$laptop} {
+    margin-bottom: 32px;
+  }
+}
+
+.lotteryItemTopImg {
+  width: 100%;
+  height: auto;
+  margin-bottom: 32px;
+
+  @media #{$desktop} {
+    margin-right: 32px;
+    width: 632px;
+  }
+}
+
+.lotteryItemHead {
+  @media #{$desktop} {
+    display: flex;
+    align-items: flex-start;
+  }
+}

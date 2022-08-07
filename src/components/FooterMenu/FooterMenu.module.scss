@@ -5,17 +5,9 @@
   align-items: center;
 
   @media #{$tablet} {
-    height: 120px;
+    flex-direction: row;
     flex-wrap: wrap;
     align-items: flex-start;
-  }
-
-  @media #{$laptop} {
-    height: 215px;
-  }
-
-  @media #{$desktop} {
-    height: 100px;
   }
 }
 
@@ -27,42 +19,41 @@
   margin-bottom: 16px;
 
   @media #{$tablet} {
-    margin-right: calc((100% - 413px)/2);
+    width: calc(33% - 40px);
+    margin-right: 60px;
 
-    &:nth-child(4n) {
-      margin-bottom: 0;
+    &:nth-child(3n) {
+      margin-right: 0;
     }
   }
 
   @media #{$laptop} {
-    font-size: 14px;
-    line-height: 22px;
-    margin-right: 64px;
+    width: calc(50% - 30px);
+    margin-right: 60px;
 
-    &:not(:nth-child(6n)) {
-      margin-bottom: 16px;
+    &:nth-child(3n) {
+      margin-right: 60px;
     }
 
-    &:nth-child(6n) {
-      margin-bottom: 0;
-    }
-
-    &:nth-child(n + 6) {
+    &:nth-child(2n) {
       margin-right: 0;
     }
   }
 
   @media #{$desktop} {
-    &:nth-child(n + 6) {
-      margin-right: 16px;
-    }
-
-    &:nth-child(6n) {
-      margin-bottom: 16px;
-    }
+    width: calc(25% - 45px);
+    margin-right: 60px;
 
     &:nth-child(3n) {
-      margin-bottom: 0;
+      margin-right: 60px;
+    }
+
+    &:nth-child(2n) {
+      margin-right: 60px;
+    }
+
+    &:nth-child(4n) {
+      margin-right: 0;
     }
   }
 }

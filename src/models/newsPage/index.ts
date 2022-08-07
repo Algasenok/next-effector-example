@@ -34,9 +34,7 @@ export const getPagesForCategoryFx = createEffect(
         },
       };
     }
-    console.log('getPagesForCategoryFx params', params);
     const { data } = await API.getPagesForCategory(params);
-    console.log('getPagesForCategoryFx data', data);
     return { data: data.data, pagination: data.meta, category };
   },
 );
@@ -56,7 +54,6 @@ const getCategoryInfoFx = createEffect(async ({ category }: any) => {
 
 export const initNewsPage = createEvent();
 export const changePageNumber = createEvent<number>();
-export const changeCurrentTag = createEvent<string>();
 
 export const $pagesForCategoryPage = createStore<SinglePageCard[]>([]);
 export const $paginationData = createStore<any>({});
@@ -89,19 +86,13 @@ $currentCategory.on(getCategoryInfoFx.doneData, (_, data) => {
 
 sample({
   source: initNewsPage,
-  fn: () => ({ category: 'knowledge' }),
+  fn: params => ({ category: 'knowledge', tag: params.query?.tag }),
   target: [getPagesForCategoryFx, getCategoryInfoFx],
 });
 
 sample({
   source: changePageNumber,
   fn: page => ({ category: 'knowledge', pageNumber: page }),
-  target: [getPagesForCategoryFx],
-});
-
-sample({
-  source: changeCurrentTag,
-  fn: tag => ({ category: 'knowledge', tag }),
   target: [getPagesForCategoryFx],
 });
 
