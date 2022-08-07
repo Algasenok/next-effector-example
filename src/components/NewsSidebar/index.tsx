@@ -42,11 +42,9 @@ export function NewsSidebar({ className = '', place = 'news', categories = [] }:
       pathname: link,
     };
     if (place !== 'about') {
-      routeParams.query = { tag: sysname };
+      const query = router.query || {};
+      routeParams.query = { ...query, tag: sysname };
     }
-    // if (router.route !== link) {
-    //   router.push(link, undefined, { scroll: false });
-    // }
     router.push(routeParams, undefined, { scroll: false });
   };
 

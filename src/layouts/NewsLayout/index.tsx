@@ -25,29 +25,14 @@ export function NewsLayout({
     setTabs([
       {
         name: 'Blog',
-        sysname: 'blog',
-        isActive: true,
+        sysname: 'Blog',
       },
       {
         name: 'Latest News',
-        sysname: 'latest',
-        isActive: false,
+        sysname: 'Latest_news',
       },
     ]);
   }, []);
-
-  const changeTabActive = (sysname: string) => {
-    setTabs(
-      tabs.map(tab => {
-        if (tab.sysname === sysname) {
-          tab.isActive = true;
-        } else {
-          tab.isActive = false;
-        }
-        return tab;
-      }),
-    );
-  };
 
   return (
     <div className={cn(styles.newsLayout, styles[`newsLayout_${place}`])}>
@@ -63,7 +48,6 @@ export function NewsLayout({
           <div className={styles.newsLayoutContainerTitle}>{title}</div>
           <TabsBar
             tabs={tabs}
-            onClickHandler={sysname => changeTabActive(sysname)}
             className={styles.newsLayoutContainerTabs}
           />
           <div className={styles.contentWrapper}>

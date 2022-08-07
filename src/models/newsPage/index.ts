@@ -3,21 +3,26 @@ import { API } from '@/api';
 import { API_CRM_URL_DEV } from 'config';
 import { getCategoryTags } from '@/models/menu';
 import { Category, SinglePageCard } from '@/types/types';
+import { useRouter } from 'next/router';
 
 interface getPagesProps {
   category: string;
   pageNumber?: number;
   tag?: string;
+  type?: string;
 }
 
 export const getPagesForCategoryFx = createEffect(
-  async ({ category, pageNumber = 1, tag = '' }: getPagesProps) => {
+  async ({ category, pageNumber = 1, tag = '', type = 'Blog' }: getPagesProps) => {
     const params = {
       filters: {
         category: {
           sysname: {
             $eq: category,
           },
+        },
+        type: {
+          $eq: type,
         },
       },
       populate: ['img', 'tags'],
@@ -86,13 +91,16 @@ $currentCategory.on(getCategoryInfoFx.doneData, (_, data) => {
 
 sample({
   source: initNewsPage,
-  fn: params => ({ category: 'knowledge', tag: params.query?.tag }),
+  fn: params => ({ category: 'knowledge', ...params.query }),
   target: [getPagesForCategoryFx, getCategoryInfoFx],
 });
 
 sample({
   source: changePageNumber,
-  fn: page => ({ category: 'knowledge', pageNumber: page }),
+  fn: page => {
+    const query = useRouter().query;
+    return { category: 'knowledge', pageNumber: page, ...query };
+  },
   target: [getPagesForCategoryFx],
 });
 

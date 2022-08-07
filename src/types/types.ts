@@ -40,7 +40,6 @@ export interface BreadcrumbsTypes {
 export interface Tab {
   name: string;
   sysname: string;
-  isActive: boolean;
 }
 
 export interface BaseTitleProps {
