@@ -31,7 +31,7 @@ export function NewsSidebar({ className = '', place = 'news', categories = [] }:
     } else {
       setTitle('Topics');
       const tag = router.query.tag || '';
-      const tabNameActive = categories.find(item => item.sysname === tag)?.text;
+      const tabNameActive = categories.find(item => item.sysname === tag)?.text || '';
       changeSidebarActiveTab(tabNameActive);
     }
   }, [categories]);
@@ -40,6 +40,7 @@ export function NewsSidebar({ className = '', place = 'news', categories = [] }:
     changeSidebarActiveTab(text);
     const routeParams = {
       pathname: link,
+      query: {},
     };
     if (place !== 'about') {
       const query = router.query || {};

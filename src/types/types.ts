@@ -12,7 +12,7 @@ export interface BaseButtonsProps {
 
 export interface BaseLinkProps {
   children: ReactNode;
-  href: string;
+  href: string | undefined;
   className?: string;
   needHover?: boolean;
   needArrow?: boolean;

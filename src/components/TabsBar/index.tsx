@@ -16,12 +16,13 @@ export function TabsBar({ tabs = [], className = '' }: tabsBarProps) {
 
   useEffect(() => {
     const queryTab = router.query.type;
-    if (queryTab && tabs?.findIndex(item => item.sysname === queryTab) !== -1) {
-      setActiveTabSysname(queryTab);
+    if (queryTab) {
+      const tab = tabs?.find(item => item.sysname === queryTab)?.sysname || '';
+      setActiveTabSysname(tab);
     }
   });
 
-  const handleClick = sysname => {
+  const handleClick = (sysname: string) => {
     const query = router.query || {};
     const routeParams = {
       pathname: router.pathname,

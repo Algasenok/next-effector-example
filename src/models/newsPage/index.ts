@@ -12,9 +12,20 @@ interface getPagesProps {
   type?: string;
 }
 
+interface ParamsTypes {
+  filters: {
+    category: any;
+    type: any;
+    tags?: any;
+  };
+  populate: string[];
+  sort: string[];
+  pagination: any;
+}
+
 export const getPagesForCategoryFx = createEffect(
   async ({ category, pageNumber = 1, tag = '', type = 'Blog' }: getPagesProps) => {
-    const params = {
+    const params: ParamsTypes = {
       filters: {
         category: {
           sysname: {
@@ -91,7 +102,10 @@ $currentCategory.on(getCategoryInfoFx.doneData, (_, data) => {
 
 sample({
   source: initNewsPage,
-  fn: params => ({ category: 'knowledge', ...params.query }),
+  fn: (params: any) => {
+    const query = params?.query ? params?.query : {};
+    return { category: 'knowledge', ...query };
+  },
   target: [getPagesForCategoryFx, getCategoryInfoFx],
 });
 

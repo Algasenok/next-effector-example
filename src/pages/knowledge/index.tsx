@@ -8,10 +8,10 @@ import {
   $pagesForCategoryPage,
 } from '@/models/newsPage';
 import { useStore } from 'effector-react/scope';
-import { Category } from '@/types/types';
+import { Category, SinglePageCard } from '@/types/types';
 
 const Knowledge: NextPage = () => {
-  const pagesList = useStore<any>($pagesForCategoryPage);
+  const pagesList = useStore<SinglePageCard[]>($pagesForCategoryPage);
   const categoryInfo = useStore<Category | null>($currentCategory);
   const pagination = useStore<any>($paginationData);
 

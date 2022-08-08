@@ -18,11 +18,11 @@ export function LotteryItem({ singlePage, tags }: Props) {
 
   useEffect(() => {
     const headings = document.getElementsByTagName('H2');
-    const list = [...headings];
+    const list = Array.from(headings);
     setHeadingsList(list);
   }, []);
 
-  const scrollToHeading = element => {
+  const scrollToHeading = (element: any) => {
     element.scrollIntoView({ behavior: 'smooth' });
   };
 
