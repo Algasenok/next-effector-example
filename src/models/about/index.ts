@@ -1,5 +1,4 @@
 import { createEffect, createEvent, createStore, sample } from 'effector';
-import { StaticPageContext } from 'nextjs-effector';
 import { API } from '@/api';
 import { LinkProps, SinglePage } from '@/types/types';
 import { setSidebarActiveTab } from '@/models/menu';
@@ -24,7 +23,7 @@ export const getAboutPagesFx = createEffect(async () => {
   return data.data;
 });
 
-export const getAboutPageItem = createEvent<StaticPageContext<{ url: string }>>();
+export const getAboutPageItem = createEvent();
 export const getAboutPagesList = createEvent();
 
 export const $aboutPageItem = createStore<SinglePage | null>(null);
@@ -47,7 +46,7 @@ $aboutPages.on(getAboutPagesFx.doneData, (_, data) => {
 
 sample({
   source: getAboutPageItem,
-  fn: ({ params }) => params!.url,
+  fn: ({ params }: any) => params.url,
   target: [getAboutPageItemFx, getAboutPagesFx],
 });
 

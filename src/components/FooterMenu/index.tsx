@@ -1,26 +1,12 @@
 import styles from './FooterMenu.module.scss';
 import { BaseLink } from '@/components';
+import { $footerMenu } from '@/models/menu';
+import { useStore } from 'effector-react/scope';
 import cn from 'classnames';
-
-interface menuItem {
-  text: string;
-  link: string;
-}
+import { LinkProps } from '@/types/types';
 
 export function FooterMenu({ className = '' }) {
-  const menuList: menuItem[] = [
-    { text: 'About gambling', link: '/' },
-    { text: 'Safer play', link: '/' },
-    { text: 'Help for problem gambling', link: '/' },
-    { text: 'Support', link: '/' },
-    { text: 'About us', link: '/' },
-    { text: 'Our team', link: '/' },
-    { text: 'Contact us', link: '/' },
-    { text: 'FAQ', link: '/' },
-    { text: 'Problem gambling prevention', link: '/' },
-    { text: 'Cookies policy', link: '/' },
-    { text: 'Privacy policy', link: '/' },
-  ];
+  const menuList = useStore<LinkProps[]>($footerMenu);
 
   return (
     <div className={cn(styles.footerMenu, className)}>

@@ -1,7 +1,6 @@
 import { combine, createEffect, createEvent, createStore, restore, sample } from 'effector';
 import { SinglePage } from '@/types/types';
 import { API } from '@/api';
-import { StaticPageContext } from 'nextjs-effector';
 import { API_CRM_URL_DEV } from 'config';
 import { getCategoryTagsForSinglePage } from '@/models/menu';
 
@@ -119,7 +118,7 @@ const getSinglePageFx = createEffect(async (url: string) => {
 //   return { prev: response[0].data.data[0], next: response[1].data.data[0] };
 // });
 
-export const getSinglePageItem = createEvent<StaticPageContext<{ url: string }>>();
+export const getSinglePageItem = createEvent();
 
 $singlePage.on(getSinglePageFx.doneData, (_, data) => {
   // TODO Исправить урл после того как картинки будут храниться в яндекс клауде
@@ -160,7 +159,7 @@ $singlePage.on(getSinglePageFx.doneData, (_, data) => {
 
 sample({
   source: getSinglePageItem,
-  fn: ({ params }) => params!.url,
+  fn: ({ params }: any) => params!.url,
   target: [getSinglePageFx, getCategoryTagsForSinglePage],
 });
 

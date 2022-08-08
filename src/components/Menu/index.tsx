@@ -1,97 +1,27 @@
 import styles from './Menu.module.scss';
 import { BaseLink } from '@/components';
+import { useStore } from 'effector-react/scope';
+import { $headerMenu } from '@/models/menu';
+import { HeaderMenu } from '@/types/types';
 
 export function Menu() {
-  const menu = [
-    {
-      title: 'For the Public',
-      items: [
-        {
-          linkText: 'About gambling',
-          url: '/',
-        },
-        {
-          linkText: 'Safer play',
-          url: '/',
-        },
-        {
-          linkText: 'Help for problem gambling',
-          url: '/',
-        },
-        {
-          linkText: 'Problem gambling prevention',
-          url: '/',
-        },
-      ],
-    },
-    {
-      title: 'For Youth & Young Adults',
-      items: [
-        {
-          linkText: 'For Youth',
-          url: '/',
-        },
-        {
-          linkText: 'For Young Adults',
-          url: '/',
-        },
-      ],
-    },
-    {
-      title: 'For Industry & Regulators',
-      items: [
-        {
-          linkText: 'Get Accredited',
-          url: '/',
-        },
-        {
-          linkText: 'Advision & Consultation',
-          url: '/',
-        },
-        {
-          linkText: 'Thought Leadership',
-          url: '/',
-        },
-        {
-          linkText: 'Discovery Conference',
-          url: '/',
-        },
-      ],
-    },
-    {
-      title: 'About RGC',
-      items: [
-        {
-          linkText: 'Careers',
-          url: '/',
-        },
-        {
-          linkText: 'Contact Us',
-          url: '/',
-        },
-        {
-          linkText: 'Newsletter',
-          url: '/',
-        },
-      ],
-    },
-  ];
+  const menu = useStore<HeaderMenu[]>($headerMenu);
 
   return (
     <div className={styles.menuContainer}>
       <div className={styles.menu}>
-        {menu.map(({ title, items }, index) => (
+        {menu.map(({ name, links }, index) => (
           <div key={`menu${index}`} className={styles.menuItem}>
-            <div className={styles.menuTitle}>{title}</div>
-            {items.map(({ linkText, url }, index) => (
+            <div className={styles.menuTitle}>{name}</div>
+            {links.map(({ text, link }, index) => (
               <BaseLink
                 key={`menuItem${index}`}
-                href={url}
+                href={link}
                 needHover
                 color="light"
                 className={styles.menuLink}
               >
-                {linkText}
+                {text}
               </BaseLink>
             ))}
           </div>

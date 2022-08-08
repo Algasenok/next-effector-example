@@ -20,10 +20,6 @@ const Knowledge: NextPage = () => {
   );
 };
 
-// export const getStaticProps = createGSP({
-//   pageEvent: initNewsPage,
-// });
-
 Knowledge.getInitialProps = createGIP({
   pageEvent: initNewsPage,
 });

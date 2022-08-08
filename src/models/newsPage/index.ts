@@ -3,21 +3,37 @@ import { API } from '@/api';
 import { API_CRM_URL_DEV } from 'config';
 import { getCategoryTags } from '@/models/menu';
 import { Category, SinglePageCard } from '@/types/types';
+import { useRouter } from 'next/router';
 
 interface getPagesProps {
   category: string;
   pageNumber?: number;
   tag?: string;
+  type?: string;
+}
+
+interface ParamsTypes {
+  filters: {
+    category: any;
+    type: any;
+    tags?: any;
+  };
+  populate: string[];
+  sort: string[];
+  pagination: any;
 }
 
 export const getPagesForCategoryFx = createEffect(
-  async ({ category, pageNumber = 1, tag = '' }: getPagesProps) => {
-    const params = {
+  async ({ category, pageNumber = 1, tag = '', type = 'Blog' }: getPagesProps) => {
+    const params: ParamsTypes = {
       filters: {
         category: {
           sysname: {
             $eq: category,
           },
+        },
+        type: {
+          $eq: type,
         },
       },
       populate: ['img', 'tags'],
@@ -34,9 +50,7 @@ export const getPagesForCategoryFx = createEffect(
         },
       };
     }
-    console.log('getPagesForCategoryFx params', params);
     const { data } = await API.getPagesForCategory(params);
-    console.log('getPagesForCategoryFx data', data);
     return { data: data.data, pagination: data.meta, category };
   },
 );
@@ -56,7 +70,6 @@ const getCategoryInfoFx = createEffect(async ({ category }: any) => {
 
 export const initNewsPage = createEvent();
 export const changePageNumber = createEvent<number>();
-export const changeCurrentTag = createEvent<string>();
 
 export const $pagesForCategoryPage = createStore<SinglePageCard[]>([]);
 export const $paginationData = createStore<any>({});
@@ -89,19 +102,19 @@ $currentCategory.on(getCategoryInfoFx.doneData, (_, data) => {
 
 sample({
   source: initNewsPage,
-  fn: () => ({ category: 'knowledge' }),
+  fn: (params: any) => {
+    const query = params?.query ? params?.query : {};
+    return { category: 'knowledge', ...query };
+  },
   target: [getPagesForCategoryFx, getCategoryInfoFx],
 });
 
 sample({
   source: changePageNumber,
-  fn: page => ({ category: 'knowledge', pageNumber: page }),
-  target: [getPagesForCategoryFx],
-});
-
-sample({
-  source: changeCurrentTag,
-  fn: tag => ({ category: 'knowledge', tag }),
+  fn: page => {
+    const query = useRouter().query;
+    return { category: 'knowledge', pageNumber: page, ...query };
+  },
   target: [getPagesForCategoryFx],
 });
 
