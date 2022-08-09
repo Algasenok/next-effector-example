@@ -1,5 +1,6 @@
 import { createGIPFactory, createGSPFactory } from 'nextjs-effector';
-import { createEvent } from 'effector';
+import { createEvent, sample } from 'effector';
+import { getMenu } from '@/models/menu';
 
 export const appStarted = createEvent();
 
@@ -8,3 +9,8 @@ export const createGIP = createGIPFactory({
 });
 
 export const createGSP = createGSPFactory();
+
+sample({
+  clock: appStarted,
+  target: [getMenu],
+});

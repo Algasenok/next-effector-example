@@ -19,11 +19,11 @@ export function KnowledgeItem({ singlePage, tags }: Props) {
 
   useEffect(() => {
     const headings = document.getElementsByTagName('H2');
-    const list = [...headings];
+    const list = Array.from(headings);
     setHeadingsList(list);
   }, []);
 
-  const scrollToHeading = element => {
+  const scrollToHeading = (element: any) => {
     element.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -69,7 +69,7 @@ export function KnowledgeItem({ singlePage, tags }: Props) {
         {headingsList.length && (
           <PageSubheadings
             links={headingsList}
-            onClickHandler={element => scrollToHeading(element)}
+            onClickHandler={scrollToHeading}
           />
         )}
       </div>

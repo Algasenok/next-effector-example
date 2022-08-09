@@ -9,7 +9,6 @@ import { useEffect, useState } from 'react';
 import { LinkProps } from '@/types/types';
 import { setSidebarActiveTab, $sidebarActiveTab } from '@/models/menu';
 import { useRouter } from 'next/router';
-import { changeCurrentTag } from '@/models/newsPage';
 
 interface Props {
   className: string;
@@ -21,7 +20,7 @@ export function NewsSidebar({ className = '', place = 'news', categories = [] }:
   const activeTab = useStore($sidebarActiveTab);
   const router = useRouter();
   const [title, setTitle] = useState<string>('Topics');
-  const [changeTag, changeSidebarActiveTab] = useEvent([changeCurrentTag, setSidebarActiveTab]);
+  const [changeSidebarActiveTab] = useEvent([setSidebarActiveTab]);
 
   useEffect(() => {
     if (place === 'about') {
@@ -31,21 +30,23 @@ export function NewsSidebar({ className = '', place = 'news', categories = [] }:
       setTitle('About Us');
     } else {
       setTitle('Topics');
-      changeSidebarActiveTab('');
+      const tag = router.query.tag || '';
+      const tabNameActive = categories.find(item => item.sysname === tag)?.text || '';
+      changeSidebarActiveTab(tabNameActive);
     }
-  }, []);
+  }, [categories]);
 
   const hangleClick = ({ text, link, sysname }: any) => {
     changeSidebarActiveTab(text);
-    const routeOptions = { scroll: false };
+    const routeParams = {
+      pathname: link,
+      query: {},
+    };
     if (place !== 'about') {
-      changeTag(sysname);
-      routeOptions.shallow = false;
+      const query = router.query || {};
+      routeParams.query = { ...query, tag: sysname };
     }
-    console.log('routeOptions', routeOptions);
-    if (router.route !== link) {
-      router.push(link, undefined, routeOptions);
-    }
+    router.push(routeParams, undefined, { scroll: false });
   };
 
   return (

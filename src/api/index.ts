@@ -75,6 +75,27 @@ export class API {
   };
 
   static getFooterMenu = (): AxiosPromise => {
-    return Api.get(`${apiUrl}/api/footer-menu`);
+    const query = qs.stringify(
+      {
+        ...defaultParams,
+      },
+      {
+        encodeValuesOnly: true,
+      },
+    );
+    return Api.get(`${apiUrl}/api/footer-menu?${query}`);
+  };
+
+  static getHeaderMenu = (params: any): AxiosPromise => {
+    const query = qs.stringify(
+      {
+        ...defaultParams,
+        ...params,
+      },
+      {
+        encodeValuesOnly: true,
+      },
+    );
+    return Api.get(`${apiUrl}/api/header-menu?${query}`);
   };
 }

@@ -6,10 +6,10 @@ import { BaseButton } from '@/components';
 
 interface Props {
   links: any;
-  onClickHandler: () => void;
+  onClickHandler: (value: any) => void;
 }
 
-export function PageSubheadings({ links = [], onClickHandler = () => {} }: Props) {
+export function PageSubheadings({ links = [], onClickHandler }: Props) {
   return (
     <div className={styles.pageSubheadings}>
       <div className={styles.pageSubheadingsTitle}>Contents</div>
@@ -26,7 +26,7 @@ export function PageSubheadings({ links = [], onClickHandler = () => {} }: Props
         }}
       >
         {links.length &&
-          links.map((item, index) => (
+          links.map((item: any, index: number) => (
             <SwiperSlide key={`pageLink${index}`} className={styles.pageSubheadingsItem}>
               <BaseButton
                 className={styles.pageSubheadingsLink}

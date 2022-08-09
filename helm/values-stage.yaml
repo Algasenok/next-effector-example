@@ -1,0 +1,66 @@
+replicaCount: 1
+
+image:
+  repository: cr.yandex/crp5ufj07k4l2safqpve/front-end/rg
+  tag: latest-stage-prod
+  pullPolicy: IfNotPresent
+  
+imagePullSecrets:
+  - name: regcred
+
+serviceAccount:
+  create: false
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: NodePort
+  port: 80
+
+ingress:
+  enabled: true
+  annotations:
+    ingress.alb.yc.io/subnets: 'e9b12dqbkc72t842v4bj'
+    ingress.alb.yc.io/external-ipv4-address: '158.160.5.30'
+    ingress.alb.yc.io/group-name: 'rbp-stage'
+  hosts:
+    - host: 'spa.rg.stage.plat.agency'
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: 'yc-certmgr-cert-id-fpqtt32jbkulab6ugi2d'
+      hosts:
+        - 'spa.rg.stage.plat.agency'
+        
+ingress_additional:
+  enabled: false
+
+resources:  
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# Config
+configEnvs:
+  # General
+  API_CRM_URL: 'https://rg.stage.plat.agency'

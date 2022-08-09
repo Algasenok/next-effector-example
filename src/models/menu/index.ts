@@ -1,5 +1,5 @@
 import { createEffect, createEvent, createStore, sample } from 'effector';
-import { LinkProps } from '@/types/types';
+import { LinkProps, HeaderMenu } from '@/types/types';
 import { API } from '@/api';
 
 const getTagsForCurrentCategoryFx = createEffect(async (url: string) => {
@@ -19,12 +19,23 @@ const getTagsForCurrentCategoryFx = createEffect(async (url: string) => {
 
 const getFooterMenuFx = createEffect(async () => {
   const { data } = await API.getFooterMenu();
-  return data.data[0];
+  return data.data;
+});
+
+const getHeaderMenuFx = createEffect(async () => {
+  const params = {
+    populate: {
+      menu_category: { populate: ['links'] },
+    },
+  };
+  const { data } = await API.getHeaderMenu(params);
+  return data.data;
 });
 
 export const $sidebarActiveTab = createStore<string>('');
 export const $tagsListForCategory = createStore<LinkProps[]>([]);
 export const $footerMenu = createStore<LinkProps[]>([]);
+export const $headerMenu = createStore<HeaderMenu[]>([]);
 
 export const setSidebarActiveTab = createEvent<string>();
 export const getCategoryTagsForSinglePage = createEvent<string>('');
@@ -49,10 +60,8 @@ $tagsListForCategory.on(getCategoryTags, (_, data) => {
   }));
 });
 
-$footerMenu.on(getFooterMenuFx.doneData, (_, data) => {
-  console.log('footerMenu', data);
-  return data;
-});
+$footerMenu.on(getFooterMenuFx.doneData, (_, data) => data.attributes.link);
+$headerMenu.on(getHeaderMenuFx.doneData, (_, data) => data?.attributes?.menu_category);
 
 sample({
   source: getCategoryTagsForSinglePage,
@@ -61,6 +70,6 @@ sample({
 });
 
 sample({
-  source: getMenu,
-  target: [getFooterMenuFx],
+  clock: getMenu,
+  target: [getFooterMenuFx, getHeaderMenuFx],
 });

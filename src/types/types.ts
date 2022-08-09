@@ -12,7 +12,7 @@ export interface BaseButtonsProps {
 
 export interface BaseLinkProps {
   children: ReactNode;
-  href: string;
+  href: string | undefined;
   className?: string;
   needHover?: boolean;
   needArrow?: boolean;
@@ -26,6 +26,11 @@ export interface LinkProps {
   sysname?: string;
 }
 
+export interface HeaderMenu {
+  name: string;
+  links: LinkProps[];
+}
+
 export interface BreadcrumbsTypes {
   breadcrumb: string;
   href: string;
@@ -35,7 +40,6 @@ export interface BreadcrumbsTypes {
 export interface Tab {
   name: string;
   sysname: string;
-  isActive: boolean;
 }
 
 export interface BaseTitleProps {
