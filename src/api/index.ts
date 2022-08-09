@@ -98,4 +98,17 @@ export class API {
     );
     return Api.get(`${apiUrl}/api/header-menu?${query}`);
   };
+
+  static getLotteryItem = (params: any): AxiosPromise => {
+    const query = qs.stringify(
+      {
+        ...defaultParams,
+        ...params,
+      },
+      {
+        encodeValuesOnly: true,
+      },
+    );
+    return Api.get(`${apiUrl}/api/lottery-pages?${query}`);
+  };
 }

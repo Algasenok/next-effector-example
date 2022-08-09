@@ -23,16 +23,26 @@ export function NewsSidebar({ className = '', place = 'news', categories = [] }:
   const [changeSidebarActiveTab] = useEvent([setSidebarActiveTab]);
 
   useEffect(() => {
-    if (place === 'about') {
-      const path = router.asPath;
-      const tabNameActive = categories.find(item => item.link === path)?.text;
-      changeSidebarActiveTab(tabNameActive || '');
-      setTitle('About Us');
-    } else {
-      setTitle('Topics');
-      const tag = router.query.tag || '';
-      const tabNameActive = categories.find(item => item.sysname === tag)?.text || '';
-      changeSidebarActiveTab(tabNameActive);
+    console.log('router', router);
+    switch (place) {
+      case 'about': {
+        const path = router.asPath;
+        const tabNameActive = categories.find(item => item.link === path)?.text;
+        changeSidebarActiveTab(tabNameActive || '');
+        setTitle('About Us');
+        break;
+      }
+      case 'lotteryItem': {
+        setTitle('Lottery Corporations');
+        break;
+      }
+      default: {
+        setTitle('Topics');
+        const tag = router.query.tag || '';
+        const tabNameActive = categories.find(item => item.sysname === tag)?.text || '';
+        changeSidebarActiveTab(tabNameActive);
+        break;
+      }
     }
   }, [categories]);
 
@@ -44,7 +54,12 @@ export function NewsSidebar({ className = '', place = 'news', categories = [] }:
     };
     if (place !== 'about') {
       const query = router.query || {};
-      routeParams.query = { ...query, tag: sysname };
+      delete query['url'];
+      if (sysname) {
+        routeParams.query = { ...query, tag: sysname };
+      } else {
+        routeParams.query = { ...query };
+      }
     }
     router.push(routeParams, undefined, { scroll: false });
   };
@@ -63,20 +78,21 @@ export function NewsSidebar({ className = '', place = 'news', categories = [] }:
           },
         }}
       >
-        {categories.length &&
-          categories.map(({ text, link, sysname }, index) => (
-            <SwiperSlide key={`category${index}`} className={styles.sidebarItem}>
-              <BaseButton
-                className={cn(
-                  styles.sidebarLink,
-                  activeTab === text ? styles.sidebarLinkActive : '',
-                )}
-                onClickHandler={() => hangleClick({ text, link, sysname })}
-              >
-                {text}
-              </BaseButton>
-            </SwiperSlide>
-          ))}
+        {categories.length
+          ? categories.map(({ text, link, sysname }, index) => (
+              <SwiperSlide key={`category${index}`} className={styles.sidebarItem}>
+                <BaseButton
+                  className={cn(
+                    styles.sidebarLink,
+                    activeTab === text ? styles.sidebarLinkActive : '',
+                  )}
+                  onClickHandler={() => hangleClick({ text, link, sysname })}
+                >
+                  {text}
+                </BaseButton>
+              </SwiperSlide>
+            ))
+          : null}
       </Swiper>
     </div>
   );

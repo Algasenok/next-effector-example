@@ -1,20 +1,19 @@
 import { NextPage } from 'next';
-import { KnowledgeItem } from '@/components';
+import { LotteryItem } from '@/components';
 import { createGIP } from '@/models/shared';
-import { getSinglePageItem, $singlePage } from '@/models/singlePage';
-import { LinkProps, SinglePage } from '@/types/types';
+import { LinkProps, LotteryPage } from '@/types/types';
 import { useStore } from 'effector-react/scope';
-import { $tagsListForCategory } from '@/models/menu';
+import { getLotteryPageItem, $lotteryPage, $lotteryRegions } from '@/models/LotteryPage';
 
 const KnowledgeItemPage: NextPage = () => {
-  const singlePage = useStore<SinglePage | null>($singlePage);
-  const tags = useStore<LinkProps[]>($tagsListForCategory);
+  const lotteryPage = useStore<LotteryPage | null>($lotteryPage);
+  const regions = useStore<LinkProps[]>($lotteryRegions);
 
-  return <KnowledgeItem singlePage={singlePage} tags={tags} />;
+  return <LotteryItem lotteryPage={lotteryPage} regions={regions} />;
 };
 
 KnowledgeItemPage.getInitialProps = createGIP({
-  pageEvent: getSinglePageItem,
+  pageEvent: getLotteryPageItem,
 });
 
 export default KnowledgeItemPage;

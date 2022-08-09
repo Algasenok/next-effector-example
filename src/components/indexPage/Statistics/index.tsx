@@ -8,6 +8,7 @@ interface card {
 
 export function Statistics() {
   const handleClick = () => {
+    // eslint-disable-next-line no-console
     console.log('Статистика кнопка');
   };
 

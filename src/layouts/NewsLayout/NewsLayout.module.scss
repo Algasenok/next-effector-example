@@ -1,7 +1,8 @@
 .newsLayout {
   background: $bg-blue-3;
 
-  &_about {
+  &_about,
+  &_lotteryItem {
     .newsLayoutContainerTitle,
     .newsLayoutContainerTabs {
       display: none;

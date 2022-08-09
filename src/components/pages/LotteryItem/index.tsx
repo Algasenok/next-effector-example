@@ -1,6 +1,6 @@
 import styles from './LotteryItem.module.scss';
 import { NewsLayout } from '@/layouts/NewsLayout';
-import { LinkProps, SinglePage } from '@/types/types';
+import { LinkProps, LotteryPage } from '@/types/types';
 import ReactHtmlParser from 'react-html-parser';
 import cn from 'classnames';
 import { API_CRM_URL_DEV } from 'config';
@@ -8,18 +8,21 @@ import { useEffect, useState } from 'react';
 import { PageSubheadings } from '@/components';
 
 interface Props {
-  singlePage: SinglePage | null;
-  tags: LinkProps[];
+  lotteryPage: LotteryPage | null;
+  regions: LinkProps[];
 }
 
-export function LotteryItem({ singlePage, tags }: Props) {
-  const post = singlePage;
+export function LotteryItem({ lotteryPage, regions }: Props) {
+  const post = lotteryPage;
   const [headingsList, setHeadingsList] = useState<any>([]);
 
   useEffect(() => {
     const headings = document.getElementsByTagName('H2');
     const list = Array.from(headings);
     setHeadingsList(list);
+
+    const cardItem = document.getElementsByTagName('LotteryCard');
+    console.log('cardItem', cardItem);
   }, []);
 
   const scrollToHeading = (element: any) => {
@@ -37,17 +40,17 @@ export function LotteryItem({ singlePage, tags }: Props) {
     <NewsLayout
       title={post.title}
       description={post.description}
-      categories={tags}
-      place="newsItem"
+      categories={regions}
+      place="lotteryItem"
     >
       <div className={styles.lotteryItemHead}>
         <img src={post.img} alt="" className={styles.lotteryItemTopImg} />
-        {headingsList.length && (
+        {headingsList.length ? (
           <PageSubheadings
             links={headingsList}
             onClickHandler={element => scrollToHeading(element)}
           />
-        )}
+        ) : null}
       </div>
       <h1 className={styles.lotteryItemTitle}>{post.title}</h1>
       <div className={cn(styles.lotteryItem, 'singlePage')}>{ReactHtmlParser(post.content)}</div>
