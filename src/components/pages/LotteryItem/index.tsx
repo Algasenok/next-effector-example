@@ -6,6 +6,7 @@ import cn from 'classnames';
 import { API_CRM_URL_DEV } from 'config';
 import { useEffect, useState } from 'react';
 import { PageSubheadings } from '@/components';
+import ErrorPage from 'next/error';
 
 interface Props {
   lotteryPage: LotteryPage | null;
@@ -29,7 +30,7 @@ export function LotteryItem({ lotteryPage, regions }: Props) {
   };
 
   if (!post) {
-    return <div />;
+    return <ErrorPage statusCode={404} />;
   }
 
   // TODO Убрать это после того как фотки будут храниться в яндекс клауде

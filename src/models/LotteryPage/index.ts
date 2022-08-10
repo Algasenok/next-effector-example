@@ -86,21 +86,27 @@ export const getLotteryCountry = createEvent();
 
 $lotteryPage.on(getLotteryPageFx.doneData, (_, data) => {
   // TODO Исправить урл после того как картинки будут храниться в яндекс клауде
-  const formattedData = {
-    ...data.attributes,
-    id: data.id,
-    img: `${API_CRM_URL_DEV}${data.attributes.img.data.attributes.url}`,
-  };
-  return formattedData;
+  if (data) {
+    const formattedData = {
+      ...data.attributes,
+      id: data.id,
+      img: `${API_CRM_URL_DEV}${data.attributes?.img?.data?.attributes?.url}`,
+    };
+    return formattedData;
+  }
+  return null;
 });
 
 $lotteryRegions.on(getLotteryPageFx.doneData, (_, data) => {
-  const lotteryCountry = data.attributes.lottery_country.data.attributes || {};
-  const formattedData = lotteryCountry.region.map((region: any) => ({
-    text: region.name,
-    link: `/${lotteryCountry.url}/${region.url}`,
-  }));
-  return formattedData;
+  if (data && data.attributes.lottery_country) {
+    const lotteryCountry = data.attributes.lottery_country.data.attributes || {};
+    const formattedData = lotteryCountry.region.map((region: any) => ({
+      text: region.name,
+      link: `/${lotteryCountry.url}/${region.url}`,
+    }));
+    return formattedData;
+  }
+  return [];
 });
 
 $lotteryRegions.on(getLotteryRegionsListFx.doneData, (_, data) => {
