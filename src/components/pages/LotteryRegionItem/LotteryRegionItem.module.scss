@@ -1,0 +1,22 @@
+.lotteryRegionItem {
+  width: 100%;
+  margin-bottom: 24px;
+
+  @media #{$laptop} {
+    margin-bottom: 32px;
+  }
+}
+
+.lotteryRegionItemTitle {
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 42px;
+  color: $font-main;
+  margin-bottom: 24px;
+
+  @media #{$laptop} {
+    font-size: 38px;
+    line-height: 48px;
+    margin-bottom: 32px;
+  }
+}

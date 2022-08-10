@@ -3,6 +3,7 @@ import { BaseButton, BaseTitle, BaseWrapper } from '@/components';
 
 export function ReportingContainer() {
   const handleClick = () => {
+    // eslint-disable-next-line no-console
     console.log('reporting');
   };
 

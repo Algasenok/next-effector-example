@@ -1,27 +1,26 @@
 import { NextPage } from 'next';
-import { KnowledgePage } from '@/components';
 import { createGIP } from '@/models/shared';
-import {
-  initNewsPage,
-  $currentCategory,
-  $paginationData,
-  $pagesForCategoryPage,
-} from '@/models/newsPage';
 import { useStore } from 'effector-react/scope';
-import { Category, SinglePageCard } from '@/types/types';
+import { LinkProps } from '@/types/types';
+import { $lotteryRegions, getLotteryCountry } from '@/models/LotteryPage';
+import { useEffect } from 'react';
+import Router from 'next/router';
 
 const Knowledge: NextPage = () => {
-  const pagesList = useStore<SinglePageCard[]>($pagesForCategoryPage);
-  const categoryInfo = useStore<Category | null>($currentCategory);
-  const pagination = useStore<any>($paginationData);
+  const regions = useStore<LinkProps[]>($lotteryRegions);
 
-  return (
-    <KnowledgePage pagesList={pagesList} categoryInfo={categoryInfo} pagination={pagination} />
-  );
+  useEffect(() => {
+    if (regions.length) {
+      const route = regions[0].link;
+      Router.push(route || '/');
+    }
+  }, [regions]);
+
+  return null;
 };
 
 Knowledge.getInitialProps = createGIP({
-  pageEvent: initNewsPage,
+  pageEvent: getLotteryCountry,
 });
 
 export default Knowledge;
