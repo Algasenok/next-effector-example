@@ -104,6 +104,7 @@
     "react/no-unused-prop-types": "off",
     "import/no-named-as-default": "off",
     "react/prefer-stateless-function": "warn",
+    "react/no-array-index-key": false,
     "global-require": "off",
     "prettier/prettier": [
       "error"
