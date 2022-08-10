@@ -1,5 +1,5 @@
 import styles from './TopBanner.module.scss';
-import {BaseButton, BaseTitle, BaseWrapper} from '@/components';
+import { BaseButton, BaseTitle, BaseWrapper } from '@/components';
 
 interface card {
   title: string;

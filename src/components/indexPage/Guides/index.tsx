@@ -1,9 +1,8 @@
 import styles from './Guides.module.scss';
-import {BaseWrapper, LinksContainer} from '@/components';
+import { BaseWrapper, LinksContainer } from '@/components';
 import { LinkProps } from '@/types/types';
 
 export function Guides() {
-
   const guides: LinkProps[] = [
     {
       text: 'What to look at before you gamble',

@@ -32,3 +32,5 @@ export { Card } from './Card';
 export { AboutItem } from './pages/AboutItem';
 export { KnowledgePage } from './pages/Knowledge';
 export { KnowledgeItem } from './pages/KnowledgeItem';
+export { LotteryItem } from './pages/LotteryItem';
+export { LotteryRegionItem } from './pages/LotteryRegionItem';

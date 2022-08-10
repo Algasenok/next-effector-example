@@ -89,6 +89,42 @@ export interface SinglePage {
   nextPage: string;
 }
 
+export interface LotteryCountry {
+  id: number;
+  title: string;
+  url: string;
+  description: string;
+  publishedAt: string;
+  region: any;
+}
+
+export interface LotteryPage {
+  id: number;
+  title: string;
+  url: string;
+  description: string;
+  publishedAt: string;
+  img: string;
+  content: string;
+  lottery_country: LotteryCountry;
+}
+
+export interface LotteryRegionInfo {
+  id: number;
+  name: string;
+  url: string;
+  content: string;
+  source: string;
+}
+
+export interface LotteryRegionPage {
+  id: number;
+  title: string;
+  description: string;
+  url: string;
+  region: LotteryRegionInfo;
+}
+
 export interface SinglePageCard {
   id: number;
   title: string;

@@ -13,29 +13,6 @@ const KnowledgeItemPage: NextPage = () => {
   return <KnowledgeItem singlePage={singlePage} tags={tags} />;
 };
 
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const params = {
-//     filters: {
-//       category: {
-//         sysname: {
-//           $eq: 'knowledge',
-//         },
-//       },
-//     },
-//   };
-//   const { data } = await API.getPagesForCategory(params);
-//   return {
-//     paths: data.data.map((post: any) => ({
-//       params: { url: post.attributes.url },
-//     })),
-//     fallback: false,
-//   };
-// };
-//
-// export const getStaticProps = createGSP({
-//   pageEvent: getSinglePageItem,
-// });
-
 KnowledgeItemPage.getInitialProps = createGIP({
   pageEvent: getSinglePageItem,
 });
