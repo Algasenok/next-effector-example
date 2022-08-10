@@ -6,6 +6,7 @@ import { BaseButton } from '@/components';
 
 interface Props {
   links: any;
+  // eslint-disable-next-line no-unused-vars
   onClickHandler: (value: any) => void;
 }
 

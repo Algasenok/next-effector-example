@@ -48,7 +48,7 @@ export function NewsSidebar({ className = '', place = 'news', categories = [] }:
     }
   }, [categories]);
 
-  const hangleClick = ({ text, link, sysname }: any) => {
+  const hangleClick = ({ text, link, sysname }: LinkProps) => {
     changeSidebarActiveTab(text);
     const routeParams = {
       pathname: link,

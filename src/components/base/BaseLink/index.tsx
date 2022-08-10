@@ -14,40 +14,39 @@ export function BaseLink({
 }: BaseLinkProps) {
   const isExternalLink = href.includes('http');
 
+  if (isExternalLink) {
+    return (
+      <a
+        target="_blank"
+        href={href}
+        className={cn(
+          styles.link,
+          needHover ? styles.linkNeedHover : '',
+          styles[`link_${color}`],
+          className,
+        )}
+        rel="noreferrer"
+        onClick={onClickHandler}
+      >
+        {children}
+        {needArrow && <div className={styles.linkArrow} />}
+      </a>
+    );
+  }
   return (
-    <>
-      {isExternalLink ? (
-        <a
-          target="_blank"
-          href={href}
-          className={cn(
-            styles.link,
-            needHover ? styles.linkNeedHover : '',
-            styles[`link_${color}`],
-            className,
-          )}
-          rel="noreferrer"
-          onClick={onClickHandler}
-        >
-          {children}
-          {needArrow && <div className={styles.linkArrow} />}
-        </a>
-      ) : (
-        <Link href={href}>
-          <a
-            className={cn(
-              styles.link,
-              needHover ? styles.linkNeedHover : '',
-              styles[`link_${color}`],
-              className,
-            )}
-            onClick={onClickHandler}
-          >
-            {children}
-            {needArrow && <div className={styles.linkArrow} />}
-          </a>
-        </Link>
-      )}
-    </>
+    <Link href={href}>
+      <a
+        className={cn(
+          styles.link,
+          needHover ? styles.linkNeedHover : '',
+          styles[`link_${color}`],
+          className,
+        )}
+        onClick={onClickHandler}
+      >
+        {children}
+        {needArrow && <div className={styles.linkArrow} />}
+      </a>
+    </Link>
   );
 }

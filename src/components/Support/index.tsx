@@ -9,22 +9,30 @@ export function Support() {
   const cards: SupportCardProps[] = [
     {
       title: 'Advice & Support',
-      text: 'Try our quick self-assessment quiz to work out the impact gambling is having on your life.',
+      text:
+        'Try our quick self-assessment quiz to work out the impact gambling is having on ' +
+        'your life.',
       link: '/',
     },
     {
       title: 'Self-Guided Workbook',
-      text: 'Try our quick self-assessment quiz to work out the impact gambling is having on your life.',
+      text:
+        'Try our quick self-assessment quiz to work out the impact gambling is having ' +
+        'on your life.',
       link: '/',
     },
     {
       title: 'Blocking software',
-      text: 'Try our quick self-assessment quiz to work out the impact gambling is having on your life.',
+      text:
+        'Try our quick self-assessment quiz to work out the impact gambling is having ' +
+        'on your life.',
       link: '/',
     },
     {
       title: 'Blocking software',
-      text: 'Try our quick self-assessment quiz to work out the impact gambling is having on your life.',
+      text:
+        'Try our quick self-assessment quiz to work out the impact gambling is having ' +
+        'on your life.',
       link: '/',
     },
   ];

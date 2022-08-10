@@ -67,16 +67,13 @@ export function KnowledgeItem({ singlePage, tags }: Props) {
       <div className={styles.knowledgeItemHead}>
         <img src={post.img} alt="" className={styles.knowledgeItemTopImg} />
         {headingsList.length && (
-          <PageSubheadings
-            links={headingsList}
-            onClickHandler={scrollToHeading}
-          />
+          <PageSubheadings links={headingsList} onClickHandler={scrollToHeading} />
         )}
       </div>
       <div className={cn(styles.knowledgeItem, 'singlePage')}>{ReactHtmlParser(post.content)}</div>
       <div className={styles.knowledgeItemTags}>
-        {post.tags.map(({ tagName }, index) => (
-          <div key={`newsTag${index}`} className={styles.knowledgeItemTagItem}>
+        {post.tags.map(({ tagName }) => (
+          <div key={`newsTag${tagName}`} className={styles.knowledgeItemTagItem}>
             {tagName}
           </div>
         ))}
