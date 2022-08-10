@@ -22,7 +22,6 @@ export function LotteryItem({ lotteryPage, regions }: Props) {
     setHeadingsList(list);
 
     const cardItem = document.getElementsByTagName('LotteryCard');
-    console.log('cardItem', cardItem);
   }, []);
 
   const scrollToHeading = (element: any) => {
@@ -41,7 +40,7 @@ export function LotteryItem({ lotteryPage, regions }: Props) {
       title={post.title}
       description={post.description}
       categories={regions}
-      place="lotteryItem"
+      place="lottery"
     >
       <div className={styles.lotteryItemHead}>
         <img src={post.img} alt="" className={styles.lotteryItemTopImg} />

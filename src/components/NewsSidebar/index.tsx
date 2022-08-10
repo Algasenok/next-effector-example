@@ -23,7 +23,6 @@ export function NewsSidebar({ className = '', place = 'news', categories = [] }:
   const [changeSidebarActiveTab] = useEvent([setSidebarActiveTab]);
 
   useEffect(() => {
-    console.log('router', router);
     switch (place) {
       case 'about': {
         const path = router.asPath;
@@ -32,8 +31,11 @@ export function NewsSidebar({ className = '', place = 'news', categories = [] }:
         setTitle('About Us');
         break;
       }
-      case 'lotteryItem': {
+      case 'lottery': {
         setTitle('Lottery Corporations');
+        const path = router.asPath;
+        const tabNameActive = categories.find(item => item.link === path)?.text;
+        changeSidebarActiveTab(tabNameActive || '');
         break;
       }
       default: {

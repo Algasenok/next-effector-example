@@ -72,52 +72,6 @@ const getSinglePageFx = createEffect(async (url: string) => {
   };
 });
 
-// const getOtherArticlesFx = createEffect(async (currentPage: any) => {
-//   const paramsPrev = {
-//     fields: ['url'],
-//     populate: ['category'],
-//     filters: {
-//       category: {
-//         sysname: {
-//           $eq: currentPage.attributes.category.data.attributes.sysname,
-//         },
-//       },
-//       publishedAt: {
-//         $lt: currentPage.attributes.publishedAt,
-//       },
-//     },
-//     sort: ['publishedAt:desc'],
-//     pagination: {
-//       page: 1,
-//       pageSize: 1,
-//     },
-//   };
-//   const paramsNext = {
-//     fields: ['url'],
-//     populate: ['category'],
-//     filters: {
-//       category: {
-//         sysname: {
-//           $eq: currentPage.attributes.category.data.attributes.sysname,
-//         },
-//       },
-//       publishedAt: {
-//         $gt: currentPage.attributes.publishedAt,
-//       },
-//     },
-//     sort: ['publishedAt:asc'],
-//     pagination: {
-//       page: 1,
-//       pageSize: 1,
-//     },
-//   };
-//   const response = await Promise.all([
-//     API.getSinglePageItem(paramsPrev),
-//     API.getSinglePageItem(paramsNext),
-//   ]);
-//   return { prev: response[0].data.data[0], next: response[1].data.data[0] };
-// });
-
 export const getSinglePageItem = createEvent();
 
 $singlePage.on(getSinglePageFx.doneData, (_, data) => {
@@ -145,17 +99,6 @@ $singlePage.on(getSinglePageFx.doneData, (_, data) => {
   };
   return formattedData;
 });
-
-// $anotherPages.on(getOtherArticlesFx.doneData, (_, data) => {
-//   return {
-//     prev: data.prev?.attributes?.url
-//       ? `/${data.prev.attributes.category.data.attributes.sysname}/${data.prev.attributes.url}`
-//       : null,
-//     next: data.next?.attributes?.url
-//       ? `/${data.next.attributes.category.data.attributes.sysname}/${data.next.attributes.url}`
-//       : null,
-//   };
-// });
 
 sample({
   source: getSinglePageItem,
