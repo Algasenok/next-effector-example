@@ -14,11 +14,11 @@ export function Header() {
   };
 
   const handleClickButton = () => {
-    console.log('Raise a complaint');
+    return null;
   };
 
   const handleClickUserButton = () => {
-    console.log('UserButton');
+    return null;
   };
 
   return (
@@ -31,6 +31,7 @@ export function Header() {
           className={styles.headerMenuContainer}
           onMouseOut={() => closeMenu()}
           onMouseOver={() => showMenu()}
+          onBlur={() => showMenu()}
           onFocus={() => showMenu()}
         >
           <div className={styles.headerMenubutton}>

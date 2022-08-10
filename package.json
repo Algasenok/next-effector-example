@@ -24,7 +24,8 @@
     "react-dom": "18.0.0",
     "react-html-parser": "^2.0.2",
     "sass": "^1.51.0",
-    "swiper": "6.8.4"
+    "swiper": "6.8.4",
+    "tslib": "^2.1.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.2.1",

@@ -10,7 +10,7 @@ interface NewsCardItemProps {
 
 export function NewsCardItem({ data }: NewsCardItemProps) {
   const handleClick = (sysname: string) => {
-    console.log('newsItem', sysname);
+    return sysname;
   };
 
   return (

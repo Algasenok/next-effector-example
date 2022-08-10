@@ -22,7 +22,7 @@ export function LotteryItem({ lotteryPage, regions }: Props) {
     const list = Array.from(headings);
     setHeadingsList(list);
 
-    const cardItem = document.getElementsByTagName('LotteryCard');
+    // const cardItem = document.getElementsByTagName('LotteryCard');
   }, []);
 
   const scrollToHeading = (element: any) => {

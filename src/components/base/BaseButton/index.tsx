@@ -9,6 +9,7 @@ export function BaseButton({
   color = 'common',
   size = 'middle',
   className = '',
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onClickHandler = () => {},
 }: BaseButtonsProps) {
   if (href) {
@@ -29,6 +30,7 @@ export function BaseButton({
 
   return (
     <button
+      type="button"
       className={cn(className, styles.button, styles[`button_${color}`], styles[`button_${size}`])}
       onClick={event => onClickHandler(event)}
     >

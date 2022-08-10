@@ -38,9 +38,9 @@ export function Card() {
         </div>
         <div className={styles.container}>
           <div className={styles.item}>Ontario Encore: 0054158</div>
-          <div className={styles.item}>Western Extra:	2721013</div>
-          <div className={styles.item}>Atlantic Tag:	599656</div>
-          <div className={styles.item}>Quebec Extra	8395297</div>
+          <div className={styles.item}>Western Extra: 2721013</div>
+          <div className={styles.item}>Atlantic Tag: 599656</div>
+          <div className={styles.item}>Quebec Extra 8395297</div>
           <div className={styles.item}>Tag: 518275</div>
           <div className={styles.item}>Tag: 518275</div>
           <div className={styles.item}>Tag: 518275</div>
