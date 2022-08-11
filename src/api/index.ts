@@ -124,4 +124,20 @@ export class API {
     );
     return Api.get(`${apiUrl}/api/lottery-countries?${query}`);
   };
+
+  static getLotteryInfo = (params: any): AxiosPromise => {
+    const query = qs.stringify({
+      ...params,
+    });
+
+    return Api.get(
+      `https://lotteryhub.bookieratings.net/modules/lottery-hub/lottery/get.json?${query}`,
+      {},
+      {
+        headers: {
+          Authorization: 'd4cc2c44-1812-4b2e-b471-6d0e33d13e74',
+        },
+      },
+    );
+  };
 }

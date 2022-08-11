@@ -106,6 +106,7 @@ export interface LotteryPage {
   publishedAt: string;
   img: string;
   content: string;
+  lotteryKey: string;
   lottery_country: LotteryCountry;
 }
 
@@ -135,4 +136,21 @@ export interface SinglePageCard {
   content: string;
   tags: Tag[];
   category: Category;
+}
+
+export interface LotteryCardItem {
+  datecreated: string;
+  datemodified: string;
+  key: string;
+  name: string;
+  logo: string;
+  date: string;
+  maindraw: any[];
+  bonusorgrand: number | null;
+  nextdraw: string;
+  jackpot: string;
+  tags?: any;
+  history: any[];
+  tag?: number;
+  source?: string;
 }
