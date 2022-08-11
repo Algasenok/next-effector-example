@@ -24,6 +24,10 @@ export function LotteryRegionItem({ page, regions }: Props) {
   // TODO Убрать это после того как фотки будут храниться в яндекс клауде
   post.region.content = post.region.content.replace('/uploads/', `${API_CRM_URL_DEV}/uploads/`);
 
+  /*
+   TODO RA-98 Спарсить текст (аналогично тому, как это сделано на странице lotteries/[url].
+    Вставить карточки с лотереями вместо ключа $$lotteryCard$$
+   */
   return (
     <NewsLayout
       title={post.title}

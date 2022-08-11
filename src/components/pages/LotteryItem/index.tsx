@@ -41,6 +41,7 @@ export function LotteryItem({ lotteryPage, regions, lotteryInfo }: Props) {
             return null;
           }
           case 'LotteryWinnersTable': {
+            // TODO RA-98 Добавить таблицу последних выигрышей (там их 10 штук)
             return null;
           }
           default: {
