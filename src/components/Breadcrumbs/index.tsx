@@ -14,7 +14,8 @@ export function Breadcrumbs({ className = '' }: breadcrumbProps) {
   const [breadcrumbs, setBreadcrumbs] = useState<BreadcrumbsTypes[]>([]);
 
   const convertBreadcrumb = (pathName: string) => {
-    return pathName.replace(/-/g, ' ').toUpperCase();
+    const str = pathName.replace(/-/g, ' ');
+    return str[0].toUpperCase() + str.slice(1);
   };
 
   useEffect(() => {
@@ -24,7 +25,10 @@ export function Breadcrumbs({ className = '' }: breadcrumbProps) {
 
       const breadcrumsCount = linkPath.length;
       const pathArray = linkPath.map((path, index) => {
-        const pathName = ROUTES_NAME[path] ? ROUTES_NAME[path] : convertBreadcrumb(path);
+        const [formattedPath] = path.split('?');
+        const pathName = ROUTES_NAME[formattedPath]
+          ? ROUTES_NAME[formattedPath]
+          : convertBreadcrumb(formattedPath);
         return {
           breadcrumb: pathName,
           href: `/${linkPath.slice(0, index + 1).join('/')}`,

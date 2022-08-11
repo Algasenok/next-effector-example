@@ -48,7 +48,7 @@ export function NewsSidebar({ className = '', place = 'news', categories = [] }:
     }
   }, [categories]);
 
-  const hangleClick = ({ text, link, sysname }: LinkProps) => {
+  const handleClick = ({ text, link, sysname }: LinkProps) => {
     changeSidebarActiveTab(text);
     const routeParams = {
       pathname: link,
@@ -88,7 +88,7 @@ export function NewsSidebar({ className = '', place = 'news', categories = [] }:
                     styles.sidebarLink,
                     activeTab === text ? styles.sidebarLinkActive : '',
                   )}
-                  onClickHandler={() => hangleClick({ text, link, sysname })}
+                  onClickHandler={() => handleClick({ text, link, sysname })}
                 >
                   {text}
                 </BaseButton>
