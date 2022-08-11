@@ -23,7 +23,7 @@ export function LotteryCard({ cardInfo }: Props) {
           <span className={styles.date}>
             {ReactHtmlParser(getDateForLottery(cardInfo.datemodified))}
           </span>
-          <ul className={cn(styles.list, cardInfo.maindraw.length > 8 ? styles.noCircle : '')}>
+          <ul className={cn(styles.list, cardInfo.maindraw.length > 6 ? styles.noCircle : '')}>
             {cardInfo.maindraw.map((number, index) => (
               <li key={`number-${index}`} className={styles.circle}>
                 {number}
