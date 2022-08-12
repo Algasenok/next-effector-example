@@ -26,7 +26,7 @@ export { Pagination } from './Pagination';
 export { Video } from './Video';
 export { PagePrevAndNextButton } from './PagePrevAndNextButton';
 export { PageSubheadings } from './PageSubheadings';
-export { Card } from './Card';
+export { LotteryCard } from './LotteryCard';
 
 // Pages
 export { AboutItem } from './pages/AboutItem';

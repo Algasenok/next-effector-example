@@ -1,19 +1,20 @@
 import styles from './LotteryItem.module.scss';
 import { NewsLayout } from '@/layouts/NewsLayout';
-import { LinkProps, LotteryPage } from '@/types/types';
+import { LinkProps, LotteryCardItem, LotteryPage } from '@/types/types';
 import ReactHtmlParser from 'react-html-parser';
 import cn from 'classnames';
 import { API_CRM_URL_DEV } from 'config';
 import { useEffect, useState } from 'react';
-import { PageSubheadings } from '@/components';
+import { LotteryCard, PageSubheadings } from '@/components';
 import ErrorPage from 'next/error';
 
 interface Props {
   lotteryPage: LotteryPage | null;
   regions: LinkProps[];
+  lotteryInfo: LotteryCardItem;
 }
 
-export function LotteryItem({ lotteryPage, regions }: Props) {
+export function LotteryItem({ lotteryPage, regions, lotteryInfo }: Props) {
   const post = lotteryPage;
   const [headingsList, setHeadingsList] = useState<any>([]);
 
@@ -27,6 +28,29 @@ export function LotteryItem({ lotteryPage, regions }: Props) {
 
   const scrollToHeading = (element: any) => {
     element.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const formattedContent = () => {
+    if (post) {
+      const contentList = post.content.split('$$').map((itemContent, index) => {
+        switch (itemContent.trim()) {
+          case 'lotteryCard': {
+            if (lotteryInfo) {
+              return <LotteryCard key={`lotteryCard${index}`} cardInfo={lotteryInfo} />;
+            }
+            return null;
+          }
+          case 'LotteryWinnersTable': {
+            return null;
+          }
+          default: {
+            return ReactHtmlParser(itemContent);
+          }
+        }
+      });
+      return contentList || [];
+    }
+    return [];
   };
 
   if (!post) {
@@ -53,7 +77,7 @@ export function LotteryItem({ lotteryPage, regions }: Props) {
         ) : null}
       </div>
       <h1 className={styles.lotteryItemTitle}>{post.title}</h1>
-      <div className={cn(styles.lotteryItem, 'singlePage')}>{ReactHtmlParser(post.content)}</div>
+      <div className={cn(styles.lotteryItem, 'singlePage')}>{formattedContent()}</div>
     </NewsLayout>
   );
 }
