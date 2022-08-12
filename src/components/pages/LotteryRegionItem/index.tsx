@@ -4,6 +4,7 @@ import { LinkProps, LotteryRegionPage } from '@/types/types';
 import ReactHtmlParser from 'react-html-parser';
 import { API_CRM_URL_DEV } from 'config';
 import { LotteryCard } from '@/components';
+import cn from 'classnames';
 
 interface Props {
   page: LotteryRegionPage | null;
@@ -60,7 +61,7 @@ export function LotteryRegionItem({ page, regions, regionsCards }: Props) {
       place="lottery"
     >
       <h1 className={styles.lotteryRegionItemTitle}>{post.region.name}</h1>
-      {formattedContent()}
+      <div className={cn(styles.lotteryRegionItem, 'singlePage')}>{formattedContent()}</div>
     </NewsLayout>
   );
 }
