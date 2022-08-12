@@ -5,7 +5,7 @@ import ReactHtmlParser from 'react-html-parser';
 import cn from 'classnames';
 import { API_CRM_URL_DEV } from 'config';
 import { useEffect, useState } from 'react';
-import { LotteryCard, PageSubheadings } from '@/components';
+import { LotteryCard, PageSubheadings, LotteryWinnersTable } from '@/components';
 import ErrorPage from 'next/error';
 
 interface Props {
@@ -41,6 +41,9 @@ export function LotteryItem({ lotteryPage, regions, lotteryInfo }: Props) {
             return null;
           }
           case 'LotteryWinnersTable': {
+            if (lotteryInfo) {
+              return <LotteryWinnersTable lotteryInfo={lotteryInfo} />;
+            }
             return null;
           }
           default: {

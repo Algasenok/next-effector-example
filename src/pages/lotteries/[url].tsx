@@ -1,13 +1,13 @@
 import { NextPage } from 'next';
 import { LotteryItem } from '@/components';
 import { createGIP } from '@/models/shared';
-import {LinkProps, LotteryCardItem, LotteryPage} from '@/types/types';
+import { LinkProps, LotteryCardItem, LotteryPage } from '@/types/types';
 import { useStore } from 'effector-react/scope';
 import {
   getLotteryPageItem,
   $lotteryPage,
   $lotteryRegions,
-  $lotteryInfoItem
+  $lotteryInfoItem,
 } from '@/models/LotteryPage';
 
 const LotteryItemPage: NextPage = () => {

@@ -8,6 +8,7 @@ export const $lotteryPage = createStore<LotteryPage | null>(null);
 export const $lotteryRegions = createStore<LinkProps[]>([]);
 export const $lotteryRegionItem = createStore<LotteryRegionPage | null>(null);
 export const $lotteryInfoItem = createStore<any | null>(null);
+export const $lotteryRegionInfoItem = createStore<any[]>([]);
 
 const getLotteryPageFx = createEffect(async (url: string) => {
   const params = {
@@ -33,6 +34,17 @@ export const getLotteryInfoFx = createEffect(async (key: any) => {
     key,
     withHistory: 1,
     historyLimit: 10,
+    withFullDataFromSource: 0,
+  };
+  const { data } = await API.getLotteryInfo(params);
+  return data;
+});
+
+export const getLotteryRegionInfoFx = createEffect(async (source: any) => {
+  const params = {
+    source,
+    withHistory: 0,
+    historyLimit: 0,
     withFullDataFromSource: 0,
   };
   const { data } = await API.getLotteryInfo(params);
@@ -87,6 +99,14 @@ $lotteryInfoItem.on(getLotteryInfoFx.doneData, (_, data) => {
     return getLotteryCardInfo(data);
   }
   return null;
+});
+
+$lotteryRegionInfoItem.on(getLotteryRegionInfoFx.doneData, (_, data) => {
+  if (data.length) {
+    // return data;
+    return data.map((item: any) => getLotteryCardInfo([item]));
+  }
+  return [];
 });
 
 $lotteryPage.on(getLotteryPageFx.doneData, (_, data) => {
@@ -162,4 +182,16 @@ sample({
     return '';
   },
   target: getLotteryInfoFx,
+});
+
+sample({
+  clock: getLotteryRegionItemFx.doneData,
+  source: $lotteryRegionItem,
+  fn: page => {
+    if (page) {
+      return page.region.source;
+    }
+    return '';
+  },
+  target: getLotteryRegionInfoFx,
 });

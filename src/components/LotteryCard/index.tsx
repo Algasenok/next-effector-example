@@ -23,7 +23,7 @@ export function LotteryCard({ cardInfo }: Props) {
           <span className={styles.date}>
             {ReactHtmlParser(getDateForLottery(cardInfo.datemodified))}
           </span>
-          <ul className={cn(styles.list, cardInfo.maindraw.length > 8 ? styles.noCircle : '')}>
+          <ul className={cn(styles.list, cardInfo.maindraw.length > 6 ? styles.noCircle : '')}>
             {cardInfo.maindraw.map((number, index) => (
               <li key={`number-${index}`} className={styles.circle}>
                 {number}
@@ -54,7 +54,7 @@ export function LotteryCard({ cardInfo }: Props) {
           <h4 className={styles.title}>Next jackpot</h4>
           <span className={styles.jackpot}>{`$${Number(cardInfo.jackpot).toLocaleString()}`}</span>
         </div>
-        {Object.keys(cardInfo.tags).length ? (
+        {Object.keys(cardInfo?.tags).length ? (
           <div className={styles.container}>
             {Object.keys(cardInfo.tags).map(tagSysname => (
               <div key={`tag${tagSysname}`} className={styles.item}>{`${
