@@ -54,7 +54,7 @@ export function LotteryCard({ cardInfo }: Props) {
           <h4 className={styles.title}>Next jackpot</h4>
           <span className={styles.jackpot}>{`$${Number(cardInfo.jackpot).toLocaleString()}`}</span>
         </div>
-        {Object.keys(cardInfo.tags).length ? (
+        {Object.keys(cardInfo?.tags).length ? (
           <div className={styles.container}>
             {Object.keys(cardInfo.tags).map(tagSysname => (
               <div key={`tag${tagSysname}`} className={styles.item}>{`${
