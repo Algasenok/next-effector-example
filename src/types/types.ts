@@ -124,6 +124,7 @@ export interface LotteryRegionPage {
   description: string;
   url: string;
   region: LotteryRegionInfo;
+  lottery_pages: any;
 }
 
 export interface SinglePageCard {

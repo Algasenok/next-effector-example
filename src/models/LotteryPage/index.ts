@@ -1,8 +1,8 @@
 import { createEffect, createEvent, createStore, sample } from 'effector';
-import { LinkProps, LotteryPage, LotteryRegionPage } from '@/types/types';
+import { LinkProps, LotteryCardItem, LotteryPage, LotteryRegionPage } from '@/types/types';
 import { API } from '@/api';
 import { API_CRM_URL_DEV } from 'config';
-import {getLotteryCardInfo} from "@/utils";
+import { getLotteryCardInfo } from '@/utils';
 
 export const $lotteryPage = createStore<LotteryPage | null>(null);
 export const $lotteryRegions = createStore<LinkProps[]>([]);
@@ -42,13 +42,12 @@ export const getLotteryInfoFx = createEffect(async (key: any) => {
 
 export const getLotteryRegionInfoFx = createEffect(async (source: any) => {
   const params = {
-    source,
     withHistory: 0,
     historyLimit: 0,
     withFullDataFromSource: 0,
   };
   const { data } = await API.getLotteryInfo(params);
-  return data;
+  return { data, source };
 });
 
 const getLotteryRegionItemFx = createEffect(async (urlParams: any) => {
@@ -65,6 +64,9 @@ const getLotteryRegionItemFx = createEffect(async (urlParams: any) => {
             $eq: urlParams.params.url,
           },
         },
+      },
+      lottery_pages: {
+        fields: ['lotteryKey', 'url'],
       },
     },
   };
@@ -102,9 +104,17 @@ $lotteryInfoItem.on(getLotteryInfoFx.doneData, (_, data) => {
 });
 
 $lotteryRegionInfoItem.on(getLotteryRegionInfoFx.doneData, (_, data) => {
-  if (data.length) {
-    // return data;
-    return data.map((item: any) => getLotteryCardInfo([item]));
+  if (data.data.length) {
+    const lotteriesKeyList = data.data
+      .filter((item: LotteryCardItem) => item.source === data.source)
+      .map((item: LotteryCardItem) => item.key);
+    return lotteriesKeyList
+      .map((key: string) =>
+        getLotteryCardInfo(
+          data.data.filter((lotteryItem: LotteryCardItem) => lotteryItem.key === key),
+        ),
+      )
+      .filter((item: LotteryCardItem | null) => item !== null);
   }
   return [];
 });
@@ -149,6 +159,10 @@ $lotteryRegionItem.on(getLotteryRegionItemFx.doneData, (_, data) => {
       id: data.id,
       ...data.attributes,
       region: data.attributes.region[0],
+      lottery_pages: data.attributes.lottery_pages.data.map((lotteryPage: any) => ({
+        url: `/lotteries/${lotteryPage.attributes.url}`,
+        lotteryKey: lotteryPage.attributes.lotteryKey,
+      })),
     };
   }
   return null;

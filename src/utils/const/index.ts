@@ -47,4 +47,3 @@ export const REGION_NAMES: any = {
 };
 
 export const NATIONAL_LOTTERIES: string[] = ['LottoMax', 'Lotto649', 'DailyGrand'];
-

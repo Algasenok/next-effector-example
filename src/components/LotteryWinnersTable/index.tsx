@@ -15,11 +15,11 @@ export const LotteryWinnersTable: React.FC<Props> = ({ lotteryInfo }) => {
       <div className={styles.winnerTable}>
         <div className={styles.winnerTableHeader}>{`${lotteryInfo.name} History Results`}</div>
         {lotteryInfo.history.map(item => (
-          <div key={item.id} className={styles.winnerTableRow}>
+          <div key={`historyId-${item.id}`} className={styles.winnerTableRow}>
             <div className={styles.winnerDate}>{ReactHtmlParser(getDateForLottery(item.date))}</div>
             <div className={styles.winnerContent}>
-              {item.maindraw.map((v: string) => (
-                <div key={v}>{v}</div>
+              {item.maindraw.map((v: string, index: number) => (
+                <div key={`id-${item.id}-maindraw-${index}`}>{v}</div>
               ))}
             </div>
           </div>
