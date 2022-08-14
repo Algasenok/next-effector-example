@@ -10,6 +10,8 @@ interface Props {
 }
 
 export function LotteryCard({ cardInfo }: Props) {
+  const isCircleMainDrow =
+    cardInfo.maindraw.findIndex(item => /\D/.test(item) || item.length >= 3) === -1;
   return (
     <div className={styles.card}>
       <div className={styles.logoContainer}>
@@ -23,7 +25,7 @@ export function LotteryCard({ cardInfo }: Props) {
           <span className={styles.date}>
             {ReactHtmlParser(getDateForLottery(cardInfo.datemodified))}
           </span>
-          <ul className={cn(styles.list, cardInfo.maindraw.length > 6 ? styles.noCircle : '')}>
+          <ul className={cn(styles.list, isCircleMainDrow ? '' : styles.noCircle)}>
             {cardInfo.maindraw.map((number, index) => (
               <li key={`number-${index}`} className={styles.circle}>
                 {number}

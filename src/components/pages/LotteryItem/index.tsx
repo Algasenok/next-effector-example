@@ -18,12 +18,14 @@ export function LotteryItem({ lotteryPage, regions, lotteryInfo }: Props) {
   const post = lotteryPage;
   const [headingsList, setHeadingsList] = useState<any>([]);
 
+  if (!post) {
+    return <ErrorPage statusCode={404} />;
+  }
+
   useEffect(() => {
     const headings = document.getElementsByTagName('H2');
     const list = Array.from(headings);
     setHeadingsList(list);
-
-    // const cardItem = document.getElementsByTagName('LotteryCard');
   }, []);
 
   const scrollToHeading = (element: any) => {
@@ -47,7 +49,8 @@ export function LotteryItem({ lotteryPage, regions, lotteryInfo }: Props) {
             return null;
           }
           default: {
-            return ReactHtmlParser(itemContent);
+            const content = itemContent.replace('/uploads/', `${API_CRM_URL_DEV}/uploads/`);
+            return ReactHtmlParser(content);
           }
         }
       });
@@ -55,13 +58,6 @@ export function LotteryItem({ lotteryPage, regions, lotteryInfo }: Props) {
     }
     return [];
   };
-
-  if (!post) {
-    return <ErrorPage statusCode={404} />;
-  }
-
-  // TODO Убрать это после того как фотки будут храниться в яндекс клауде
-  post.content = post.content.replace('/uploads/', `${API_CRM_URL_DEV}/uploads/`);
 
   return (
     <NewsLayout

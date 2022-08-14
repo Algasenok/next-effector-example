@@ -86,10 +86,12 @@
   list-style: none;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   width: 288px;
 
   @media #{$laptop} {
     margin: 0;
+    justify-content: flex-start;
   }
 }
 
@@ -107,6 +109,7 @@
   background: #2953A2;
   border: 1px solid rgba(255, 255, 255, 0.4);
   padding: 7px 10px;
+  margin-bottom: 16px;
 
   &:last-child {
     margin-right: 0;
@@ -117,6 +120,7 @@
   .circle {
     background: none;
     border: 1px solid transparent;
+    margin-bottom: 0;
   }
 }
 
@@ -146,8 +150,8 @@
 
 .flag {
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 10px;
+  top: 10px;
   width: 32px;
   height: 32px;
 }
@@ -172,7 +176,7 @@
 }
 
 .latestResult {
-  margin-bottom: 24px;
+  margin-bottom: 8px;
 
   .date {
     margin-bottom: 12px;
@@ -184,7 +188,7 @@
 
   @media #{$laptop} {
     display: block;
-    margin-bottom: 24px;
+    margin-bottom: 8px;
   }
 
   @media #{$desktop} {

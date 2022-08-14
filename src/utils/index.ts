@@ -30,7 +30,7 @@ export const getLotteryCardInfo = (data: LotteryCardItem[]): any => {
       switch (key) {
         case 'maindraw':
         case 'history': {
-          if (!lotteryInfo[key].length) {
+          if (lotteryInfo[key] && !lotteryInfo[key].length) {
             lotteryInfo[key] = dataItem[key];
           }
           break;
@@ -52,7 +52,18 @@ export const getLotteryCardInfo = (data: LotteryCardItem[]): any => {
       }
     });
   });
-  return lotteryInfo;
+  if (
+    lotteryInfo.datemodified &&
+    lotteryInfo.datecreated &&
+    lotteryInfo.jackpot &&
+    lotteryInfo.nextdraw &&
+    lotteryInfo.maindraw.length &&
+    lotteryInfo.date &&
+    lotteryInfo.name
+  ) {
+    return lotteryInfo;
+  }
+  return null;
 };
 
 export const getDateForLottery = (date: string): string => {

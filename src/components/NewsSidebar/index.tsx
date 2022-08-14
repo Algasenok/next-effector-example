@@ -46,7 +46,7 @@ export function NewsSidebar({ className = '', place = 'news', categories = [] }:
         break;
       }
     }
-  }, [categories]);
+  }, [categories, router.asPath]);
 
   const handleClick = ({ text, link, sysname }: LinkProps) => {
     changeSidebarActiveTab(text);
