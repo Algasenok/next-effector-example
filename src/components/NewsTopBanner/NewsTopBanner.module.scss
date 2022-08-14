@@ -1,22 +1,22 @@
 .newsTopBanner {
   width: 100%;
   padding: 30px 0 60px;
-  background: url('/images/newsBanner/news-banner-mob.png') no-repeat 100% 0 / 100%;
+  background: url('/images/newsBanner/news-banner-mob.png') no-repeat 100%;
   position: relative;
   overflow: hidden;
   min-height: 320px;
 
   @media #{$tablet} {
-    background: url('/images/newsBanner/news-banner-tab.png') no-repeat 100% 0 / 100%;
+    background: url('/images/newsBanner/news-banner-tab.png') no-repeat 100%;
   }
 
   @media #{$laptop} {
-    background: url('/images/newsBanner/news-banner-laptop.png') no-repeat 100% 0 / 100%;
+    background: url('/images/newsBanner/news-banner-laptop.png') no-repeat 100%;
     padding: 40px 0 60px;
   }
 
   @media #{$desktop} {
-    background: url('/images/newsBanner/news-banner-desk.png') no-repeat 100% 0 / 100%;
+    background: url('/images/newsBanner/news-banner-desk.png') no-repeat 100%;
   }
 }
 

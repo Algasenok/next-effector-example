@@ -52,14 +52,9 @@
 
 .newsLayoutContainer {
   width: 100%;
-  display: grid;
-  grid-gap: 0;
-  grid-template-areas:
-    "tabs"
-    "sidebar"
-    "wrapper";
 
   @media #{$laptop} {
+    display: grid;
     grid-template-columns: 266px auto;
     grid-gap: 0 34px;
     grid-template-areas:
