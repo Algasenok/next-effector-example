@@ -1,6 +1,6 @@
 import { Api } from '@/axios/Api';
 import { AxiosPromise } from 'axios';
-import { API_CRM_URL_DEV } from 'config/index';
+import { API_CRM_URL_DEV, API_LOTTERY_URL } from 'config/index';
 import qs from 'qs';
 
 const apiUrl = API_CRM_URL_DEV;
@@ -131,7 +131,7 @@ export class API {
     });
 
     return Api.get(
-      `https://lotteryhub.bookieratings.net/modules/lottery-hub/lottery/get.json?${query}`,
+      `${API_LOTTERY_URL}/modules/lottery-hub/lottery/get.json?${query}`,
       {},
       {
         headers: {

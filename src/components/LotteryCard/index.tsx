@@ -4,6 +4,7 @@ import styles from './LotteryCard.module.scss';
 import { LotteryCardItem } from '@/types/types';
 import ReactHtmlParser from 'react-html-parser';
 import { NATIONAL_LOTTERIES, REGION_NAMES } from '@/utils/const';
+import { API_LOTTERY_URL } from 'config';
 
 interface Props {
   cardInfo: LotteryCardItem;
@@ -12,11 +13,59 @@ interface Props {
 export function LotteryCard({ cardInfo }: Props) {
   const isCircleMainDrow =
     cardInfo.maindraw.findIndex(item => /\D/.test(item) || item.length >= 3) === -1;
+  const isImageMainDrow =
+    cardInfo.maindraw.findIndex(item => String(item).includes('files/files')) !== -1;
+
+  const getMaindrawList = () => {
+    if (isImageMainDrow) {
+      return (
+        <ul className={styles.list}>
+          {cardInfo.maindraw.map((url, index) => (
+            <li key={`image-maindraw-${index}`} className={styles.maindrawImg}>
+              <img src={`${API_LOTTERY_URL}/${url}`} alt="" />
+            </li>
+          ))}
+          {cardInfo.bonusorgrand && String(cardInfo.bonusorgrand).includes('files/files') ? (
+            <li key="bonusogrand" className={styles.maindrawImg}>
+              <img src={`${API_LOTTERY_URL}/${cardInfo.bonusorgrand}`} alt="" />
+            </li>
+          ) : cardInfo.bonusorgrand ? (
+            <li key="bonusogrand" className={cn(styles.circle, styles.circleBonusMobile)}>
+              {cardInfo.bonusorgrand}
+            </li>
+          ) : null}
+        </ul>
+      );
+    }
+    return (
+      <ul className={cn(styles.list, isCircleMainDrow ? '' : styles.noCircle)}>
+        {cardInfo.maindraw.map((number, index) => (
+          <li key={`number-${index}`} className={styles.circle}>
+            {number}
+          </li>
+        ))}
+        {cardInfo.bonusorgrand ? (
+          <li key="bonusogrand" className={cn(styles.circle, styles.circleBonusMobile)}>
+            {cardInfo.bonusorgrand}
+          </li>
+        ) : null}
+      </ul>
+    );
+  };
+
   return (
     <div className={styles.card}>
       <div className={styles.logoContainer}>
         <div className={styles.logoContainerImg}>
-          <img src={cardInfo.logo} alt={cardInfo.name} width="120" />
+          <img
+            src={
+              cardInfo.key === 'BC49'
+                ? 'https://lotteryhub.bookieratings.net/files/files/BC49.png'
+                : cardInfo.logo
+            }
+            alt={cardInfo.name}
+            width="120"
+          />
         </div>
       </div>
       <div className={styles.wrap}>
@@ -25,18 +74,7 @@ export function LotteryCard({ cardInfo }: Props) {
           <span className={styles.date}>
             {ReactHtmlParser(getDateForLottery(cardInfo.datemodified))}
           </span>
-          <ul className={cn(styles.list, isCircleMainDrow ? '' : styles.noCircle)}>
-            {cardInfo.maindraw.map((number, index) => (
-              <li key={`number-${index}`} className={styles.circle}>
-                {number}
-              </li>
-            ))}
-            {cardInfo.bonusorgrand ? (
-              <li key="bonusogrand" className={cn(styles.circle, styles.circleBonusMobile)}>
-                {cardInfo.bonusorgrand}
-              </li>
-            ) : null}
-          </ul>
+          {getMaindrawList()}
         </div>
         {cardInfo.bonusorgrand ? (
           <div className={styles.bonus}>

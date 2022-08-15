@@ -49,11 +49,13 @@ export function NewsSidebar({ className = '', place = 'news', categories = [] }:
   }, [categories, router.asPath]);
 
   const handleClick = ({ text, link, sysname }: LinkProps) => {
-    changeSidebarActiveTab(text);
     const routeParams = {
       pathname: link,
       query: {},
     };
+    if (place !== 'lottery') {
+      changeSidebarActiveTab(text);
+    }
     if (place !== 'about') {
       const query = router.query || {};
       delete query['url'];
