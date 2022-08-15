@@ -4,7 +4,6 @@ import { LinkProps, LotteryRegionPage } from '@/types/types';
 import ReactHtmlParser from 'react-html-parser';
 import { API_CRM_URL_DEV } from 'config';
 import { LotteryCard, BaseLink } from '@/components';
-import cn from 'classnames';
 
 interface Props {
   page: LotteryRegionPage | null;
@@ -47,7 +46,7 @@ export function LotteryRegionItem({ page, regions, regionsCards }: Props) {
           default: {
             // TODO Убрать это после того как фотки будут храниться в яндекс клауде
             const content = itemContent.replace('/uploads/', `${API_CRM_URL_DEV}/uploads/`);
-            return ReactHtmlParser(content);
+            return <div className="singlePage">{ReactHtmlParser(content)}</div>;
           }
         }
       });
@@ -64,7 +63,7 @@ export function LotteryRegionItem({ page, regions, regionsCards }: Props) {
       place="lottery"
     >
       <h1 className={styles.lotteryRegionItemTitle}>{post.region.name}</h1>
-      <div className={cn(styles.lotteryRegionItem, 'singlePage')}>{formattedContent()}</div>
+      <div className={styles.lotteryRegionItem}>{formattedContent()}</div>
     </NewsLayout>
   );
 }

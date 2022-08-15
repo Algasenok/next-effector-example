@@ -14,16 +14,16 @@ export function TopBanner() {
     {
       title: 'Learn more about gambling',
       description: 'Our articles & help resources to help you know more about gambling',
-      buttonText: 'Raise a complaint',
-      link: '/',
+      buttonText: 'Learn More',
+      link: '/knowledge',
     },
     {
       title: 'Ways to stay safe when gambling',
       description:
         'Our guides offer help and information to keep yourself safe when gambling and how ' +
         'to get help if you need it.',
-      buttonText: 'Raise a complaint',
-      link: '/',
+      buttonText: 'Read more',
+      link: '/knowledge',
     },
   ];
 

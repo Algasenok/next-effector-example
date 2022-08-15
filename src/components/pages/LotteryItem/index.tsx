@@ -2,7 +2,6 @@ import styles from './LotteryItem.module.scss';
 import { NewsLayout } from '@/layouts/NewsLayout';
 import { LinkProps, LotteryCardItem, LotteryPage } from '@/types/types';
 import ReactHtmlParser from 'react-html-parser';
-import cn from 'classnames';
 import { API_CRM_URL_DEV } from 'config';
 import { useEffect, useState } from 'react';
 import { LotteryCard, PageSubheadings, LotteryWinnersTable } from '@/components';
@@ -50,7 +49,7 @@ export function LotteryItem({ lotteryPage, regions, lotteryInfo }: Props) {
           }
           default: {
             const content = itemContent.replace('/uploads/', `${API_CRM_URL_DEV}/uploads/`);
-            return ReactHtmlParser(content);
+            return <div className="singlePage">{ReactHtmlParser(content)}</div>;
           }
         }
       });
@@ -76,7 +75,7 @@ export function LotteryItem({ lotteryPage, regions, lotteryInfo }: Props) {
         ) : null}
       </div>
       <h1 className={styles.lotteryItemTitle}>{post.title}</h1>
-      <div className={cn(styles.lotteryItem, 'singlePage')}>{formattedContent()}</div>
+      <div className={styles.lotteryItem}>{formattedContent()}</div>
     </NewsLayout>
   );
 }
