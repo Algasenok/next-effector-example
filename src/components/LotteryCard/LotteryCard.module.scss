@@ -205,6 +205,7 @@
   }
 
   @media #{$desktop} {
+    //margin-top: -55px;
     grid-column: 1;
     grid-row: 2;
   }
@@ -224,6 +225,7 @@
   margin-bottom: 24px;
 
   @media #{$desktop} {
+    position: absolute;
     grid-column: 2 / 3;
     grid-row: 1/2;
     margin-top: 70px
