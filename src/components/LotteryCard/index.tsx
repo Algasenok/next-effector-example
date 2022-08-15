@@ -96,11 +96,16 @@ export function LotteryCard({ cardInfo }: Props) {
         </div>
         {Object.keys(cardInfo?.tags).length ? (
           <div className={styles.container}>
-            {Object.keys(cardInfo.tags).map(tagSysname => (
-              <div key={`tag${tagSysname}`} className={styles.item}>{`${
-                REGION_NAMES[tagSysname] || tagSysname
-              }: ${cardInfo.tags[tagSysname]}`}</div>
-            ))}
+            {Object.keys(cardInfo.tags).map(tagSysname => {
+              if (REGION_NAMES[tagSysname]) {
+                return (
+                  <div key={`tag${tagSysname}`} className={styles.item}>{`${
+                    REGION_NAMES[tagSysname] || tagSysname
+                  }: ${cardInfo.tags[tagSysname]}`}</div>
+                );
+              }
+              return null;
+            })}
           </div>
         ) : null}
       </div>

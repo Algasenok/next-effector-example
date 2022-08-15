@@ -66,9 +66,9 @@ export function KnowledgeItem({ singlePage, tags }: Props) {
       )}
       <div className={styles.knowledgeItemHead}>
         <img src={post.img} alt="" className={styles.knowledgeItemTopImg} />
-        {headingsList.length && (
+        {headingsList.length ? (
           <PageSubheadings links={headingsList} onClickHandler={scrollToHeading} />
-        )}
+        ) : null}
       </div>
       <div className={cn(styles.knowledgeItem, 'singlePage')}>{ReactHtmlParser(post.content)}</div>
       <div className={styles.knowledgeItemTags}>

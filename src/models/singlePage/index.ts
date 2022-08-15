@@ -85,11 +85,14 @@ $singlePage.on(getSinglePageFx.doneData, (_, data) => {
       id: data.data.attributes.category.data.id,
       ...data.data.attributes.category.data.attributes,
     },
-    author: {
-      id: data.author.id,
-      ...data.author.attributes,
-      avatar: `${API_CRM_URL_DEV}${data.author.attributes.avatar.data.attributes.url}`,
-    },
+    author:
+      data.author?.id && data.author.attributes
+        ? {
+            id: data.author.id,
+            ...data.author.attributes,
+            avatar: `${API_CRM_URL_DEV}${data.author?.attributes.avatar.data.attributes.url}`,
+          }
+        : {},
     prevPage: data.prevPage?.attributes?.url
       ? `/${data.prevPage.attributes.category.data.attributes.sysname}/${data.prevPage.attributes.url}`
       : null,
