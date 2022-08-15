@@ -10,6 +10,13 @@
   margin-bottom: 25px;
   background: linear-gradient(#284981, #2c3d75, #373d7e, #41457d);
 
+  .title {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 26px;
+    margin-bottom: 8px;
+  }
+
   @media #{$laptop} {
     padding: 0;
     display: grid;
@@ -76,7 +83,6 @@
   @media #{$desktop} {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    //grid-template-rows: 68px 68px auto;
   }
 }
 
@@ -145,10 +151,6 @@
   img {
     width: 100%;
   }
-}
-
-.title {
-  margin-bottom: 8px;
 }
 
 .date {
@@ -220,4 +222,10 @@
 
 .nextJackpot {
   margin-bottom: 24px;
+
+  @media #{$desktop} {
+    grid-column: 2 / 3;
+    grid-row: 1/2;
+    margin-top: 70px
+  }
 }
