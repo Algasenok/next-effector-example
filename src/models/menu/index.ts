@@ -1,5 +1,5 @@
 import { createEffect, createEvent, createStore, sample } from 'effector';
-import { LinkProps, HeaderMenu } from '@/types/types';
+import { LinkProps, HeaderMenu, BreadcrumbsTypes } from '@/types/types';
 import { API } from '@/api';
 
 const getTagsForCurrentCategoryFx = createEffect(async (url: string) => {
@@ -36,11 +36,17 @@ export const $sidebarActiveTab = createStore<string>('');
 export const $tagsListForCategory = createStore<LinkProps[]>([]);
 export const $footerMenu = createStore<LinkProps[]>([]);
 export const $headerMenu = createStore<HeaderMenu[]>([]);
+export const $breadcrumb = createStore<BreadcrumbsTypes>({
+  breadcrumb: '',
+  href: '',
+  isLastElement: true,
+});
 
 export const setSidebarActiveTab = createEvent<string>();
 export const getCategoryTagsForSinglePage = createEvent<string>('');
 export const getCategoryTags = createEvent<any>({});
 export const getMenu = createEvent();
+export const changeBreadcrumb = createEvent<BreadcrumbsTypes>();
 
 $sidebarActiveTab.on(setSidebarActiveTab, (_, tabName) => tabName);
 
@@ -62,6 +68,8 @@ $tagsListForCategory.on(getCategoryTags, (_, data) => {
 
 $footerMenu.on(getFooterMenuFx.doneData, (_, data) => data.attributes.link);
 $headerMenu.on(getHeaderMenuFx.doneData, (_, data) => data?.attributes?.menu_category);
+
+$breadcrumb.on(changeBreadcrumb, (_, data) => data);
 
 sample({
   source: getCategoryTagsForSinglePage,

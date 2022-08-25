@@ -7,10 +7,9 @@ import { getShortDate } from '@/utils';
 import { API_CRM_URL_DEV } from 'config';
 import { useEffect, useState } from 'react';
 import { PagePrevAndNextButton, PageSubheadings } from '@/components';
-import ErrorPage from 'next/error';
 
 interface Props {
-  singlePage: SinglePage | null;
+  singlePage: SinglePage;
   tags: LinkProps[];
 }
 
@@ -27,10 +26,6 @@ export function KnowledgeItem({ singlePage, tags }: Props) {
   const scrollToHeading = (element: any) => {
     element.scrollIntoView({ behavior: 'smooth' });
   };
-
-  if (!post) {
-    return <ErrorPage statusCode={404} />;
-  }
 
   // TODO Убрать это после того как фотки будут храниться в яндекс клауде
   post.content = post.content.replace('/uploads/', `${API_CRM_URL_DEV}/uploads/`);

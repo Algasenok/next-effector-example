@@ -6,16 +6,22 @@ import { getSinglePageItem, $singlePage } from '@/models/singlePage';
 import { LinkProps, SinglePage } from '@/types/types';
 import { useStore } from 'effector-react/scope';
 import { $tagsListForCategory } from '@/models/menu';
+import ErrorPage from 'next/error';
 
 const KnowledgeItemPage: NextPage = () => {
   const singlePage = useStore<SinglePage | null>($singlePage);
   const tags = useStore<LinkProps[]>($tagsListForCategory);
 
+  if (!singlePage) {
+    return <ErrorPage statusCode={404} />;
+  }
+
   return (
     <>
       <Head>
-        <title>{singlePage ? singlePage?.title : ''}</title>
-        <meta name="description" content={singlePage ? singlePage?.description : ''} />
+        <title>{singlePage?.title}</title>
+        <meta name="description" content={singlePage?.description} />
+        <meta httpEquiv="Last-Modified" content={new Date(singlePage?.updatedAt).toUTCString()} />
       </Head>
       <KnowledgeItem singlePage={singlePage} tags={tags} />
     </>

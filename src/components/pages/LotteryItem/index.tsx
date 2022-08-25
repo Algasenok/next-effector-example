@@ -5,10 +5,9 @@ import ReactHtmlParser from 'react-html-parser';
 import { API_CRM_URL_DEV } from 'config';
 import { useEffect, useState } from 'react';
 import { LotteryCard, PageSubheadings, LotteryWinnersTable } from '@/components';
-import ErrorPage from 'next/error';
 
 interface Props {
-  lotteryPage: LotteryPage | null;
+  lotteryPage: LotteryPage;
   regions: LinkProps[];
   lotteryInfo: LotteryCardItem;
 }
@@ -16,10 +15,6 @@ interface Props {
 export function LotteryItem({ lotteryPage, regions, lotteryInfo }: Props) {
   const post = lotteryPage;
   const [headingsList, setHeadingsList] = useState<any>([]);
-
-  if (!post) {
-    return <ErrorPage statusCode={404} />;
-  }
 
   useEffect(() => {
     const headings = document.getElementsByTagName('H2');

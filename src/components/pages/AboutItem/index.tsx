@@ -7,16 +7,12 @@ import { PagePrevAndNextButton } from '@/components';
 import cn from 'classnames';
 
 interface Props {
-  pageItem: SinglePage | null;
+  pageItem: SinglePage;
   pagesForCategory: LinkProps[];
 }
 
 export function AboutItem({ pageItem, pagesForCategory }: Props) {
   const post = pageItem;
-
-  if (!post) {
-    return <div />;
-  }
   // TODO Убрать это после того как фотки будут храниться в яндекс клауде
   post.content = post.content.replace('/uploads/', `${API_CRM_URL_DEV}/uploads/`);
 

@@ -10,17 +10,23 @@ import {
   $lotteryRegions,
   $lotteryInfoItem,
 } from '@/models/LotteryPage';
+import ErrorPage from 'next/error';
 
 const LotteryItemPage: NextPage = () => {
   const lotteryPage = useStore<LotteryPage | null>($lotteryPage);
   const regions = useStore<LinkProps[]>($lotteryRegions);
   const lotteryInfo = useStore<LotteryCardItem>($lotteryInfoItem);
 
+  if (!lotteryPage) {
+    return <ErrorPage statusCode={404} />;
+  }
+
   return (
     <>
       <Head>
-        <title>{lotteryPage ? lotteryPage?.title : ''}</title>
-        <meta name="description" content={lotteryPage ? lotteryPage?.description : ''} />
+        <title>{lotteryPage?.title}</title>
+        <meta name="description" content={lotteryPage?.description} />
+        <meta httpEquiv="Last-Modified" content={new Date(lotteryPage?.updatedAt).toUTCString()} />
       </Head>
       <LotteryItem lotteryPage={lotteryPage} regions={regions} lotteryInfo={lotteryInfo} />
     </>

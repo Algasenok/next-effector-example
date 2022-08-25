@@ -3,6 +3,7 @@ import { LinkProps, LotteryCardItem, LotteryPage, LotteryRegionPage } from '@/ty
 import { API } from '@/api';
 import { API_CRM_URL_DEV } from 'config';
 import { getLotteryCardInfo } from '@/utils';
+import { changeBreadcrumb } from '@/models/menu';
 
 export const $lotteryPage = createStore<LotteryPage | null>(null);
 export const $lotteryRegions = createStore<LinkProps[]>([]);
@@ -121,12 +122,18 @@ $lotteryRegionInfoItem.on(getLotteryRegionInfoFx.doneData, (_, data) => {
 
 $lotteryPage.on(getLotteryPageFx.doneData, (_, data) => {
   // TODO Исправить урл после того как картинки будут храниться в яндекс клауде
-  if (data) {
+  if (data && data.attributes) {
     const formattedData = {
       ...data.attributes,
       id: data.id,
+      url: `/lotteries/${data.attributes.url}`,
       img: `${API_CRM_URL_DEV}${data.attributes?.img?.data?.attributes?.url}`,
     };
+    changeBreadcrumb({
+      breadcrumb: formattedData.breadcrumbName || formattedData.h1,
+      href: formattedData.url,
+      isLastElement: true,
+    });
     return formattedData;
   }
   return null;
@@ -154,7 +161,12 @@ $lotteryRegions.on(getLotteryRegionsListFx.doneData, (_, data) => {
 });
 
 $lotteryRegionItem.on(getLotteryRegionItemFx.doneData, (_, data) => {
-  if (data) {
+  if (data && data.attributes) {
+    changeBreadcrumb({
+      breadcrumb: data.attributes.region[0].breadcrumbName || data.attributes.region[0].h1,
+      href: `/${data.attributes.url}/${data.attributes.region[0].url}`,
+      isLastElement: true,
+    });
     return {
       id: data.id,
       ...data.attributes,

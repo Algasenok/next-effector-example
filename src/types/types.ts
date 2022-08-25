@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { string } from 'prop-types';
 
 export interface BaseButtonsProps {
   children: ReactNode;
@@ -84,11 +83,13 @@ export interface SinglePage {
   h1: string;
   introduction: string;
   publishedAt: string;
+  updatedAt: string;
   img: string;
   content: string;
   tags: Tag[];
   category: Category;
   author: Author;
+  breadcrumbName: string;
   prevPage: string;
   nextPage: string;
 }
@@ -99,6 +100,7 @@ export interface LotteryCountry {
   url: string;
   introduction: string;
   publishedAt: string;
+  updatedAt: string;
   region: any;
 }
 
@@ -110,6 +112,7 @@ export interface LotteryPage {
   h1: string;
   introduction: string;
   publishedAt: string;
+  updatedAt: string;
   img: string;
   content: string;
   lotteryKey: string;

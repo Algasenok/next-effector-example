@@ -6,17 +6,13 @@ import { API_CRM_URL_DEV } from 'config';
 import { LotteryCard, BaseLink } from '@/components';
 
 interface Props {
-  page: LotteryRegionPage | null;
+  page: LotteryRegionPage;
   regions: LinkProps[];
   regionsCards: any[];
 }
 
 export function LotteryRegionItem({ page, regions, regionsCards }: Props) {
   const post = page;
-
-  if (!post || !post.region) {
-    return <div />;
-  }
   /*
    TODO RA-98 Спарсить текст (аналогично тому, как это сделано на странице lotteries/[url].
     Вставить карточки с лотереями вместо ключа $$lotteryCard$$

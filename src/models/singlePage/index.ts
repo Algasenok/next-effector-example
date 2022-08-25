@@ -2,7 +2,7 @@ import { combine, createEffect, createEvent, createStore, restore, sample } from
 import { SinglePage } from '@/types/types';
 import { API } from '@/api';
 import { API_CRM_URL_DEV } from 'config';
-import { getCategoryTagsForSinglePage } from '@/models/menu';
+import { changeBreadcrumb, getCategoryTagsForSinglePage } from '@/models/menu';
 
 export const $singlePage = createStore<SinglePage | null>(null);
 
@@ -75,31 +75,40 @@ export const getSinglePageItem = createEvent();
 
 $singlePage.on(getSinglePageFx.doneData, (_, data) => {
   // TODO Исправить урл после того как картинки будут храниться в яндекс клауде
-  const formattedData = {
-    ...data.data.attributes,
-    id: data.data.id,
-    img: `${API_CRM_URL_DEV}${data.data.attributes.img.data.attributes.url}`,
-    tags: data.data.attributes.tags.data.map((tag: any) => ({ id: tag.id, ...tag.attributes })),
-    category: {
-      id: data.data.attributes.category.data.id,
-      ...data.data.attributes.category.data.attributes,
-    },
-    author:
-      data.author?.id && data.author.attributes
-        ? {
-            id: data.author.id,
-            ...data.author.attributes,
-            avatar: `${API_CRM_URL_DEV}${data.author?.attributes.avatar.data.attributes.url}`,
-          }
-        : {},
-    prevPage: data.prevPage?.attributes?.url
-      ? `/${data.prevPage.attributes.category.data.attributes.sysname}/${data.prevPage.attributes.url}`
-      : null,
-    nextPage: data.nextPage?.attributes?.url
-      ? `/${data.nextPage.attributes.category.data.attributes.sysname}/${data.nextPage.attributes.url}`
-      : null,
-  };
-  return formattedData;
+  if (data.data && data.data.attributes) {
+    const formattedData = {
+      ...data.data.attributes,
+      id: data.data.id,
+      img: `${API_CRM_URL_DEV}${data.data.attributes.img.data.attributes.url}`,
+      tags: data.data.attributes.tags.data.map((tag: any) => ({ id: tag.id, ...tag.attributes })),
+      category: {
+        id: data.data.attributes.category.data.id,
+        ...data.data.attributes.category.data.attributes,
+      },
+      url: `/${data.data.attributes.category.data.attributes.sysname}/${data.data.attributes.url}`,
+      author:
+        data.author?.id && data.author.attributes
+          ? {
+              id: data.author.id,
+              ...data.author.attributes,
+              avatar: `${API_CRM_URL_DEV}${data.author?.attributes.avatar.data.attributes.url}`,
+            }
+          : {},
+      prevPage: data.prevPage?.attributes?.url
+        ? `/${data.prevPage.attributes.category.data.attributes.sysname}/${data.prevPage.attributes.url}`
+        : null,
+      nextPage: data.nextPage?.attributes?.url
+        ? `/${data.nextPage.attributes.category.data.attributes.sysname}/${data.nextPage.attributes.url}`
+        : null,
+    };
+    changeBreadcrumb({
+      breadcrumb: formattedData.breadcrumbName || formattedData.h1,
+      href: formattedData.url,
+      isLastElement: true,
+    });
+    return formattedData;
+  }
+  return null;
 });
 
 sample({

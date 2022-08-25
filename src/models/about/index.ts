@@ -1,7 +1,7 @@
 import { createEffect, createEvent, createStore, sample } from 'effector';
 import { API } from '@/api';
 import { LinkProps, SinglePage } from '@/types/types';
-import { setSidebarActiveTab } from '@/models/menu';
+import { changeBreadcrumb, setSidebarActiveTab } from '@/models/menu';
 
 export const getAboutPageItemFx = createEffect(async (url: string) => {
   const params = {
@@ -28,9 +28,17 @@ export const getAboutPagesList = createEvent();
 
 export const $aboutPageItem = createStore<SinglePage | null>(null);
 $aboutPageItem.on(getAboutPageItemFx.doneData, (_, data) => {
-  const formattedData = { id: data.id, ...data.attributes, url: `/about/${data.attributes.url}` };
-  setSidebarActiveTab(formattedData.title);
-  return formattedData;
+  if (data && data.attributes) {
+    const formattedData = { id: data.id, ...data.attributes, url: `/about/${data.attributes.url}` };
+    setSidebarActiveTab(formattedData.title);
+    changeBreadcrumb({
+      breadcrumb: formattedData.breadcrumbName || formattedData.h1,
+      href: formattedData.url,
+      isLastElement: true,
+    });
+    return formattedData;
+  }
+  return null;
 });
 
 export const $aboutPages = createStore<LinkProps[]>([]);

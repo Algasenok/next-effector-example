@@ -10,17 +10,22 @@ import {
   getLotteryRegionItem,
   $lotteryRegionInfoItem,
 } from '@/models/LotteryPage';
+import ErrorPage from 'next/error';
 
 const CanadaLotteryPage: NextPage = () => {
   const regionPage = useStore<LotteryRegionPage | null>($lotteryRegionItem);
   const regions = useStore<LinkProps[]>($lotteryRegions);
   const regionsCards = useStore<any[]>($lotteryRegionInfoItem);
 
+  if (!regionPage || !regionPage.region) {
+    return <ErrorPage statusCode={404} />;
+  }
+
   return (
     <>
       <Head>
-        <title>{regionPage ? regionPage.region?.title : ''}</title>
-        <meta name="description" content={regionPage ? regionPage.region?.description : ''} />
+        <title>{regionPage.region?.title}</title>
+        <meta name="description" content={regionPage.region?.description} />
       </Head>
       <LotteryRegionItem page={regionPage} regions={regions} regionsCards={regionsCards} />
     </>
