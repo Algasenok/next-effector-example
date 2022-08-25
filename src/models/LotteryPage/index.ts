@@ -84,7 +84,7 @@ const getLotteryRegionsListFx = createEffect(async (urlParams: any) => {
     fields: ['url'],
     populate: {
       region: {
-        fields: ['url', 'name'],
+        fields: ['url', 'h1'],
       },
     },
   };
@@ -136,7 +136,7 @@ $lotteryRegions.on(getLotteryPageFx.doneData, (_, data) => {
   if (data && data.attributes.lottery_country) {
     const lotteryCountry = data.attributes.lottery_country.data.attributes || {};
     const formattedData = lotteryCountry.region.map((region: any) => ({
-      text: region.name,
+      text: region.h1,
       link: `/${lotteryCountry.url}/${region.url}`,
     }));
     return formattedData;
@@ -147,7 +147,7 @@ $lotteryRegions.on(getLotteryPageFx.doneData, (_, data) => {
 $lotteryRegions.on(getLotteryRegionsListFx.doneData, (_, data) => {
   const lotteryCountry = data.attributes;
   const formattedData = lotteryCountry.region.map((region: any) => ({
-    text: region.name,
+    text: region.h1,
     link: `/${lotteryCountry.url}/${region.url}`,
   }));
   return formattedData;

@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import Head from 'next/head';
 import { LotteryItem } from '@/components';
 import { createGIP } from '@/models/shared';
 import { LinkProps, LotteryCardItem, LotteryPage } from '@/types/types';
@@ -15,7 +16,15 @@ const LotteryItemPage: NextPage = () => {
   const regions = useStore<LinkProps[]>($lotteryRegions);
   const lotteryInfo = useStore<LotteryCardItem>($lotteryInfoItem);
 
-  return <LotteryItem lotteryPage={lotteryPage} regions={regions} lotteryInfo={lotteryInfo} />;
+  return (
+    <>
+      <Head>
+        <title>{lotteryPage ? lotteryPage?.title : ''}</title>
+        <meta name="description" content={lotteryPage ? lotteryPage?.description : ''} />
+      </Head>
+      <LotteryItem lotteryPage={lotteryPage} regions={regions} lotteryInfo={lotteryInfo} />
+    </>
+  );
 };
 
 LotteryItemPage.getInitialProps = createGIP({

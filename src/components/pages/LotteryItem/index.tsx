@@ -43,13 +43,19 @@ export function LotteryItem({ lotteryPage, regions, lotteryInfo }: Props) {
           }
           case 'LotteryWinnersTable': {
             if (lotteryInfo) {
-              return <LotteryWinnersTable lotteryInfo={lotteryInfo} />;
+              return (
+                <LotteryWinnersTable key={`lotteryWinners${index}`} lotteryInfo={lotteryInfo} />
+              );
             }
             return null;
           }
           default: {
             const content = itemContent.replace('/uploads/', `${API_CRM_URL_DEV}/uploads/`);
-            return <div className="singlePage">{ReactHtmlParser(content)}</div>;
+            return (
+              <div key={`lotteryContent${index}`} className="singlePage">
+                {ReactHtmlParser(content)}
+              </div>
+            );
           }
         }
       });
@@ -60,8 +66,8 @@ export function LotteryItem({ lotteryPage, regions, lotteryInfo }: Props) {
 
   return (
     <NewsLayout
-      title={post.title}
-      description={post.description}
+      title={post.h1}
+      description={post.introduction}
       categories={regions}
       place="lottery"
     >
@@ -74,7 +80,7 @@ export function LotteryItem({ lotteryPage, regions, lotteryInfo }: Props) {
           />
         ) : null}
       </div>
-      <h1 className={styles.lotteryItemTitle}>{post.title}</h1>
+      <h1 className={styles.lotteryItemTitle}>{post.h1}</h1>
       <div className={styles.lotteryItem}>{formattedContent()}</div>
     </NewsLayout>
   );

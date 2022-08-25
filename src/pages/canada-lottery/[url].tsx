@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import Head from 'next/head';
 import { LotteryRegionItem } from '@/components';
 import { createGIP } from '@/models/shared';
 import { LinkProps, LotteryRegionPage } from '@/types/types';
@@ -15,7 +16,15 @@ const CanadaLotteryPage: NextPage = () => {
   const regions = useStore<LinkProps[]>($lotteryRegions);
   const regionsCards = useStore<any[]>($lotteryRegionInfoItem);
 
-  return <LotteryRegionItem page={regionPage} regions={regions} regionsCards={regionsCards} />;
+  return (
+    <>
+      <Head>
+        <title>{regionPage ? regionPage.region?.title : ''}</title>
+        <meta name="description" content={regionPage ? regionPage.region?.description : ''} />
+      </Head>
+      <LotteryRegionItem page={regionPage} regions={regions} regionsCards={regionsCards} />
+    </>
+  );
 };
 
 CanadaLotteryPage.getInitialProps = createGIP({

@@ -34,7 +34,7 @@ export function AboutItem({ pageItem, pagesForCategory }: Props) {
       categories={pagesForCategory}
       place="about"
     >
-      <h1 className={styles.aboutPageItemTitle}>{post.title}</h1>
+      <h1 className={styles.aboutPageItemTitle}>{post.h1}</h1>
       <div className={cn(styles.aboutPageItemContent, 'singlePage')}>
         {ReactHtmlParser(post.content)}
       </div>

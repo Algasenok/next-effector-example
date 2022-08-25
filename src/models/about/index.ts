@@ -17,7 +17,7 @@ export const getAboutPageItemFx = createEffect(async (url: string) => {
 
 export const getAboutPagesFx = createEffect(async () => {
   const params = {
-    fields: ['url', 'title'],
+    fields: ['url', 'h1'],
   };
   const { data } = await API.getAboutPages(params);
   return data.data;
@@ -37,7 +37,7 @@ export const $aboutPages = createStore<LinkProps[]>([]);
 $aboutPages.on(getAboutPagesFx.doneData, (_, data) => {
   const aboutPages = data.map((itemPage: any) => {
     return {
-      text: itemPage.attributes.title,
+      text: itemPage.attributes.h1,
       link: `/about/${itemPage.attributes.url}`,
     };
   });

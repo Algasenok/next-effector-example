@@ -19,13 +19,13 @@ export function KnowledgePage({ pagesList, categoryInfo, pagination }: Props) {
   const [pageNumberChange] = useEvent([changePageNumber]);
 
   useEffect(() => {
-    if (categoryInfo) {
+    if (currentCategory) {
       setCategories(
-        categoryInfo.tags.map(tag => ({
+        currentCategory.tags.map(tag => ({
           id: tag.id,
           text: tag.tagName,
           sysname: tag.sysname,
-          link: `/${categoryInfo.sysname}`,
+          link: `/${currentCategory.sysname}`,
         })),
       );
     }
@@ -34,7 +34,7 @@ export function KnowledgePage({ pagesList, categoryInfo, pagination }: Props) {
   return (
     <NewsLayout
       title={currentCategory ? currentCategory.name : ''}
-      description={currentCategory ? currentCategory.description : ''}
+      description={currentCategory ? currentCategory.introduction : ''}
       categories={categories}
       place="news"
     >

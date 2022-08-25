@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import Head from 'next/head';
 import { KnowledgeItem } from '@/components';
 import { createGIP } from '@/models/shared';
 import { getSinglePageItem, $singlePage } from '@/models/singlePage';
@@ -10,7 +11,15 @@ const KnowledgeItemPage: NextPage = () => {
   const singlePage = useStore<SinglePage | null>($singlePage);
   const tags = useStore<LinkProps[]>($tagsListForCategory);
 
-  return <KnowledgeItem singlePage={singlePage} tags={tags} />;
+  return (
+    <>
+      <Head>
+        <title>{singlePage ? singlePage?.title : ''}</title>
+        <meta name="description" content={singlePage ? singlePage?.description : ''} />
+      </Head>
+      <KnowledgeItem singlePage={singlePage} tags={tags} />
+    </>
+  );
 };
 
 KnowledgeItemPage.getInitialProps = createGIP({

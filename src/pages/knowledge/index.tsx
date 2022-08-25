@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import Head from 'next/head';
 import { KnowledgePage } from '@/components';
 import { createGIP } from '@/models/shared';
 import {
@@ -16,13 +17,15 @@ const Knowledge: NextPage = () => {
   const pagination = useStore<any>($paginationData);
 
   return (
-    <KnowledgePage pagesList={pagesList} categoryInfo={categoryInfo} pagination={pagination} />
+    <>
+      <Head>
+        <title>{categoryInfo ? categoryInfo?.title : ''}</title>
+        <meta name="description" content={categoryInfo ? categoryInfo?.description : ''} />
+      </Head>
+      <KnowledgePage pagesList={pagesList} categoryInfo={categoryInfo} pagination={pagination} />
+    </>
   );
 };
-
-// export const getStaticProps = createGSP({
-//   pageEvent: initNewsPage,
-// });
 
 Knowledge.getInitialProps = createGIP({
   pageEvent: initNewsPage,

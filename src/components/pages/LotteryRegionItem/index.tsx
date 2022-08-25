@@ -24,7 +24,7 @@ export function LotteryRegionItem({ page, regions, regionsCards }: Props) {
 
   const formattedContent = () => {
     if (post) {
-      const contentList = post.region.content.split('$$').map(itemContent => {
+      const contentList = post.region.content.split('$$').map((itemContent, index) => {
         switch (itemContent.trim()) {
           case 'lotteryCard': {
             if (regionsCards) {
@@ -46,7 +46,11 @@ export function LotteryRegionItem({ page, regions, regionsCards }: Props) {
           default: {
             // TODO Убрать это после того как фотки будут храниться в яндекс клауде
             const content = itemContent.replace('/uploads/', `${API_CRM_URL_DEV}/uploads/`);
-            return <div className="singlePage">{ReactHtmlParser(content)}</div>;
+            return (
+              <div key={`content-${index}`} className="singlePage">
+                {ReactHtmlParser(content)}
+              </div>
+            );
           }
         }
       });
@@ -57,12 +61,12 @@ export function LotteryRegionItem({ page, regions, regionsCards }: Props) {
 
   return (
     <NewsLayout
-      title={post.title}
-      description={post.description}
+      title={post.h1}
+      description={post.introduction}
       categories={regions}
       place="lottery"
     >
-      <h1 className={styles.lotteryRegionItemTitle}>{post.region.name}</h1>
+      <h1 className={styles.lotteryRegionItemTitle}>{post.region.h1}</h1>
       <div className={styles.lotteryRegionItem}>{formattedContent()}</div>
     </NewsLayout>
   );

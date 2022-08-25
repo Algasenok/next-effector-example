@@ -5,7 +5,6 @@ import { API_CRM_URL_DEV } from 'config';
 import { getCategoryTagsForSinglePage } from '@/models/menu';
 
 export const $singlePage = createStore<SinglePage | null>(null);
-export const $anotherPages = createStore<any>(null);
 
 const getSinglePageFx = createEffect(async (url: string) => {
   const params = {

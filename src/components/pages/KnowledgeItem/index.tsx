@@ -7,6 +7,7 @@ import { getShortDate } from '@/utils';
 import { API_CRM_URL_DEV } from 'config';
 import { useEffect, useState } from 'react';
 import { PagePrevAndNextButton, PageSubheadings } from '@/components';
+import ErrorPage from 'next/error';
 
 interface Props {
   singlePage: SinglePage | null;
@@ -28,7 +29,7 @@ export function KnowledgeItem({ singlePage, tags }: Props) {
   };
 
   if (!post) {
-    return <div />;
+    return <ErrorPage statusCode={404} />;
   }
 
   // TODO Убрать это после того как фотки будут храниться в яндекс клауде
@@ -41,7 +42,7 @@ export function KnowledgeItem({ singlePage, tags }: Props) {
       categories={tags}
       place="newsItem"
     >
-      <h1 className={styles.knowledgeItemTitle}>{post.title}</h1>
+      <h1 className={styles.knowledgeItemTitle}>{post.h1}</h1>
       {Object.keys(post.author).length && (
         <div className={styles.knowledgeItemAuthorInfo}>
           <img

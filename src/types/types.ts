@@ -63,6 +63,8 @@ export interface Tag {
 
 export interface Category {
   name: string;
+  introduction: string;
+  title: string;
   description: string;
   sysname: string;
   tags: Tag[];
@@ -79,6 +81,8 @@ export interface SinglePage {
   title: string;
   url: string;
   description: string;
+  h1: string;
+  introduction: string;
   publishedAt: string;
   img: string;
   content: string;
@@ -91,9 +95,9 @@ export interface SinglePage {
 
 export interface LotteryCountry {
   id: number;
-  title: string;
+  h1: string;
   url: string;
-  description: string;
+  introduction: string;
   publishedAt: string;
   region: any;
 }
@@ -103,6 +107,8 @@ export interface LotteryPage {
   title: string;
   url: string;
   description: string;
+  h1: string;
+  introduction: string;
   publishedAt: string;
   img: string;
   content: string;
@@ -112,16 +118,18 @@ export interface LotteryPage {
 
 export interface LotteryRegionInfo {
   id: number;
-  name: string;
+  h1: string;
   url: string;
   content: string;
   source: string;
+  title: string;
+  description: string;
 }
 
 export interface LotteryRegionPage {
   id: number;
-  title: string;
-  description: string;
+  h1: string;
+  introduction: string;
   url: string;
   region: LotteryRegionInfo;
   lottery_pages: any;
