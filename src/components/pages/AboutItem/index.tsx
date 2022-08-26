@@ -3,7 +3,7 @@ import { NewsLayout } from '@/layouts/NewsLayout';
 import { LinkProps, SinglePage } from '@/types/types';
 import ReactHtmlParser from 'react-html-parser';
 import { API_CRM_URL_DEV } from 'config';
-import { PagePrevAndNextButton } from '@/components';
+import { PagePrevAndNextButton, Faq } from '@/components';
 import cn from 'classnames';
 
 interface Props {
@@ -34,6 +34,7 @@ export function AboutItem({ pageItem, pagesForCategory }: Props) {
       <div className={cn(styles.aboutPageItemContent, 'singlePage')}>
         {ReactHtmlParser(post.content)}
       </div>
+      {post.faq && post.faq.faqItems ? <Faq data={post.faq} /> : null}
       <PagePrevAndNextButton prevPage={prevPage} nextPage={nextPage} />
     </NewsLayout>
   );

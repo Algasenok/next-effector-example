@@ -75,6 +75,17 @@ export interface Author {
   avatar: string;
 }
 
+interface FaqItem {
+  id: number;
+  question: string;
+  answer: string;
+}
+
+export interface FaqType {
+  h2: string;
+  faqItems: FaqItem[];
+}
+
 export interface SinglePage {
   id: number;
   title: string;
@@ -92,6 +103,7 @@ export interface SinglePage {
   breadcrumbName: string;
   prevPage: string;
   nextPage: string;
+  faq: FaqType;
 }
 
 export interface LotteryCountry {
@@ -117,6 +129,7 @@ export interface LotteryPage {
   content: string;
   lotteryKey: string;
   lottery_country: LotteryCountry;
+  faq: FaqType;
 }
 
 export interface LotteryRegionInfo {

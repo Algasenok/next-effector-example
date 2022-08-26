@@ -6,7 +6,7 @@ import cn from 'classnames';
 import { getShortDate } from '@/utils';
 import { API_CRM_URL_DEV } from 'config';
 import { useEffect, useState } from 'react';
-import { PagePrevAndNextButton, PageSubheadings } from '@/components';
+import { Faq, PagePrevAndNextButton, PageSubheadings } from '@/components';
 
 interface Props {
   singlePage: SinglePage;
@@ -38,7 +38,7 @@ export function KnowledgeItem({ singlePage, tags }: Props) {
       place="newsItem"
     >
       <h1 className={styles.knowledgeItemTitle}>{post.h1}</h1>
-      {Object.keys(post.author).length && (
+      {Object.keys(post.author).length ? (
         <div className={styles.knowledgeItemAuthorInfo}>
           <img
             src={post.author.avatar}
@@ -59,7 +59,7 @@ export function KnowledgeItem({ singlePage, tags }: Props) {
             </div>
           </div>
         </div>
-      )}
+      ) : null}
       <div className={styles.knowledgeItemHead}>
         <img src={post.img} alt="" className={styles.knowledgeItemTopImg} />
         {headingsList.length ? (
@@ -67,6 +67,7 @@ export function KnowledgeItem({ singlePage, tags }: Props) {
         ) : null}
       </div>
       <div className={cn(styles.knowledgeItem, 'singlePage')}>{ReactHtmlParser(post.content)}</div>
+      {post.faq && post.faq.faqItems ? <Faq data={post.faq} /> : null}
       <div className={styles.knowledgeItemTags}>
         {post.tags.map(({ tagName }) => (
           <div key={`newsTag${tagName}`} className={styles.knowledgeItemTagItem}>

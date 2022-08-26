@@ -5,6 +5,7 @@ import { changeBreadcrumb, setSidebarActiveTab } from '@/models/menu';
 
 export const getAboutPageItemFx = createEffect(async (url: string) => {
   const params = {
+    populate: 'deep',
     filters: {
       url: {
         $eq: url,

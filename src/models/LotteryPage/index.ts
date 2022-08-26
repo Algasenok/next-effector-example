@@ -21,12 +21,10 @@ const getLotteryPageFx = createEffect(async (url: string) => {
     populate: {
       lottery_country: { populate: ['region'] },
       img: { fields: ['url'] },
+      faq: { populate: '*' },
     },
   };
   const { data } = await API.getLotteryItem(params);
-  // if (data.data[0] && data.data[0].attributes?.lotteryKey) {
-  //   await getLotteryInfoFx(data.data[0].attributes?.lotteryKey);
-  // }
   return data.data[0];
 });
 

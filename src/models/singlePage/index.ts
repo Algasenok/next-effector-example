@@ -8,12 +8,15 @@ export const $singlePage = createStore<SinglePage | null>(null);
 
 const getSinglePageFx = createEffect(async (url: string) => {
   const params = {
+    populate: 'deep',
     filters: {
       url: {
         $eq: url,
       },
     },
   };
+  // TODO Переписать этот кусок. Скорее всего я не мог получить автора из за populate -
+  //  проблема решена и можно уложиться в один запрос
   const paramsAuthor = {
     populate: ['avatar'],
     filters: {

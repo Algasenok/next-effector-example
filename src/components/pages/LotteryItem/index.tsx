@@ -4,7 +4,7 @@ import { LinkProps, LotteryCardItem, LotteryPage } from '@/types/types';
 import ReactHtmlParser from 'react-html-parser';
 import { API_CRM_URL_DEV } from 'config';
 import { useEffect, useState } from 'react';
-import { LotteryCard, PageSubheadings, LotteryWinnersTable } from '@/components';
+import { LotteryCard, PageSubheadings, LotteryWinnersTable, Faq } from '@/components';
 
 interface Props {
   lotteryPage: LotteryPage;
@@ -77,6 +77,7 @@ export function LotteryItem({ lotteryPage, regions, lotteryInfo }: Props) {
       </div>
       <h1 className={styles.lotteryItemTitle}>{post.h1}</h1>
       <div className={styles.lotteryItem}>{formattedContent()}</div>
+      {post.faq && post.faq.faqItems ? <Faq data={post.faq} /> : null}
     </NewsLayout>
   );
 }
