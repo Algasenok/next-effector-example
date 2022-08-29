@@ -1,10 +1,9 @@
 import styles from './Knowledge.module.scss';
 import { NewsLayout } from '@/layouts/NewsLayout';
 import { NewsCardItem, Pagination } from '@/components';
-import { changePageNumber } from '@/models/newsPage';
 import { Category, LinkProps, SinglePageCard } from '@/types/types';
 import { useEffect, useState } from 'react';
-import { useEvent } from 'effector-react/scope';
+import { useRouter } from 'next/router';
 
 interface Props {
   pagesList: SinglePageCard[];
@@ -16,7 +15,24 @@ export function KnowledgePage({ pagesList, categoryInfo, pagination }: Props) {
   const pages = pagesList;
   const currentCategory = categoryInfo;
   const [categories, setCategories] = useState<LinkProps[]>([]);
-  const [pageNumberChange] = useEvent([changePageNumber]);
+  const router = useRouter();
+
+  const pageNumberChange = (value: number) => {
+    const routeParams = {
+      query: {},
+    };
+    const query = router.query || {};
+    const page = query.page ? Number(query.page) : 1;
+    if (page !== value) {
+      if (value === 1) {
+        delete query['page'];
+        routeParams.query = { ...query };
+      } else {
+        routeParams.query = { ...query, page: value };
+      }
+      router.push(routeParams, undefined, { scroll: false });
+    }
+  };
 
   useEffect(() => {
     if (currentCategory) {

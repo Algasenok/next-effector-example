@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 
 interface getPagesProps {
   category: string;
-  pageNumber?: number;
+  page?: number;
   tag?: string;
   type?: string;
 }
@@ -24,7 +24,7 @@ interface ParamsTypes {
 }
 
 export const getPagesForCategoryFx = createEffect(
-  async ({ category, pageNumber = 1, tag = '', type = 'Blog' }: getPagesProps) => {
+  async ({ category, page = 1, tag = '', type = 'Blog' }: getPagesProps) => {
     const params: ParamsTypes = {
       filters: {
         category: {
@@ -39,8 +39,8 @@ export const getPagesForCategoryFx = createEffect(
       populate: ['img', 'tags'],
       sort: ['publishedAt:asc'],
       pagination: {
-        page: pageNumber,
-        pageSize: 10,
+        page,
+        pageSize: 1,
       },
     };
     if (tag) {
@@ -69,7 +69,6 @@ const getCategoryInfoFx = createEffect(async ({ category }: any) => {
 });
 
 export const initNewsPage = createEvent();
-export const changePageNumber = createEvent<number>();
 
 export const $pagesForCategoryPage = createStore<SinglePageCard[]>([]);
 export const $paginationData = createStore<any>({});
@@ -107,15 +106,6 @@ sample({
     return { category: 'knowledge', ...query };
   },
   target: [getPagesForCategoryFx, getCategoryInfoFx],
-});
-
-sample({
-  source: changePageNumber,
-  fn: page => {
-    const query = useRouter().query;
-    return { category: 'knowledge', pageNumber: page, ...query };
-  },
-  target: [getPagesForCategoryFx],
 });
 
 export const $categoryPageData = combine({
