@@ -26,6 +26,10 @@ const CanadaLotteryPage: NextPage = () => {
       <Head>
         <title>{regionPage.region?.title}</title>
         <meta name="description" content={regionPage.region?.description} />
+        <meta
+          httpEquiv="Last-Modified"
+          content={new Date(regionPage.region?.updatedAt).toUTCString()}
+        />
       </Head>
       <LotteryRegionItem page={regionPage} regions={regions} regionsCards={regionsCards} />
     </>

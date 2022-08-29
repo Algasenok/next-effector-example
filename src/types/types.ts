@@ -113,7 +113,7 @@ export interface LotteryCountry {
   introduction: string;
   publishedAt: string;
   updatedAt: string;
-  region: any;
+  regions: any;
 }
 
 export interface LotteryPage {
@@ -140,6 +140,9 @@ export interface LotteryRegionInfo {
   source: string;
   title: string;
   description: string;
+  publishedAt: string;
+  updatedAt: string;
+  faq: FaqType;
 }
 
 export interface LotteryRegionPage {

@@ -19,7 +19,7 @@ const getLotteryPageFx = createEffect(async (url: string) => {
       },
     },
     populate: {
-      lottery_country: { populate: ['region'] },
+      lottery_country: { populate: ['regions'] },
       img: { fields: ['url'] },
       faq: { populate: '*' },
     },
@@ -57,10 +57,15 @@ const getLotteryRegionItemFx = createEffect(async (urlParams: any) => {
       },
     },
     populate: {
-      region: {
+      regions: {
         filters: {
           url: {
             $eq: urlParams.params.url,
+          },
+        },
+        populate: {
+          faq: {
+            populate: '*',
           },
         },
       },
@@ -82,7 +87,7 @@ const getLotteryRegionsListFx = createEffect(async (urlParams: any) => {
     },
     fields: ['url'],
     populate: {
-      region: {
+      regions: {
         fields: ['url', 'h1'],
       },
     },
@@ -126,6 +131,8 @@ $lotteryPage.on(getLotteryPageFx.doneData, (_, data) => {
       id: data.id,
       url: `/lotteries/${data.attributes.url}`,
       img: `${API_CRM_URL_DEV}${data.attributes?.img?.data?.attributes?.url}`,
+      // TODO Вернуться сюда
+      // regions: data.attributes.regions?.data.map(region => )
     };
     changeBreadcrumb({
       breadcrumb: formattedData.breadcrumbName || formattedData.h1,
@@ -140,9 +147,9 @@ $lotteryPage.on(getLotteryPageFx.doneData, (_, data) => {
 $lotteryRegions.on(getLotteryPageFx.doneData, (_, data) => {
   if (data && data.attributes.lottery_country) {
     const lotteryCountry = data.attributes.lottery_country.data.attributes || {};
-    const formattedData = lotteryCountry.region.map((region: any) => ({
-      text: region.h1,
-      link: `/${lotteryCountry.url}/${region.url}`,
+    const formattedData = lotteryCountry.regions.data?.map((region: any) => ({
+      text: region.attributes.h1,
+      link: `/${lotteryCountry.url}/${region.attributes.url}`,
     }));
     return formattedData;
   }
@@ -151,9 +158,9 @@ $lotteryRegions.on(getLotteryPageFx.doneData, (_, data) => {
 
 $lotteryRegions.on(getLotteryRegionsListFx.doneData, (_, data) => {
   const lotteryCountry = data.attributes;
-  const formattedData = lotteryCountry.region.map((region: any) => ({
-    text: region.h1,
-    link: `/${lotteryCountry.url}/${region.url}`,
+  const formattedData = lotteryCountry.regions.data.map((region: any) => ({
+    text: region.attributes.h1,
+    link: `/${lotteryCountry.url}/${region.attributes.url}`,
   }));
   return formattedData;
 });
@@ -161,14 +168,18 @@ $lotteryRegions.on(getLotteryRegionsListFx.doneData, (_, data) => {
 $lotteryRegionItem.on(getLotteryRegionItemFx.doneData, (_, data) => {
   if (data && data.attributes) {
     changeBreadcrumb({
-      breadcrumb: data.attributes.region[0].breadcrumbName || data.attributes.region[0].h1,
-      href: `/${data.attributes.url}/${data.attributes.region[0].url}`,
+      breadcrumb:
+        data.attributes.regions.data[0].attributes.breadcrumbName || data.attributes.regions.data[0].attributes.h1,
+      href: `/${data.attributes.url}/${data.attributes.regions.data[0].attributes.url}`,
       isLastElement: true,
     });
     return {
       id: data.id,
       ...data.attributes,
-      region: data.attributes.region[0],
+      region: {
+        id: data.attributes.regions.data[0].id,
+        ...data.attributes.regions.data[0].attributes,
+      },
       lottery_pages: data.attributes.lottery_pages.data.map((lotteryPage: any) => ({
         url: `/lotteries/${lotteryPage.attributes.url}`,
         lotteryKey: lotteryPage.attributes.lotteryKey,

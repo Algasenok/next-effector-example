@@ -3,7 +3,7 @@ import { NewsLayout } from '@/layouts/NewsLayout';
 import { LinkProps, LotteryRegionPage } from '@/types/types';
 import ReactHtmlParser from 'react-html-parser';
 import { API_CRM_URL_DEV } from 'config';
-import { LotteryCard, BaseLink } from '@/components';
+import { LotteryCard, BaseLink, Faq } from '@/components';
 
 interface Props {
   page: LotteryRegionPage;
@@ -13,10 +13,6 @@ interface Props {
 
 export function LotteryRegionItem({ page, regions, regionsCards }: Props) {
   const post = page;
-  /*
-   TODO RA-98 Спарсить текст (аналогично тому, как это сделано на странице lotteries/[url].
-    Вставить карточки с лотереями вместо ключа $$lotteryCard$$
-   */
 
   const formattedContent = () => {
     if (post) {
@@ -64,6 +60,7 @@ export function LotteryRegionItem({ page, regions, regionsCards }: Props) {
     >
       <h1 className={styles.lotteryRegionItemTitle}>{post.region.h1}</h1>
       <div className={styles.lotteryRegionItem}>{formattedContent()}</div>
+      {post.region.faq && post.region.faq.faqItems ? <Faq data={post.region.faq} /> : null}
     </NewsLayout>
   );
 }
