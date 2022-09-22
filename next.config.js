@@ -7,6 +7,9 @@ const nextConfig = {
     includePaths: ['src/styles'],
     prependData: `@import "_mixins.sass"; @import "variables.scss";`,
   },
+  env: {
+    API_CRM_URL: process.env.API_CRM_URL,
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
@@ -22,6 +25,14 @@ const nextConfig = {
     });
     // config.plugins.push(new StylelintPlugin());
     return config;
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/sitemap.xml',
+        destination: `${process.env.API_CRM_URL}/sitemap/index.xml`,
+      },
+    ];
   },
 };
 
