@@ -86,7 +86,7 @@ export interface FaqType {
   faqItems: FaqItem[];
 }
 
-export interface SinglePage {
+export interface BlogPage {
   id: number;
   title: string;
   url: string;
@@ -154,7 +154,7 @@ export interface LotteryRegionPage {
   lottery_pages: any;
 }
 
-export interface SinglePageCard {
+export interface blogPageCard {
   id: number;
   title: string;
   url: string;
@@ -181,4 +181,26 @@ export interface LotteryCardItem {
   history: any[];
   tag?: number;
   source?: string;
+}
+
+export interface Microdata {
+  title: string;
+  description: string;
+  h1: string;
+  introduction: string;
+  img?: string;
+  publishedAt: string;
+  updatedAt: string;
+  author?: Author;
+}
+
+export interface MainPage {
+  h1: string;
+  introduction: string;
+  title: string;
+  description: string;
+  content: string;
+  lotteryKeys: string[];
+  updatedAt: string;
+  publishedAt: string;
 }

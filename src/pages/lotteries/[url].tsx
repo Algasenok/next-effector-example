@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import { LotteryItem } from '@/components';
 import { createGIP } from '@/models/shared';
-import { LinkProps, LotteryCardItem, LotteryPage } from '@/types/types';
+import { BreadcrumbsTypes, LinkProps, LotteryCardItem, LotteryPage } from '@/types/types';
 import { useStore } from 'effector-react/scope';
 import {
   getLotteryPageItem,
@@ -11,11 +11,14 @@ import {
   $lotteryInfoItem,
 } from '@/models/LotteryPage';
 import ErrorPage from 'next/error';
+import { getBreadcrumbList, getBreadcrumbsJsonLd, getFaqJsonLd, getJsonLd } from '@/utils';
+import { $breadcrumb } from '@/models/menu';
 
 const LotteryItemPage: NextPage = () => {
   const lotteryPage = useStore<LotteryPage | null>($lotteryPage);
   const regions = useStore<LinkProps[]>($lotteryRegions);
   const lotteryInfo = useStore<LotteryCardItem>($lotteryInfoItem);
+  const lastBreadcrumb = useStore<BreadcrumbsTypes>($breadcrumb);
 
   if (!lotteryPage) {
     return <ErrorPage statusCode={404} />;
@@ -27,6 +30,22 @@ const LotteryItemPage: NextPage = () => {
         <title>{lotteryPage?.title}</title>
         <meta name="description" content={lotteryPage?.description} />
         <meta httpEquiv="Last-Modified" content={new Date(lotteryPage?.updatedAt).toUTCString()} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(getJsonLd(lotteryPage)) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(getBreadcrumbsJsonLd(getBreadcrumbList(lastBreadcrumb))),
+          }}
+        />
+        {lotteryPage.faq ? (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(getFaqJsonLd(lotteryPage.faq)) }}
+          />
+        ) : null}
       </Head>
       <LotteryItem lotteryPage={lotteryPage} regions={regions} lotteryInfo={lotteryInfo} />
     </>

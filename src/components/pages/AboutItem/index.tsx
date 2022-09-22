@@ -1,13 +1,13 @@
 import styles from './AboutItem.module.scss';
 import { NewsLayout } from '@/layouts/NewsLayout';
-import { LinkProps, SinglePage } from '@/types/types';
+import { LinkProps, BlogPage } from '@/types/types';
 import ReactHtmlParser from 'react-html-parser';
 import { API_CRM_URL_DEV } from 'config';
 import { PagePrevAndNextButton, Faq } from '@/components';
 import cn from 'classnames';
 
 interface Props {
-  pageItem: SinglePage;
+  pageItem: BlogPage;
   pagesForCategory: LinkProps[];
 }
 
@@ -25,13 +25,13 @@ export function AboutItem({ pageItem, pagesForCategory }: Props) {
 
   return (
     <NewsLayout
-      title={post.title}
-      description={post.description}
+      title={post.h1}
+      description={post.introduction}
       categories={pagesForCategory}
       place="about"
     >
       <h1 className={styles.aboutPageItemTitle}>{post.h1}</h1>
-      <div className={cn(styles.aboutPageItemContent, 'singlePage')}>
+      <div className={cn(styles.aboutPageItemContent, 'blogPage')}>
         {ReactHtmlParser(post.content)}
       </div>
       {post.faq && post.faq.faqItems ? <Faq data={post.faq} /> : null}

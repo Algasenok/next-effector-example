@@ -1,17 +1,16 @@
 import { NextPage } from 'next';
-import { AboutItem } from '@/components';
+import { SinglePageItem } from '@/components';
 import { createGIP } from '@/models/shared';
-import { getAboutPageItem, $aboutPageItem, $aboutPages } from '@/models/about';
 import { useStore } from 'effector-react/scope';
-import { LinkProps, BlogPage, BreadcrumbsTypes } from '@/types/types';
+import { BlogPage, BreadcrumbsTypes } from '@/types/types';
 import Head from 'next/head';
 import ErrorPage from 'next/error';
+import { $singlePageItem, getSinglePageItem } from '@/models/singlePage';
 import { getBreadcrumbList, getBreadcrumbsJsonLd, getFaqJsonLd, getJsonLd } from '@/utils';
 import { $breadcrumb } from '@/models/menu';
 
-const AboutRG: NextPage = () => {
-  const pageItem = useStore<BlogPage | null>($aboutPageItem);
-  const pagesForCategory = useStore<LinkProps[]>($aboutPages);
+const SinglePage: NextPage = () => {
+  const pageItem = useStore<BlogPage | null>($singlePageItem);
   const lastBreadcrumb = useStore<BreadcrumbsTypes>($breadcrumb);
 
   if (!pageItem) {
@@ -41,13 +40,13 @@ const AboutRG: NextPage = () => {
           />
         ) : null}
       </Head>
-      <AboutItem pageItem={pageItem} pagesForCategory={pagesForCategory} />;
+      <SinglePageItem pageItem={pageItem} />;
     </>
   );
 };
 
-AboutRG.getInitialProps = createGIP({
-  pageEvent: getAboutPageItem,
+SinglePage.getInitialProps = createGIP({
+  pageEvent: getSinglePageItem,
 });
 
-export default AboutRG;
+export default SinglePage;

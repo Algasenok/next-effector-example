@@ -2,34 +2,53 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import { KnowledgeItem } from '@/components';
 import { createGIP } from '@/models/shared';
-import { getSinglePageItem, $singlePage } from '@/models/singlePage';
-import { LinkProps, SinglePage } from '@/types/types';
+import { getBlogPageItem, $blogPage } from '@/models/blogPage';
+import { LinkProps, BlogPage, BreadcrumbsTypes } from '@/types/types';
 import { useStore } from 'effector-react/scope';
-import { $tagsListForCategory } from '@/models/menu';
+import { $breadcrumb, $tagsListForCategory } from '@/models/menu';
 import ErrorPage from 'next/error';
+import { getJsonLd, getFaqJsonLd, getBreadcrumbsJsonLd, getBreadcrumbList } from '@/utils';
 
 const KnowledgeItemPage: NextPage = () => {
-  const singlePage = useStore<SinglePage | null>($singlePage);
+  const blogPage = useStore<BlogPage | null>($blogPage);
   const tags = useStore<LinkProps[]>($tagsListForCategory);
+  const lastBreadcrumb = useStore<BreadcrumbsTypes>($breadcrumb);
 
-  if (!singlePage) {
+  if (!blogPage) {
     return <ErrorPage statusCode={404} />;
   }
 
   return (
     <>
       <Head>
-        <title>{singlePage?.title}</title>
-        <meta name="description" content={singlePage?.description} />
-        <meta httpEquiv="Last-Modified" content={new Date(singlePage?.updatedAt).toUTCString()} />
+        <title>{blogPage?.title}</title>
+        <meta name="description" content={blogPage?.description} />
+        <meta httpEquiv="Last-Modified" content={new Date(blogPage?.updatedAt).toUTCString()} />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(getJsonLd(blogPage)) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(getBreadcrumbsJsonLd(getBreadcrumbList(lastBreadcrumb))),
+          }}
+        />
+        {blogPage.faq ? (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(getFaqJsonLd(blogPage.faq)) }}
+          />
+        ) : null}
       </Head>
-      <KnowledgeItem singlePage={singlePage} tags={tags} />
+      <KnowledgeItem blogPage={blogPage} tags={tags} />
     </>
   );
 };
 
 KnowledgeItemPage.getInitialProps = createGIP({
-  pageEvent: getSinglePageItem,
+  pageEvent: getBlogPageItem,
 });
 
 export default KnowledgeItemPage;

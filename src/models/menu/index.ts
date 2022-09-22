@@ -5,7 +5,7 @@ import { API } from '@/api';
 const getTagsForCurrentCategoryFx = createEffect(async (url: string) => {
   const params = {
     filters: {
-      single_pages: {
+      blog_pages: {
         url: {
           $eq: url,
         },
@@ -43,7 +43,7 @@ export const $breadcrumb = createStore<BreadcrumbsTypes>({
 });
 
 export const setSidebarActiveTab = createEvent<string>();
-export const getCategoryTagsForSinglePage = createEvent<string>('');
+export const getCategoryTagsForBlogPage = createEvent<string>('');
 export const getCategoryTags = createEvent<any>({});
 export const getMenu = createEvent();
 export const changeBreadcrumb = createEvent<BreadcrumbsTypes>();
@@ -72,7 +72,7 @@ $headerMenu.on(getHeaderMenuFx.doneData, (_, data) => data?.attributes?.menu_cat
 $breadcrumb.on(changeBreadcrumb, (_, data) => data);
 
 sample({
-  source: getCategoryTagsForSinglePage,
+  source: getCategoryTagsForBlogPage,
   fn: url => url,
   target: getTagsForCurrentCategoryFx,
 });

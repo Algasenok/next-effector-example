@@ -10,7 +10,7 @@ interface Props {
 
 export const LotteryWinnersTable: React.FC<Props> = ({ lotteryInfo }) => {
   return (
-    <div className="singlePage">
+    <div className="blogPage">
       <h2>Latest Winning Numbers</h2>
       <div className={styles.winnerTable}>
         <div className={styles.winnerTableHeader}>{`${lotteryInfo.name} History Results`}</div>

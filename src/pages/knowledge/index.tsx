@@ -9,11 +9,12 @@ import {
   $pagesForCategoryPage,
 } from '@/models/newsPage';
 import { useStore } from 'effector-react/scope';
-import { Category, SinglePageCard } from '@/types/types';
+import { Category, blogPageCard } from '@/types/types';
 import { useRouter } from 'next/router';
+import { getBreadcrumbList, getBreadcrumbsJsonLd } from '@/utils';
 
 const Knowledge: NextPage = () => {
-  const pagesList = useStore<SinglePageCard[]>($pagesForCategoryPage);
+  const pagesList = useStore<blogPageCard[]>($pagesForCategoryPage);
   const categoryInfo = useStore<Category | null>($currentCategory);
   const pagination = useStore<any>($paginationData);
   const router = useRouter();
@@ -30,6 +31,12 @@ const Knowledge: NextPage = () => {
         <meta
           name="description"
           content={categoryInfo ? categoryInfo.description + metaPostFix : metaPostFix}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(getBreadcrumbsJsonLd(getBreadcrumbList())),
+          }}
         />
         {isNoIndex ? <meta name="robots" content="noindex" /> : null}
       </Head>

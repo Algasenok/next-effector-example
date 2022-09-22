@@ -36,3 +36,4 @@ export { KnowledgePage } from './pages/Knowledge';
 export { KnowledgeItem } from './pages/KnowledgeItem';
 export { LotteryItem } from './pages/LotteryItem';
 export { LotteryRegionItem } from './pages/LotteryRegionItem';
+export { SinglePageItem } from './pages/SinglePageItem';

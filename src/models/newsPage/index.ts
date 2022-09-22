@@ -2,7 +2,7 @@ import { combine, createEffect, createEvent, createStore, sample } from 'effecto
 import { API } from '@/api';
 import { API_CRM_URL_DEV } from 'config';
 import { getCategoryTags } from '@/models/menu';
-import { Category, SinglePageCard } from '@/types/types';
+import { Category, blogPageCard } from '@/types/types';
 import { useRouter } from 'next/router';
 
 interface getPagesProps {
@@ -40,7 +40,7 @@ export const getPagesForCategoryFx = createEffect(
       sort: ['publishedAt:asc'],
       pagination: {
         page,
-        pageSize: 1,
+        pageSize: 10,
       },
     };
     if (tag) {
@@ -70,7 +70,7 @@ const getCategoryInfoFx = createEffect(async ({ category }: any) => {
 
 export const initNewsPage = createEvent();
 
-export const $pagesForCategoryPage = createStore<SinglePageCard[]>([]);
+export const $pagesForCategoryPage = createStore<blogPageCard[]>([]);
 export const $paginationData = createStore<any>({});
 export const $currentCategory = createStore<Category | null>(null);
 

@@ -39,7 +39,7 @@ export function LotteryRegionItem({ page, regions, regionsCards }: Props) {
             // TODO Убрать это после того как фотки будут храниться в яндекс клауде
             const content = itemContent.replace('/uploads/', `${API_CRM_URL_DEV}/uploads/`);
             return (
-              <div key={`content-${index}`} className="singlePage">
+              <div key={`content-${index}`} className="blogPage">
                 {ReactHtmlParser(content)}
               </div>
             );

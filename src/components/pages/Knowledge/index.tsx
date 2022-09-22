@@ -1,12 +1,12 @@
 import styles from './Knowledge.module.scss';
 import { NewsLayout } from '@/layouts/NewsLayout';
 import { NewsCardItem, Pagination } from '@/components';
-import { Category, LinkProps, SinglePageCard } from '@/types/types';
+import { Category, LinkProps, blogPageCard } from '@/types/types';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 interface Props {
-  pagesList: SinglePageCard[];
+  pagesList: blogPageCard[];
   categoryInfo: Category | null;
   pagination: any;
 }
@@ -55,7 +55,7 @@ export function KnowledgePage({ pagesList, categoryInfo, pagination }: Props) {
       place="news"
     >
       <div className={styles.newsCardsContainer}>
-        {pages.map((page: SinglePageCard, index: number) => (
+        {pages.map((page: blogPageCard, index: number) => (
           <NewsCardItem key={`newsCard${index}`} data={page} />
         ))}
       </div>

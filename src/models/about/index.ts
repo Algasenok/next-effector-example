@@ -1,6 +1,6 @@
 import { createEffect, createEvent, createStore, sample } from 'effector';
 import { API } from '@/api';
-import { LinkProps, SinglePage } from '@/types/types';
+import { LinkProps, BlogPage } from '@/types/types';
 import { changeBreadcrumb, setSidebarActiveTab } from '@/models/menu';
 
 export const getAboutPageItemFx = createEffect(async (url: string) => {
@@ -27,7 +27,7 @@ export const getAboutPagesFx = createEffect(async () => {
 export const getAboutPageItem = createEvent();
 export const getAboutPagesList = createEvent();
 
-export const $aboutPageItem = createStore<SinglePage | null>(null);
+export const $aboutPageItem = createStore<BlogPage | null>(null);
 $aboutPageItem.on(getAboutPageItemFx.doneData, (_, data) => {
   if (data && data.attributes) {
     const formattedData = { id: data.id, ...data.attributes, url: `/about/${data.attributes.url}` };

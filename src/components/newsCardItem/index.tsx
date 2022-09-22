@@ -1,11 +1,11 @@
 import styles from './NewsCardItem.module.scss';
 import { BaseLink } from '@/components';
 import { getShortDate } from '@/utils';
-import { SinglePageCard } from '@/types/types';
+import { blogPageCard } from '@/types/types';
 import ReactHtmlParser from 'react-html-parser';
 
 interface NewsCardItemProps {
-  data: SinglePageCard;
+  data: blogPageCard;
 }
 
 export function NewsCardItem({ data }: NewsCardItemProps) {

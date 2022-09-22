@@ -47,7 +47,7 @@ export function LotteryItem({ lotteryPage, regions, lotteryInfo }: Props) {
           default: {
             const content = itemContent.replace('/uploads/', `${API_CRM_URL_DEV}/uploads/`);
             return (
-              <div key={`lotteryContent${index}`} className="singlePage">
+              <div key={`lotteryContent${index}`} className="blogPage">
                 {ReactHtmlParser(content)}
               </div>
             );

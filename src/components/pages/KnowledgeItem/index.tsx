@@ -1,6 +1,6 @@
 import styles from './KnowledgeItem.module.scss';
 import { NewsLayout } from '@/layouts/NewsLayout';
-import { LinkProps, SinglePage } from '@/types/types';
+import { LinkProps, BlogPage } from '@/types/types';
 import ReactHtmlParser from 'react-html-parser';
 import cn from 'classnames';
 import { getShortDate } from '@/utils';
@@ -9,12 +9,12 @@ import { useEffect, useState } from 'react';
 import { Faq, PagePrevAndNextButton, PageSubheadings } from '@/components';
 
 interface Props {
-  singlePage: SinglePage;
+  blogPage: BlogPage;
   tags: LinkProps[];
 }
 
-export function KnowledgeItem({ singlePage, tags }: Props) {
-  const post = singlePage;
+export function KnowledgeItem({ blogPage, tags }: Props) {
+  const post = blogPage;
   const [headingsList, setHeadingsList] = useState<any>([]);
 
   useEffect(() => {
@@ -66,7 +66,7 @@ export function KnowledgeItem({ singlePage, tags }: Props) {
           <PageSubheadings links={headingsList} onClickHandler={scrollToHeading} />
         ) : null}
       </div>
-      <div className={cn(styles.knowledgeItem, 'singlePage')}>{ReactHtmlParser(post.content)}</div>
+      <div className={cn(styles.knowledgeItem, 'blogPage')}>{ReactHtmlParser(post.content)}</div>
       {post.faq && post.faq.faqItems ? <Faq data={post.faq} /> : null}
       <div className={styles.knowledgeItemTags}>
         {post.tags.map(({ tagName }) => (
