@@ -203,4 +203,5 @@ export interface MainPage {
   lotteryKeys: string[];
   updatedAt: string;
   publishedAt: string;
+  faq: FaqType;
 }

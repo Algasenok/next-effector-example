@@ -9,7 +9,7 @@ import {
   $lotteryPage,
   $lotteryRegions,
   $lotteryInfoItem,
-} from '@/models/LotteryPage';
+} from '@/models/Lottery';
 import ErrorPage from 'next/error';
 import { getBreadcrumbList, getBreadcrumbsJsonLd, getFaqJsonLd, getJsonLd } from '@/utils';
 import { $breadcrumb } from '@/models/menu';

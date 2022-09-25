@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import { createGIP } from '@/models/shared';
 import { useStore } from 'effector-react/scope';
 import { LinkProps } from '@/types/types';
-import { $lotteryRegions, getLotteryCountry } from '@/models/LotteryPage';
+import { $lotteryRegions, getLotteryCountry } from '@/models/Lottery';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 

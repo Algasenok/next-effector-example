@@ -169,10 +169,11 @@ export class API {
     return Api.get(url);
   };
 
-  static getMainPage = (): AxiosPromise => {
+  static getMainPage = (params: any): AxiosPromise => {
     const query = qs.stringify(
       {
         ...defaultParams,
+        ...params,
       },
       {
         encodeValuesOnly: true,

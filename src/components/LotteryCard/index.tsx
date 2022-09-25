@@ -5,16 +5,27 @@ import { LotteryCardItem } from '@/types/types';
 import ReactHtmlParser from 'react-html-parser';
 import { NATIONAL_LOTTERIES, REGION_NAMES } from '@/utils/const';
 import { API_LOTTERY_URL } from 'config';
+import { useRouter } from 'next/router';
 
 interface Props {
   cardInfo: LotteryCardItem;
+  place?: string;
+  urlPage?: string | null | undefined;
 }
 
-export function LotteryCard({ cardInfo }: Props) {
+export function LotteryCard({ cardInfo, place, urlPage }: Props) {
   const isCircleMainDrow =
     cardInfo.maindraw.findIndex(item => /\D/.test(item) || item.length >= 3) === -1;
   const isImageMainDrow =
     cardInfo.maindraw.findIndex(item => String(item).includes('files/files')) !== -1;
+
+  const router = useRouter();
+
+  const handleClick = () => {
+    if (urlPage) {
+      router.push(urlPage);
+    }
+  };
 
   const getMaindrawList = () => {
     if (isImageMainDrow) {
@@ -54,7 +65,10 @@ export function LotteryCard({ cardInfo }: Props) {
   };
 
   return (
-    <div className={styles.card}>
+    <div
+      className={cn(styles.card, styles[`card_${place}`], urlPage ? styles.clickable : '')}
+      onClick={handleClick}
+    >
       <div className={styles.logoContainer}>
         <div className={styles.logoContainerImg}>
           <img

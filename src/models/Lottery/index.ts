@@ -10,6 +10,8 @@ export const $lotteryRegions = createStore<LinkProps[]>([]);
 export const $lotteryRegionItem = createStore<LotteryRegionPage | null>(null);
 export const $lotteryInfoItem = createStore<any | null>(null);
 export const $lotteryRegionInfoItem = createStore<any[]>([]);
+export const $lotteriesForMainPage = createStore<any[]>([]);
+export const $lotteryPagesUrlList = createStore<any[]>([]);
 
 const getLotteryPageFx = createEffect(async (url: string) => {
   const params = {
@@ -96,9 +98,36 @@ const getLotteryRegionsListFx = createEffect(async (urlParams: any) => {
   return data.data[0];
 });
 
+const getLotteriesForMainPageFx = createEffect(async (lotteryKeys: string[]) => {
+  const params = {
+    withHistory: 0,
+    historyLimit: 0,
+    withFullDataFromSource: 0,
+  };
+  const listPromises: any[] = [];
+  lotteryKeys.forEach(key => {
+    listPromises.push(API.getLotteryInfo({ ...params, key }));
+  });
+  const data = await Promise.all(listPromises);
+  return data;
+});
+
+const getLotteryPagesUrlFx = createEffect(async (lotteryKeys: string[]) => {
+  const params = {
+    filters: {
+      lotteryKey: lotteryKeys,
+    },
+    fields: ['lotteryKey', 'url'],
+  };
+  const { data } = await API.getLotteryItem(params);
+  return data.data;
+});
+
 export const getLotteryPageItem = createEvent();
 export const getLotteryRegionItem = createEvent();
 export const getLotteryCountry = createEvent();
+export const getLotteriesForMainPage = createEvent<string[]>();
+export const getLotteryPagesUrl = createEvent<string[]>();
 
 $lotteryInfoItem.on(getLotteryInfoFx.doneData, (_, data) => {
   if (data.length) {
@@ -169,7 +198,8 @@ $lotteryRegionItem.on(getLotteryRegionItemFx.doneData, (_, data) => {
   if (data && data.attributes) {
     changeBreadcrumb({
       breadcrumb:
-        data.attributes.regions.data[0].attributes.breadcrumbName || data.attributes.regions.data[0].attributes.h1,
+        data.attributes.regions.data[0].attributes.breadcrumbName ||
+        data.attributes.regions.data[0].attributes.h1,
       href: `/${data.attributes.url}/${data.attributes.regions.data[0].attributes.url}`,
       isLastElement: true,
     });
@@ -187,6 +217,34 @@ $lotteryRegionItem.on(getLotteryRegionItemFx.doneData, (_, data) => {
     };
   }
   return null;
+});
+
+$lotteriesForMainPage.on(getLotteriesForMainPageFx.doneData, (_, data) => {
+  const formattedData: any[] = [];
+  if (data.length) {
+    data.forEach(lotteryItem => {
+      if (lotteryItem.data.length) {
+        formattedData.push(getLotteryCardInfo(lotteryItem.data));
+      }
+    });
+  }
+  return formattedData;
+});
+
+$lotteryPagesUrlList.on(getLotteryPagesUrlFx.doneData, (_, data) => {
+  if (data && data.length) {
+    const formattedData: any[] = [];
+    data.forEach((lotteryPageItem: any) => {
+      if (lotteryPageItem.attributes.lottery_country) {
+        formattedData.push({
+          lotteryKey: lotteryPageItem.attributes.lotteryKey,
+          url: `${lotteryPageItem.attributes.lottery_country.data.attributes.url}/${lotteryPageItem.attributes.url}`,
+        });
+      }
+    });
+    return formattedData;
+  }
+  return [];
 });
 
 sample({
@@ -229,4 +287,10 @@ sample({
     return '';
   },
   target: getLotteryRegionInfoFx,
+});
+
+sample({
+  source: getLotteriesForMainPage,
+  fn: keysList => keysList,
+  target: [getLotteriesForMainPageFx, getLotteryPagesUrlFx],
 });

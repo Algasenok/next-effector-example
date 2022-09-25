@@ -2,14 +2,14 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import { LotteryRegionItem } from '@/components';
 import { createGIP } from '@/models/shared';
-import {Author, BreadcrumbsTypes, LinkProps, LotteryRegionPage} from '@/types/types';
+import { BreadcrumbsTypes, LinkProps, LotteryRegionPage } from '@/types/types';
 import { useStore } from 'effector-react/scope';
 import {
   $lotteryRegionItem,
   $lotteryRegions,
   getLotteryRegionItem,
   $lotteryRegionInfoItem,
-} from '@/models/LotteryPage';
+} from '@/models/Lottery';
 import ErrorPage from 'next/error';
 import { getBreadcrumbList, getBreadcrumbsJsonLd, getFaqJsonLd, getJsonLd } from '@/utils';
 import { $breadcrumb } from '@/models/menu';
