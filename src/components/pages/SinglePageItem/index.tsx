@@ -1,9 +1,8 @@
 import styles from './SinglePageItem.module.scss';
-import { NewsLayout } from '@/layouts/NewsLayout';
-import { LinkProps, BlogPage } from '@/types/types';
+import { BlogPage } from '@/types/types';
 import ReactHtmlParser from 'react-html-parser';
 import { API_CRM_URL_DEV } from 'config';
-import {PagePrevAndNextButton, Faq, NewsTopBanner, BaseWrapper} from '@/components';
+import { Faq, NewsTopBanner, BaseWrapper } from '@/components';
 import cn from 'classnames';
 import { BaseLayout } from '@/layouts/BaseLayout';
 

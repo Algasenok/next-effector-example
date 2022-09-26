@@ -127,9 +127,11 @@ export interface LotteryPage {
   updatedAt: string;
   img: string;
   content: string;
-  lotteryKey: string;
+  lotteryKey?: string;
+  source?: string;
   lottery_country: LotteryCountry;
   faq: FaqType;
+  isRegionPage: boolean;
 }
 
 export interface LotteryRegionInfo {

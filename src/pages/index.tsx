@@ -8,13 +8,13 @@ import ReactHtmlParser from 'react-html-parser';
 import { initMainPage, $mainPage } from '@/models/common';
 import { useStore } from 'effector-react/scope';
 import { MainPage } from '@/types/types';
-import { $lotteriesForMainPage, $lotteryPagesUrlList } from '@/models/Lottery';
+import { $lotteriesForMainPage, $lotteryPagesList } from '@/models/Lottery';
 import styles from './index/Index.module.scss';
 import { getFaqJsonLd } from '@/utils';
 
 const Home: NextPage = () => {
   const mainPage = useStore<MainPage | null>($mainPage);
-  const lotteryPages = useStore($lotteryPagesUrlList);
+  const lotteryPages = useStore($lotteryPagesList);
   const lotteriesList = useStore<any | null>($lotteriesForMainPage);
 
   const formattedContent = () => {
@@ -35,7 +35,7 @@ const Home: NextPage = () => {
           key={`lotteryCard${lotteryInfo.key + index}`}
           cardInfo={lotteryInfo}
           place="main"
-          urlPage={lotteryPageLink ? lotteryPageLink.url : null}
+          urlPage={lotteryPageLink ? lotteryPageLink.link : null}
         />
       );
     });
