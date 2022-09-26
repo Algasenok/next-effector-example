@@ -4,11 +4,10 @@ import { LinkProps, LotteryCardItem, LotteryPage } from '@/types/types';
 import ReactHtmlParser from 'react-html-parser';
 import { API_CRM_URL_DEV } from 'config';
 import { useEffect, useState } from 'react';
-import { LotteryCard, PageSubheadings, LotteryWinnersTable } from '@/components';
-import ErrorPage from 'next/error';
+import { LotteryCard, PageSubheadings, LotteryWinnersTable, Faq } from '@/components';
 
 interface Props {
-  lotteryPage: LotteryPage | null;
+  lotteryPage: LotteryPage;
   regions: LinkProps[];
   lotteryInfo: LotteryCardItem;
 }
@@ -16,10 +15,6 @@ interface Props {
 export function LotteryItem({ lotteryPage, regions, lotteryInfo }: Props) {
   const post = lotteryPage;
   const [headingsList, setHeadingsList] = useState<any>([]);
-
-  if (!post) {
-    return <ErrorPage statusCode={404} />;
-  }
 
   useEffect(() => {
     const headings = document.getElementsByTagName('H2');
@@ -43,13 +38,19 @@ export function LotteryItem({ lotteryPage, regions, lotteryInfo }: Props) {
           }
           case 'LotteryWinnersTable': {
             if (lotteryInfo) {
-              return <LotteryWinnersTable lotteryInfo={lotteryInfo} />;
+              return (
+                <LotteryWinnersTable key={`lotteryWinners${index}`} lotteryInfo={lotteryInfo} />
+              );
             }
             return null;
           }
           default: {
             const content = itemContent.replace('/uploads/', `${API_CRM_URL_DEV}/uploads/`);
-            return <div className="singlePage">{ReactHtmlParser(content)}</div>;
+            return (
+              <div key={`lotteryContent${index}`} className="blogPage">
+                {ReactHtmlParser(content)}
+              </div>
+            );
           }
         }
       });
@@ -60,8 +61,8 @@ export function LotteryItem({ lotteryPage, regions, lotteryInfo }: Props) {
 
   return (
     <NewsLayout
-      title={post.title}
-      description={post.description}
+      title={post.h1}
+      description={post.introduction}
       categories={regions}
       place="lottery"
     >
@@ -74,8 +75,9 @@ export function LotteryItem({ lotteryPage, regions, lotteryInfo }: Props) {
           />
         ) : null}
       </div>
-      <h1 className={styles.lotteryItemTitle}>{post.title}</h1>
+      <h1 className={styles.lotteryItemTitle}>{post.h1}</h1>
       <div className={styles.lotteryItem}>{formattedContent()}</div>
+      {post.faq && post.faq.faqItems ? <Faq data={post.faq} /> : null}
     </NewsLayout>
   );
 }

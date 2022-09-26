@@ -23,6 +23,74 @@
     grid-template-columns: 200px 1fr;
     grid-template-rows: 1fr;
   }
+
+  &_main {
+    @media #{$laptop} {
+      display: block;
+      padding: 20px 0;
+      width: calc(50% - 15px);
+      margin-right: 30px;
+
+      &:nth-child(2n) {
+        margin-right: 0;
+      }
+
+      .logoContainer {
+        height: 132px;
+        width: 100%;
+        border-bottom: 2px solid #526993;
+        border-right: none;
+      }
+
+      .container {
+        flex-direction: column;
+        justify-content: flex-start;
+        max-width: 450px;
+      }
+
+      .wrap {
+        padding: 0;
+        align-items: center;
+        text-align: center;
+        display: flex;
+      }
+
+      .list {
+        margin: 0 auto;
+        justify-content: center;
+      }
+
+      .circleBonusMobile {
+        display: inherit;
+      }
+
+      .item {
+        margin-right: 0;
+      }
+
+      .bonus {
+        display: none;
+      }
+
+      .nextJackpot {
+        position: relative;
+        margin-top: 0;
+      }
+    }
+
+    @media #{$desktop} {
+      width: calc(33% - 20px);
+      margin-right: 30px;
+
+      &:nth-child(2n) {
+        margin-right: 30px;
+      }
+
+      &:nth-child(3n) {
+        margin-right: 0;
+      }
+    }
+  }
 }
 
 .logoContainer {
@@ -205,7 +273,6 @@
   }
 
   @media #{$desktop} {
-    //margin-top: -55px;
     grid-column: 1;
     grid-row: 2;
   }
@@ -230,4 +297,8 @@
     grid-row: 1/2;
     margin-top: 70px
   }
+}
+
+.clickable {
+  cursor: pointer;
 }

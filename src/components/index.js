@@ -28,6 +28,7 @@ export { PagePrevAndNextButton } from './PagePrevAndNextButton';
 export { PageSubheadings } from './PageSubheadings';
 export { LotteryCard } from './LotteryCard';
 export { LotteryWinnersTable } from './LotteryWinnersTable';
+export { Faq } from './Faq';
 
 // Pages
 export { AboutItem } from './pages/AboutItem';
@@ -35,3 +36,4 @@ export { KnowledgePage } from './pages/Knowledge';
 export { KnowledgeItem } from './pages/KnowledgeItem';
 export { LotteryItem } from './pages/LotteryItem';
 export { LotteryRegionItem } from './pages/LotteryRegionItem';
+export { SinglePageItem } from './pages/SinglePageItem';

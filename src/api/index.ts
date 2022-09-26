@@ -10,7 +10,7 @@ const defaultParams = {
 };
 
 export class API {
-  static getSinglePageItem = (params: any): AxiosPromise => {
+  static getBlogPageItem = (params: any): AxiosPromise => {
     const query = qs.stringify(
       {
         ...defaultParams,
@@ -20,7 +20,7 @@ export class API {
         encodeValuesOnly: true,
       },
     );
-    return Api.get(`${apiUrl}/api/single-pages?${query}`);
+    return Api.get(`${apiUrl}/api/blog-pages?${query}`);
   };
 
   static getAboutPages = (params: any): AxiosPromise => {
@@ -36,7 +36,7 @@ export class API {
     return Api.get(`${apiUrl}/api/about-pages?${query}`);
   };
 
-  static getPagesForCategory = (params: any): AxiosPromise => {
+  static getSinglePages = (params: any): AxiosPromise => {
     const query = qs.stringify(
       {
         ...defaultParams,
@@ -47,6 +47,19 @@ export class API {
       },
     );
     return Api.get(`${apiUrl}/api/single-pages?${query}`);
+  };
+
+  static getPagesForCategory = (params: any): AxiosPromise => {
+    const query = qs.stringify(
+      {
+        ...defaultParams,
+        ...params,
+      },
+      {
+        encodeValuesOnly: true,
+      },
+    );
+    return Api.get(`${apiUrl}/api/blog-pages?${query}`);
   };
   static getCategories = (params: any): AxiosPromise => {
     const query = qs.stringify(
@@ -139,5 +152,33 @@ export class API {
         },
       },
     );
+  };
+  static getRobotsTxt = (): AxiosPromise => {
+    const query = qs.stringify(
+      {
+        ...defaultParams,
+      },
+      {
+        encodeValuesOnly: true,
+      },
+    );
+    return Api.get(`${apiUrl}/api/robots-txt?${query}`);
+  };
+
+  static getFile = (url: string): AxiosPromise => {
+    return Api.get(url);
+  };
+
+  static getMainPage = (params: any): AxiosPromise => {
+    const query = qs.stringify(
+      {
+        ...defaultParams,
+        ...params,
+      },
+      {
+        encodeValuesOnly: true,
+      },
+    );
+    return Api.get(`${apiUrl}/api/main-page?${query}`);
   };
 }
