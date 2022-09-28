@@ -19,7 +19,7 @@ const Home: NextPage = () => {
 
   const formattedContent = () => {
     if (mainPage?.content) {
-      const content = mainPage?.content.replace('/uploads/', `${API_CRM_URL_DEV}/uploads/`);
+      const content = mainPage?.content.replaceAll('/uploads/', `${API_CRM_URL_DEV}/uploads/`);
       return <div className="blogPage">{ReactHtmlParser(content)}</div>;
     }
     return null;

@@ -36,24 +36,42 @@
     }
   }
 
-  figure {
-    margin: 0;
+  img {
+    margin: 24px 0 32px;
+
+    @media #{$laptop} {
+      margin: 60px 0 32px;
+    }
+
+    @media #{$desktop} {
+      margin: 32px 0;
+    }
   }
 
-  .image {
+  .image-style-align-left {
+    float: left;
+    margin: 0 24px 24px 0;
+
+    @media #{$laptop} {
+      margin: 0 32px 32px 0;
+    }
+  }
+
+  .image-style-align-right {
+    float: right;
+    margin: 0 0 24px 24px;
+
+    @media #{$laptop} {
+      margin: 0 0 32px 32px;
+    }
+  }
+
+  .image-style-align-center {
+    margin: 24px auto;
+
     img {
-      margin: 24px 0 32px;
+      margin: 0;
       width: 100%;
-      height: auto;
-
-      @media #{$laptop} {
-        margin: 60px 0 32px;
-      }
-
-      @media #{$desktop} {
-        margin: 32px 0;
-        width: 400px;
-      }
     }
   }
 
@@ -61,6 +79,11 @@
     width: 100%;
     text-align: left;
     border-collapse: collapse;
+    margin-bottom: 24px;
+
+    @media #{$laptop} {
+      margin-bottom: 32px;
+    }
   }
 
   thead {
@@ -84,16 +107,41 @@
   }
 
   ul {
-    padding-left: 0;
+    padding-left: 36px;
+    margin-bottom: 32px;
 
     li {
       list-style-type: none;
+      position: relative;
+      margin-bottom: 24px;
     }
 
     li::before {
       content: '●';
       color: $font-second;
-      padding-right: 24px;
+      position: absolute;
+      left: -36px;
+    }
+  }
+
+  ol {
+    padding-left: 36px;
+    margin-bottom: 32px;
+
+    li {
+      margin-bottom: 24px;
+    }
+  }
+
+  .todo-list { // Список с маркерами приходит с этим классом
+    li::before {
+      content: '';
+    }
+
+    li input {
+      position: absolute;
+      left: -36px;
+      margin: 0.5rem 0.5rem 0.5rem 0;
     }
   }
 }
