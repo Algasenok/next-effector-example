@@ -30,7 +30,10 @@ const nextConfig = {
     return [
       {
         source: '/sitemap.xml',
-        destination: `${process.env.API_CRM_URL}/sitemap/index.xml`,
+        // TODO Убрать урл https://rg.stage.plat.agency
+        destination: `${
+          process.env.API_CRM_URL || 'https://rg.stage.plat.agency'
+        }/sitemap/index.xml`,
       },
     ];
   },
