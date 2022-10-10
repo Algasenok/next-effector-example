@@ -69,7 +69,7 @@ build_stage-prod:
 deploy_dev:
   stage: deploy
   <<: *restrictions_dev
-  image: cr.yandex/crpe5nlmt14r7sp5papq/devops/infrastructure:1.0.0-argocd
+  image: cr.yandex/crp5ufj07k4l2safqpve/agency/lottery/infrastructure:1.0.0-argocd
   script:
     -  argocd login $ARGOCD_DEV_ADDR --username admin --password $ARGOCD_DEV_PASS --grpc-web
     -  argocd app set $CI_PROJECT_NAME -p image.tag=$CI_BUILD_REF_NAME --grpc-web
@@ -78,7 +78,7 @@ deploy_dev:
 deploy_stage:
   stage: deploy
   <<: *restrictions_stage-prod
-  image: cr.yandex/crpe5nlmt14r7sp5papq/devops/infrastructure:1.0.0-argocd
+  image: cr.yandex/crp5ufj07k4l2safqpve/agency/lottery/infrastructure:1.0.0-argocd
   script:
     -  argocd login $ARGOCD_STAGE_ADDR --username admin --password $ARGOCD_STAGE_PASS --grpc-web
     -  argocd app set $CI_PROJECT_NAME -p image.tag=$CI_BUILD_REF_NAME --grpc-web
@@ -87,7 +87,7 @@ deploy_stage:
 deploy_prod:
   stage: deploy
   <<: *restrictions_prod
-  image: cr.yandex/crpe5nlmt14r7sp5papq/devops/infrastructure:1.0.0-argocd
+  image: cr.yandex/crp5ufj07k4l2safqpve/agency/lottery/infrastructure:1.0.0-argocd
   before_script:
     -  VERSION=$(echo $CI_BUILD_REF_NAME | cut -d '-' -f1)-stage-prod
   script:

@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: cr.yandex/crp5ufj07k4l2safqpve/front-end/rg
+  repository: cr.yandex/crp5ufj07k4l2safqpve/agency/lottery/spa-lottery
   tag: latest-stage-prod
   pullPolicy: IfNotPresent
   
@@ -24,22 +24,19 @@ service:
 ingress:
   enabled: true
   annotations:
-    ingress.alb.yc.io/subnets: 'e9b12dqbkc72t842v4bj'
-    ingress.alb.yc.io/external-ipv4-address: '158.160.5.30'
-    ingress.alb.yc.io/group-name: 'rbp-stage'
+    ingress.alb.yc.io/subnets: "e9be3ojh1fdku2l8k176"
+    ingress.alb.yc.io/external-ipv4-address: "84.201.158.244"
+    ingress.alb.yc.io/group-name: "rba-lottery-stage"
   hosts:
-    - host: 'spa.rg.stage.plat.agency'
+    - host: 'spa.lottery.stage.plat.agency'
       paths:
         - path: /
           pathType: Prefix
   tls:
-    - secretName: 'yc-certmgr-cert-id-fpqtt32jbkulab6ugi2d'
+    - secretName: 'yc-certmgr-cert-id-fpquil8ccdbu1kt9fqlc'
       hosts:
-        - 'spa.rg.stage.plat.agency'
+        - 'spa.lottery.stage.plat.agency'
         
-ingress_additional:
-  enabled: false
-
 resources:  
   limits:
     cpu: 100m
@@ -60,7 +57,5 @@ tolerations: []
 
 affinity: {}
 
-# Config
 configEnvs:
-  # General
   API_CRM_URL: 'https://rg.stage.plat.agency'
