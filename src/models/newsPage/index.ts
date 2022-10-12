@@ -2,12 +2,12 @@ import { combine, createEffect, createEvent, createStore, sample } from 'effecto
 import { API } from '@/api';
 import { API_CRM_URL_DEV } from 'config';
 import { getCategoryTags } from '@/models/menu';
-import { Category, SinglePageCard } from '@/types/types';
+import { Category, blogPageCard } from '@/types/types';
 import { useRouter } from 'next/router';
 
 interface getPagesProps {
   category: string;
-  pageNumber?: number;
+  page?: number;
   tag?: string;
   type?: string;
 }
@@ -24,7 +24,7 @@ interface ParamsTypes {
 }
 
 export const getPagesForCategoryFx = createEffect(
-  async ({ category, pageNumber = 1, tag = '', type = 'Blog' }: getPagesProps) => {
+  async ({ category, page = 1, tag = '', type = 'Blog' }: getPagesProps) => {
     const params: ParamsTypes = {
       filters: {
         category: {
@@ -39,7 +39,7 @@ export const getPagesForCategoryFx = createEffect(
       populate: ['img', 'tags'],
       sort: ['publishedAt:asc'],
       pagination: {
-        page: pageNumber,
+        page,
         pageSize: 10,
       },
     };
@@ -69,9 +69,8 @@ const getCategoryInfoFx = createEffect(async ({ category }: any) => {
 });
 
 export const initNewsPage = createEvent();
-export const changePageNumber = createEvent<number>();
 
-export const $pagesForCategoryPage = createStore<SinglePageCard[]>([]);
+export const $pagesForCategoryPage = createStore<blogPageCard[]>([]);
 export const $paginationData = createStore<any>({});
 export const $currentCategory = createStore<Category | null>(null);
 
@@ -107,15 +106,6 @@ sample({
     return { category: 'knowledge', ...query };
   },
   target: [getPagesForCategoryFx, getCategoryInfoFx],
-});
-
-sample({
-  source: changePageNumber,
-  fn: page => {
-    const query = useRouter().query;
-    return { category: 'knowledge', pageNumber: page, ...query };
-  },
-  target: [getPagesForCategoryFx],
 });
 
 export const $categoryPageData = combine({

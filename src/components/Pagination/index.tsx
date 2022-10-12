@@ -3,10 +3,11 @@ import cn from 'classnames';
 
 interface Props {
   pagination: any;
+  // eslint-disable-next-line no-unused-vars
   onClickHandler: (value: number) => void;
 }
 
-export function Pagination({ pagination, onClickHandler = () => {} }: Props) {
+export function Pagination({ pagination, onClickHandler }: Props) {
   const paginationActive = pagination.page;
   const paginationStart =
     pagination.page - 3 >= 1 && pagination.page + 2 <= pagination.pageCount
@@ -41,6 +42,7 @@ export function Pagination({ pagination, onClickHandler = () => {} }: Props) {
     for (let item = paginationStart; item <= paginationEnd; item++) {
       paginationsList.push(
         <button
+          type="button"
           key={`paginationItem${item}`}
           className={cn(
             styles.paginationItem,
@@ -57,11 +59,19 @@ export function Pagination({ pagination, onClickHandler = () => {} }: Props) {
 
   return (
     <div className={styles.pagination}>
-      <button className={styles.paginationArrowLeft} onClick={() => handleClick('prev')}>
+      <button
+        type="button"
+        className={styles.paginationArrowLeft}
+        onClick={() => handleClick('prev')}
+      >
         <img src="/images/icons/arrow-small-left.svg" alt="" />
       </button>
       <div className={styles.paginationList}>{paginationItems()}</div>
-      <button className={styles.paginationArrowRight} onClick={() => handleClick('next')}>
+      <button
+        type="button"
+        className={styles.paginationArrowRight}
+        onClick={() => handleClick('next')}
+      >
         <img src="/images/icons/arrow-small-left.svg" alt="" />
       </button>
     </div>

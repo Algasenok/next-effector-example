@@ -1,19 +1,18 @@
 import styles from './LotteryItem.module.scss';
 import { NewsLayout } from '@/layouts/NewsLayout';
-import { LinkProps, LotteryPage } from '@/types/types';
+import { LinkProps, LotteryCardItem, LotteryPage } from '@/types/types';
 import ReactHtmlParser from 'react-html-parser';
-import cn from 'classnames';
 import { API_CRM_URL_DEV } from 'config';
 import { useEffect, useState } from 'react';
-import { PageSubheadings } from '@/components';
-import ErrorPage from 'next/error';
+import { LotteryCard, PageSubheadings, LotteryWinnersTable, Faq } from '@/components';
 
 interface Props {
-  lotteryPage: LotteryPage | null;
+  lotteryPage: LotteryPage;
   regions: LinkProps[];
+  lotteryInfo: LotteryCardItem;
 }
 
-export function LotteryItem({ lotteryPage, regions }: Props) {
+export function LotteryItem({ lotteryPage, regions, lotteryInfo }: Props) {
   const post = lotteryPage;
   const [headingsList, setHeadingsList] = useState<any>([]);
 
@@ -21,25 +20,49 @@ export function LotteryItem({ lotteryPage, regions }: Props) {
     const headings = document.getElementsByTagName('H2');
     const list = Array.from(headings);
     setHeadingsList(list);
-
-    const cardItem = document.getElementsByTagName('LotteryCard');
   }, []);
 
   const scrollToHeading = (element: any) => {
     element.scrollIntoView({ behavior: 'smooth' });
   };
 
-  if (!post) {
-    return <ErrorPage statusCode={404} />;
-  }
-
-  // TODO Убрать это после того как фотки будут храниться в яндекс клауде
-  post.content = post.content.replace('/uploads/', `${API_CRM_URL_DEV}/uploads/`);
+  const formattedContent = () => {
+    if (post) {
+      const contentList = post.content.split('$$').map((itemContent, index) => {
+        switch (itemContent.trim()) {
+          case 'lotteryCard': {
+            if (lotteryInfo) {
+              return <LotteryCard key={`lotteryCard${index}`} cardInfo={lotteryInfo} />;
+            }
+            return null;
+          }
+          case 'LotteryWinnersTable': {
+            if (lotteryInfo) {
+              return (
+                <LotteryWinnersTable key={`lotteryWinners${index}`} lotteryInfo={lotteryInfo} />
+              );
+            }
+            return null;
+          }
+          default: {
+            const content = itemContent.replace('/uploads/', `${API_CRM_URL_DEV}/uploads/`);
+            return (
+              <div key={`lotteryContent${index}`} className="blogPage">
+                {ReactHtmlParser(content)}
+              </div>
+            );
+          }
+        }
+      });
+      return contentList || [];
+    }
+    return [];
+  };
 
   return (
     <NewsLayout
-      title={post.title}
-      description={post.description}
+      title={post.h1}
+      description={post.introduction}
       categories={regions}
       place="lottery"
     >
@@ -52,8 +75,9 @@ export function LotteryItem({ lotteryPage, regions }: Props) {
           />
         ) : null}
       </div>
-      <h1 className={styles.lotteryItemTitle}>{post.title}</h1>
-      <div className={cn(styles.lotteryItem, 'singlePage')}>{ReactHtmlParser(post.content)}</div>
+      <h1 className={styles.lotteryItemTitle}>{post.h1}</h1>
+      <div className={styles.lotteryItem}>{formattedContent()}</div>
+      {post.faq && post.faq.faqItems ? <Faq data={post.faq} /> : null}
     </NewsLayout>
   );
 }

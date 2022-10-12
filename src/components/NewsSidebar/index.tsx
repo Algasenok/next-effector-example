@@ -46,14 +46,16 @@ export function NewsSidebar({ className = '', place = 'news', categories = [] }:
         break;
       }
     }
-  }, [categories]);
+  }, [categories, router.asPath]);
 
-  const hangleClick = ({ text, link, sysname }: any) => {
-    changeSidebarActiveTab(text);
+  const handleClick = ({ text, link, sysname }: LinkProps) => {
     const routeParams = {
       pathname: link,
       query: {},
     };
+    if (place !== 'lottery') {
+      changeSidebarActiveTab(text);
+    }
     if (place !== 'about') {
       const query = router.query || {};
       delete query['url'];
@@ -88,7 +90,7 @@ export function NewsSidebar({ className = '', place = 'news', categories = [] }:
                     styles.sidebarLink,
                     activeTab === text ? styles.sidebarLinkActive : '',
                   )}
-                  onClickHandler={() => hangleClick({ text, link, sysname })}
+                  onClickHandler={() => handleClick({ text, link, sysname })}
                 >
                   {text}
                 </BaseButton>

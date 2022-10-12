@@ -2,19 +2,20 @@ import { NextPage } from 'next';
 import { createGIP } from '@/models/shared';
 import { useStore } from 'effector-react/scope';
 import { LinkProps } from '@/types/types';
-import { $lotteryRegions, getLotteryCountry } from '@/models/LotteryPage';
+import { $lotteryRegions, getLotteryCountry } from '@/models/Lottery';
 import { useEffect } from 'react';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 
 const Knowledge: NextPage = () => {
   const regions = useStore<LinkProps[]>($lotteryRegions);
+  const router = useRouter();
 
   useEffect(() => {
     if (regions.length) {
       const route = regions[0].link;
-      Router.push(route || '/');
+      router.push(route || '/');
     }
-  }, [regions]);
+  }, []);
 
   return null;
 };

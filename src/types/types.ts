@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import {string} from "prop-types";
 
 export interface BaseButtonsProps {
   children: ReactNode;
@@ -63,6 +62,8 @@ export interface Tag {
 
 export interface Category {
   name: string;
+  introduction: string;
+  title: string;
   description: string;
   sysname: string;
   tags: Tag[];
@@ -74,28 +75,45 @@ export interface Author {
   avatar: string;
 }
 
-export interface SinglePage {
+interface FaqItem {
+  id: number;
+  question: string;
+  answer: string;
+}
+
+export interface FaqType {
+  h2: string;
+  faqItems: FaqItem[];
+}
+
+export interface BlogPage {
   id: number;
   title: string;
   url: string;
   description: string;
+  h1: string;
+  introduction: string;
   publishedAt: string;
+  updatedAt: string;
   img: string;
   content: string;
   tags: Tag[];
   category: Category;
   author: Author;
+  breadcrumbName: string;
   prevPage: string;
   nextPage: string;
+  faq: FaqType;
 }
 
 export interface LotteryCountry {
   id: number;
-  title: string;
+  h1: string;
   url: string;
-  description: string;
+  introduction: string;
   publishedAt: string;
-  region: any;
+  updatedAt: string;
+  regions: any;
 }
 
 export interface LotteryPage {
@@ -103,29 +121,42 @@ export interface LotteryPage {
   title: string;
   url: string;
   description: string;
+  h1: string;
+  introduction: string;
   publishedAt: string;
+  updatedAt: string;
   img: string;
   content: string;
+  lotteryKey?: string;
+  source?: string;
   lottery_country: LotteryCountry;
+  faq: FaqType;
+  isRegionPage: boolean;
 }
 
 export interface LotteryRegionInfo {
   id: number;
-  name: string;
+  h1: string;
   url: string;
   content: string;
   source: string;
+  title: string;
+  description: string;
+  publishedAt: string;
+  updatedAt: string;
+  faq: FaqType;
 }
 
 export interface LotteryRegionPage {
   id: number;
-  title: string;
-  description: string;
+  h1: string;
+  introduction: string;
   url: string;
   region: LotteryRegionInfo;
+  lottery_pages: any;
 }
 
-export interface SinglePageCard {
+export interface blogPageCard {
   id: number;
   title: string;
   url: string;
@@ -135,4 +166,44 @@ export interface SinglePageCard {
   content: string;
   tags: Tag[];
   category: Category;
+}
+
+export interface LotteryCardItem {
+  datecreated: string;
+  datemodified: string;
+  key: string;
+  name: string;
+  logo: string;
+  date: string;
+  maindraw: any[];
+  bonusorgrand: number | null;
+  nextdraw: string;
+  jackpot: string;
+  tags?: any;
+  history: any[];
+  tag?: number;
+  source?: string;
+}
+
+export interface Microdata {
+  title: string;
+  description: string;
+  h1: string;
+  introduction: string;
+  img?: string;
+  publishedAt: string;
+  updatedAt: string;
+  author?: Author;
+}
+
+export interface MainPage {
+  h1: string;
+  introduction: string;
+  title: string;
+  description: string;
+  content: string;
+  lotteryKeys: string[];
+  updatedAt: string;
+  publishedAt: string;
+  faq: FaqType;
 }
