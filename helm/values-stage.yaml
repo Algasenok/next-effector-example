@@ -58,4 +58,4 @@ tolerations: []
 affinity: {}
 
 configEnvs:
-  API_CRM_URL: 'https://rg.stage.plat.agency'
+  API_CRM_URL: 'https://cms.lottery.stage.plat.agency'

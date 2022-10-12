@@ -30,10 +30,9 @@ const nextConfig = {
     return [
       {
         source: '/sitemap.xml',
-        // TODO Убрать урл https://rg.stage.plat.agency
-        destination: `${
-          process.env.API_CRM_URL || 'https://rg.stage.plat.agency'
-        }/sitemap/index.xml`,
+        // TODO Убрать урл https://cms.lottery.stage.plat.agency
+        destination: `${process.env.API_CRM_URL || 'https://cms.lottery.stage.plat.agency'
+          }/sitemap/index.xml`,
       },
     ];
   },
