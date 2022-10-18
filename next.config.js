@@ -8,7 +8,7 @@ const nextConfig = {
     prependData: `@import "_mixins.sass"; @import "variables.scss";`,
   },
   env: {
-    API_CRM_URL: process.env.API_CRM_URL,
+    CMS_URL: process.env.API_CRM_URL,
   },
   webpack(config) {
     config.module.rules.push({
@@ -30,9 +30,11 @@ const nextConfig = {
     return [
       {
         source: '/sitemap.xml',
-        // TODO Убрать урл https://cms.lottery.stage.plat.agency
-        destination: `${process.env.API_CRM_URL || 'https://cms.lottery.stage.plat.agency'
-          }/sitemap/index.xml`,
+        destination: `${
+          process.env.NODE_ENV === 'development'
+            ? 'https://cms.lottery.stage.plat.agency'
+            : 'API_CRM_URL'
+        }/sitemap/index.xml`,
       },
     ];
   },

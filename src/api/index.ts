@@ -1,28 +1,13 @@
 import { Api } from '@/axios/Api';
 import { AxiosPromise } from 'axios';
-import { API_CRM_URL_DEV, API_LOTTERY_URL } from 'config/index';
+import { CMS_URL, API_LOTTERY_URL } from 'config/index';
 import qs from 'qs';
-
-const apiUrl = API_CRM_URL_DEV;
 
 const defaultParams = {
   populate: '*',
 };
 
 export class API {
-  static getBlogPageItem = (params: any): AxiosPromise => {
-    const query = qs.stringify(
-      {
-        ...defaultParams,
-        ...params,
-      },
-      {
-        encodeValuesOnly: true,
-      },
-    );
-    return Api.get(`${apiUrl}/api/blog-pages?${query}`);
-  };
-
   static getAboutPages = (params: any): AxiosPromise => {
     const query = qs.stringify(
       {
@@ -33,7 +18,7 @@ export class API {
         encodeValuesOnly: true,
       },
     );
-    return Api.get(`${apiUrl}/api/about-pages?${query}`);
+    return Api.get(`${CMS_URL}/api/about-pages?${query}`);
   };
 
   static getSinglePages = (params: any): AxiosPromise => {
@@ -46,21 +31,9 @@ export class API {
         encodeValuesOnly: true,
       },
     );
-    return Api.get(`${apiUrl}/api/single-pages?${query}`);
+    return Api.get(`${CMS_URL}/api/single-pages?${query}`);
   };
 
-  static getPagesForCategory = (params: any): AxiosPromise => {
-    const query = qs.stringify(
-      {
-        ...defaultParams,
-        ...params,
-      },
-      {
-        encodeValuesOnly: true,
-      },
-    );
-    return Api.get(`${apiUrl}/api/blog-pages?${query}`);
-  };
   static getCategories = (params: any): AxiosPromise => {
     const query = qs.stringify(
       {
@@ -71,7 +44,7 @@ export class API {
         encodeValuesOnly: true,
       },
     );
-    return Api.get(`${apiUrl}/api/categories?${query}`);
+    return Api.get(`${CMS_URL}/api/categories?${query}`);
   };
 
   static getAuthorCurrentPage = (params: any): AxiosPromise => {
@@ -84,7 +57,7 @@ export class API {
         encodeValuesOnly: true,
       },
     );
-    return Api.get(`${apiUrl}/api/authors?${query}`);
+    return Api.get(`${CMS_URL}/api/authors?${query}`);
   };
 
   static getFooterMenu = (): AxiosPromise => {
@@ -96,7 +69,7 @@ export class API {
         encodeValuesOnly: true,
       },
     );
-    return Api.get(`${apiUrl}/api/footer-menu?${query}`);
+    return Api.get(`${CMS_URL}/api/footer-menu?${query}`);
   };
 
   static getHeaderMenu = (params: any): AxiosPromise => {
@@ -109,7 +82,7 @@ export class API {
         encodeValuesOnly: true,
       },
     );
-    return Api.get(`${apiUrl}/api/header-menu?${query}`);
+    return Api.get(`${CMS_URL}/api/header-menu?${query}`);
   };
 
   static getLotteryItem = (params: any): AxiosPromise => {
@@ -122,7 +95,7 @@ export class API {
         encodeValuesOnly: true,
       },
     );
-    return Api.get(`${apiUrl}/api/lottery-pages?${query}`);
+    return Api.get(`${CMS_URL}/api/lottery-pages?${query}`);
   };
 
   static getLotteryCountry = (params: any): AxiosPromise => {
@@ -135,7 +108,7 @@ export class API {
         encodeValuesOnly: true,
       },
     );
-    return Api.get(`${apiUrl}/api/lottery-countries?${query}`);
+    return Api.get(`${CMS_URL}/api/lottery-countries?${query}`);
   };
 
   static getLotteryInfo = (params: any): AxiosPromise => {
@@ -162,7 +135,7 @@ export class API {
         encodeValuesOnly: true,
       },
     );
-    return Api.get(`${apiUrl}/api/robots-txt?${query}`);
+    return Api.get(`${CMS_URL}/api/robots-txt?${query}`);
   };
 
   static getFile = (url: string): AxiosPromise => {
@@ -179,6 +152,6 @@ export class API {
         encodeValuesOnly: true,
       },
     );
-    return Api.get(`${apiUrl}/api/main-page?${query}`);
+    return Api.get(`${CMS_URL}/api/main-page?${query}`);
   };
 }

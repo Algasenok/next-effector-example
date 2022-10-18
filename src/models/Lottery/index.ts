@@ -1,7 +1,7 @@
 import { createEffect, createEvent, createStore, sample } from 'effector';
 import { LinkProps, LotteryCardItem, LotteryPage } from '@/types/types';
 import { API } from '@/api';
-import { API_CRM_URL_DEV } from 'config';
+import { CMS_URL } from 'config';
 import { getLotteryCardInfo } from '@/utils';
 import { changeBreadcrumb } from '@/models/menu';
 
@@ -146,7 +146,7 @@ $lotteryPage.on(getLotteryPageFx.doneData, (_, data) => {
       ...data.attributes,
       id: data.id,
       url: `/${data.attributes.lottery_country.data.attributes.url}/${data.attributes.url}`,
-      img: `${API_CRM_URL_DEV}${data.attributes?.img?.data?.attributes?.url}`,
+      img: `${CMS_URL}${data.attributes?.img?.data?.attributes?.url}`,
       lottery_country: data.attributes.lottery_country.data.attributes,
     };
     changeBreadcrumb({

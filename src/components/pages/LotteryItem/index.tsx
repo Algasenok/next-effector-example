@@ -2,7 +2,7 @@ import styles from './LotteryItem.module.scss';
 import { NewsLayout } from '@/layouts/NewsLayout';
 import { LinkProps, LotteryCardItem, LotteryPage } from '@/types/types';
 import ReactHtmlParser from 'react-html-parser';
-import { API_CRM_URL_DEV } from 'config';
+import { CMS_URL } from 'config';
 import { useEffect, useState } from 'react';
 import { LotteryCard, PageSubheadings, LotteryWinnersTable, Faq } from '@/components';
 
@@ -45,7 +45,7 @@ export function LotteryItem({ lotteryPage, regions, lotteryInfo }: Props) {
             return null;
           }
           default: {
-            const content = itemContent.replace('/uploads/', `${API_CRM_URL_DEV}/uploads/`);
+            const content = itemContent.replace('/uploads/', `${CMS_URL}/uploads/`);
             return (
               <div key={`lotteryContent${index}`} className="blogPage">
                 {ReactHtmlParser(content)}
