@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { BaseLayout } from '@/layouts/BaseLayout';
 import { BaseWrapper, Faq, LotteryCard, TopBanner } from '@/components';
 import { createGIP } from '@/models/shared';
-import { API_CRM_URL_DEV } from 'config';
+import { CMS_URL } from 'config';
 import ReactHtmlParser from 'react-html-parser';
 import { initMainPage, $mainPage } from '@/models/common';
 import { useStore } from 'effector-react/scope';
@@ -19,7 +19,7 @@ const Home: NextPage = () => {
 
   const formattedContent = () => {
     if (mainPage?.content) {
-      const content = mainPage?.content.replaceAll('/uploads/', `${API_CRM_URL_DEV}/uploads/`);
+      const content = mainPage?.content.replaceAll('/uploads/', `${CMS_URL}/uploads/`);
       return <div className="blogPage">{ReactHtmlParser(content)}</div>;
     }
     return null;

@@ -1,8 +1,8 @@
 // import axios, { AxiosInstance, AxiosRequestConfig, AxiosError, AxiosResponse } from 'axios';
 import axios from 'axios';
-import { API_CRM_URL_DEV } from 'config/index';
+import { CMS_URL } from 'config/index';
 
-const API_URL = API_CRM_URL_DEV;
+const API_URL = CMS_URL;
 
 export const axiosInstance = axios.create({
   timeout: 30000,
