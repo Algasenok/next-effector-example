@@ -154,4 +154,8 @@ export class API {
     );
     return Api.get(`${CMS_URL}/api/main-page?${query}`);
   };
+
+  static getSitemap = (): AxiosPromise => {
+    return Api.get(`${CMS_URL}/sitemap/index.xml`);
+  };
 }
