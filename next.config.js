@@ -26,18 +26,6 @@ const nextConfig = {
     // config.plugins.push(new StylelintPlugin());
     return config;
   },
-  async rewrites() {
-    return [
-      {
-        source: '/sitemap.xml',
-        destination: `${
-          process.env.NODE_ENV === 'development'
-            ? 'https://cms.lottery.stage.plat.agency'
-            : 'API_CRM_URL'
-        }/sitemap/index.xml`,
-      },
-    ];
-  },
 };
 
 module.exports = nextConfig;
