@@ -1,7 +1,6 @@
 import { createEffect, createEvent, createStore, sample } from 'effector';
 import { LinkProps, LotteryCardItem, LotteryPage } from '@/types/types';
 import { API } from '@/api';
-import { CMS_URL } from 'config';
 import { getLotteryCardInfo } from '@/utils';
 import { changeBreadcrumb } from '@/models/menu';
 
@@ -140,13 +139,12 @@ $lotteryInfoItems.on(getLotteryInfoFx.doneData, (_, data) => {
 });
 
 $lotteryPage.on(getLotteryPageFx.doneData, (_, data) => {
-  // TODO Исправить урл после того как картинки будут храниться в яндекс клауде
   if (data && data.attributes) {
     const formattedData = {
       ...data.attributes,
       id: data.id,
       url: `/${data.attributes.lottery_country.data.attributes.url}/${data.attributes.url}`,
-      img: `${CMS_URL}${data.attributes?.img?.data?.attributes?.url}`,
+      img: data.attributes?.img?.data?.attributes?.url,
       lottery_country: data.attributes.lottery_country.data.attributes,
     };
     changeBreadcrumb({
