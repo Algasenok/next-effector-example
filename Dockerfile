@@ -1,4 +1,4 @@
-FROM node:alpine AS builder
+FROM node:16.15.0-alpine AS builder
 WORKDIR /app
 RUN apk add --no-cache libc6-compat
 COPY . .
@@ -6,7 +6,7 @@ RUN yarn install --frozen-lockfile
 RUN yarn build && yarn install --production --ignore-scripts --prefer-offline
 RUN ls -la
 
-FROM node:alpine AS runner
+FROM node:16.15.0-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV production
 COPY --from=builder /app/public ./public
