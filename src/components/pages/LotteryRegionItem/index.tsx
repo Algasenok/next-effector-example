@@ -2,7 +2,6 @@ import styles from './LotteryRegionItem.module.scss';
 import { NewsLayout } from '@/layouts/NewsLayout';
 import { LinkProps, LotteryPage } from '@/types/types';
 import ReactHtmlParser from 'react-html-parser';
-import { API_CRM_URL_DEV } from 'config';
 import { LotteryCard, Faq } from '@/components';
 
 interface Props {
@@ -37,11 +36,9 @@ export function LotteryRegionItem({ page, regions, regionsCards, lotteryPagesLis
             return null;
           }
           default: {
-            // TODO Убрать это после того как фотки будут храниться в яндекс клауде
-            const content = itemContent.replace('/uploads/', `${API_CRM_URL_DEV}/uploads/`);
             return (
               <div key={`content-${index}`} className="blogPage">
-                {ReactHtmlParser(content)}
+                {ReactHtmlParser(itemContent)}
               </div>
             );
           }

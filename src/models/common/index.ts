@@ -1,6 +1,6 @@
 import { createEffect, createEvent, createStore, sample } from 'effector';
 import { API } from '@/api';
-import { API_CRM_URL_DEV } from 'config';
+import { CMS_URL } from 'config';
 import { MainPage } from '@/types/types';
 import { getLotteriesForMainPage } from '@/models/Lottery';
 
@@ -10,7 +10,7 @@ export const getRobotsTxtFx = createEffect(async () => {
   let robotsText;
   if (data.data && data.data.attributes) {
     const robots = data.data.attributes.robots.data?.attributes.url;
-    robotsUrl = robots ? API_CRM_URL_DEV + robots : null;
+    robotsUrl = robots ? CMS_URL + robots : null;
   }
   if (robotsUrl) {
     robotsText = await API.getFile(robotsUrl);
