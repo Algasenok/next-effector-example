@@ -3,6 +3,9 @@
 
 const nextConfig = {
   reactStrictMode: false,
+  experimental: {
+    outputStandalone: true,
+  },
   sassOptions: {
     includePaths: ['src/styles'],
     prependData: `@import "_mixins.sass"; @import "variables.scss";`,
