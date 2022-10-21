@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: cr.yandex/crp5ufj07k4l2safqpve/agency/lottery/spa-lottery
-  tag: latest-stage-prod
+  tag: latest-prod
   pullPolicy: IfNotPresent
   
 imagePullSecrets:
@@ -24,20 +24,20 @@ service:
 ingress:
   enabled: true
   annotations:
-    ingress.alb.yc.io/subnets: "e9be3ojh1fdku2l8k176"
-    ingress.alb.yc.io/external-ipv4-address: "84.201.158.244"
-    ingress.alb.yc.io/group-name: "rba-lottery-stage"
+    ingress.alb.yc.io/subnets: "e9bgq48t1ov6a0t3nhf2"
+    ingress.alb.yc.io/external-ipv4-address: "178.154.220.39"
+    ingress.alb.yc.io/group-name: "rba-lottery-prod"
   hosts:
-    - host: 'spa.lottery.stage.plat.agency'
+    - host: 'spa.lottery.plat.agency'
       paths:
         - path: /
           pathType: Prefix
   tls:
-    - secretName: 'yc-certmgr-cert-id-fpquil8ccdbu1kt9fqlc'
+    - secretName: 'yc-certmgr-cert-id-fpqkgsg1t08hd53o07h2'
       hosts:
-        - 'spa.lottery.stage.plat.agency'
+        - 'spa.lottery.plat.agency'
         
-resources:  
+resources:
   limits:
     cpu: 100m
     memory: 128Mi
@@ -58,7 +58,7 @@ tolerations: []
 affinity: {}
 
 configEnvs:
-  SPA_BASE_URL: "https://spa.lottery.stage.plat.agency"
-  CMS_BASE_URL: "https://cms.lottery.stage.plat.agency"
+  SPA_BASE_URL: "https://spa.lottery.plat.agency"
+  CMS_BASE_URL: "https://cms.lottery.plat.agency"
   PORT: 80
   NODE_ENV: "production"
