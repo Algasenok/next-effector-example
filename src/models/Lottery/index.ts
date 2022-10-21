@@ -216,13 +216,12 @@ sample({
 });
 
 sample({
-  clock: getLotteryPageFx.doneData,
-  source: $lotteryPage,
+  source: getLotteryPageFx.doneData,
   fn: page => {
     if (page) {
       return {
-        key: page.isRegionPage ? page.source : page.lotteryKey,
-        isRegionPage: page.isRegionPage,
+        key: page.attributes.isRegionPage ? page.attributes.source : page.attributes.lotteryKey,
+        isRegionPage: page.attributes.isRegionPage,
       };
     }
     return { key: null, isRegionPage: false };

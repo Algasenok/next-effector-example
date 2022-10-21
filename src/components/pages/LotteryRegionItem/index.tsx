@@ -7,11 +7,11 @@ import { LotteryCard, Faq } from '@/components';
 interface Props {
   page: LotteryPage;
   regions: LinkProps[];
-  regionsCards: any[];
+  lotteryCardsList: any[];
   lotteryPagesList: LinkProps[];
 }
 
-export function LotteryRegionItem({ page, regions, regionsCards, lotteryPagesList }: Props) {
+export function LotteryRegionItem({ page, regions, lotteryCardsList, lotteryPagesList }: Props) {
   const post = page;
 
   const formattedContent = () => {
@@ -19,8 +19,8 @@ export function LotteryRegionItem({ page, regions, regionsCards, lotteryPagesLis
       const contentList = post.content.split('$$').map((itemContent, index) => {
         switch (itemContent.trim()) {
           case 'lotteryCard': {
-            if (regionsCards) {
-              return regionsCards.map(lotteryInfo => {
+            if (lotteryCardsList) {
+              return lotteryCardsList.map(lotteryInfo => {
                 const lotteryPageLink = lotteryPagesList.find(
                   (lotteryPage: any) => lotteryPage.lotteryKey === lotteryInfo.key,
                 );
