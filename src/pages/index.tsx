@@ -3,7 +3,6 @@ import Head from 'next/head';
 import { BaseLayout } from '@/layouts/BaseLayout';
 import { BaseWrapper, Faq, LotteryCard, TopBanner } from '@/components';
 import { createGIP } from '@/models/shared';
-import { API_CRM_URL_DEV } from 'config';
 import ReactHtmlParser from 'react-html-parser';
 import { initMainPage, $mainPage } from '@/models/common';
 import { useStore } from 'effector-react/scope';
@@ -19,8 +18,7 @@ const Home: NextPage = () => {
 
   const formattedContent = () => {
     if (mainPage?.content) {
-      const content = mainPage?.content.replaceAll('/uploads/', `${API_CRM_URL_DEV}/uploads/`);
-      return <div className="blogPage">{ReactHtmlParser(content)}</div>;
+      return <div className="blogPage">{ReactHtmlParser(mainPage?.content)}</div>;
     }
     return null;
   };
@@ -65,10 +63,7 @@ const Home: NextPage = () => {
         )}
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <TopBanner
-        h1={mainPage?.h1 || 'Canada Lottery'}
-        introduction={mainPage?.introduction || ''}
-      />
+      <TopBanner h1={mainPage?.h1 || ''} introduction={mainPage?.introduction || ''} />
       <BaseWrapper className={styles.mainContainer}>
         <div className={styles.mainLotteryContainer}>{getLotteryCards()}</div>
         <div className={styles.mainContentContainer}>{formattedContent()}</div>

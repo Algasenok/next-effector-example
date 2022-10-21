@@ -2,17 +2,16 @@ import styles from './LotteryRegionItem.module.scss';
 import { NewsLayout } from '@/layouts/NewsLayout';
 import { LinkProps, LotteryPage } from '@/types/types';
 import ReactHtmlParser from 'react-html-parser';
-import { API_CRM_URL_DEV } from 'config';
 import { LotteryCard, Faq } from '@/components';
 
 interface Props {
   page: LotteryPage;
   regions: LinkProps[];
-  regionsCards: any[];
+  lotteryCardsList: any[];
   lotteryPagesList: LinkProps[];
 }
 
-export function LotteryRegionItem({ page, regions, regionsCards, lotteryPagesList }: Props) {
+export function LotteryRegionItem({ page, regions, lotteryCardsList, lotteryPagesList }: Props) {
   const post = page;
 
   const formattedContent = () => {
@@ -20,8 +19,8 @@ export function LotteryRegionItem({ page, regions, regionsCards, lotteryPagesLis
       const contentList = post.content.split('$$').map((itemContent, index) => {
         switch (itemContent.trim()) {
           case 'lotteryCard': {
-            if (regionsCards) {
-              return regionsCards.map(lotteryInfo => {
+            if (lotteryCardsList) {
+              return lotteryCardsList.map(lotteryInfo => {
                 const lotteryPageLink = lotteryPagesList.find(
                   (lotteryPage: any) => lotteryPage.lotteryKey === lotteryInfo.key,
                 );
@@ -37,11 +36,9 @@ export function LotteryRegionItem({ page, regions, regionsCards, lotteryPagesLis
             return null;
           }
           default: {
-            // TODO Убрать это после того как фотки будут храниться в яндекс клауде
-            const content = itemContent.replace('/uploads/', `${API_CRM_URL_DEV}/uploads/`);
             return (
               <div key={`content-${index}`} className="blogPage">
-                {ReactHtmlParser(content)}
+                {ReactHtmlParser(itemContent)}
               </div>
             );
           }

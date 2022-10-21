@@ -1,7 +1,6 @@
 import { createEffect, createEvent, createStore, sample } from 'effector';
 import { LinkProps, LotteryCardItem, LotteryPage } from '@/types/types';
 import { API } from '@/api';
-import { API_CRM_URL_DEV } from 'config';
 import { getLotteryCardInfo } from '@/utils';
 import { changeBreadcrumb } from '@/models/menu';
 
@@ -140,13 +139,12 @@ $lotteryInfoItems.on(getLotteryInfoFx.doneData, (_, data) => {
 });
 
 $lotteryPage.on(getLotteryPageFx.doneData, (_, data) => {
-  // TODO Исправить урл после того как картинки будут храниться в яндекс клауде
   if (data && data.attributes) {
     const formattedData = {
       ...data.attributes,
       id: data.id,
       url: `/${data.attributes.lottery_country.data.attributes.url}/${data.attributes.url}`,
-      img: `${API_CRM_URL_DEV}${data.attributes?.img?.data?.attributes?.url}`,
+      img: data.attributes?.img?.data?.attributes?.url,
       lottery_country: data.attributes.lottery_country.data.attributes,
     };
     changeBreadcrumb({
@@ -218,13 +216,12 @@ sample({
 });
 
 sample({
-  clock: getLotteryPageFx.doneData,
-  source: $lotteryPage,
+  source: getLotteryPageFx.doneData,
   fn: page => {
     if (page) {
       return {
-        key: page.isRegionPage ? page.source : page.lotteryKey,
-        isRegionPage: page.isRegionPage,
+        key: page.attributes.isRegionPage ? page.attributes.source : page.attributes.lotteryKey,
+        isRegionPage: page.attributes.isRegionPage,
       };
     }
     return { key: null, isRegionPage: false };

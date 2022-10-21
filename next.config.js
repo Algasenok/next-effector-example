@@ -3,12 +3,15 @@
 
 const nextConfig = {
   reactStrictMode: false,
+  experimental: {
+    outputStandalone: true,
+  },
   sassOptions: {
     includePaths: ['src/styles'],
     prependData: `@import "_mixins.sass"; @import "variables.scss";`,
   },
   env: {
-    API_CRM_URL: process.env.API_CRM_URL,
+    CMS_URL: process.env.API_CRM_URL,
   },
   webpack(config) {
     config.module.rules.push({
@@ -25,16 +28,6 @@ const nextConfig = {
     });
     // config.plugins.push(new StylelintPlugin());
     return config;
-  },
-  async rewrites() {
-    return [
-      {
-        source: '/sitemap.xml',
-        // TODO Убрать урл https://cms.lottery.stage.plat.agency
-        destination: `${process.env.API_CRM_URL || 'https://cms.lottery.stage.plat.agency'
-          }/sitemap/index.xml`,
-      },
-    ];
   },
 };
 

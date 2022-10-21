@@ -18,7 +18,7 @@ import { $breadcrumb } from '@/models/menu';
 const CanadaLotteryPage: NextPage = () => {
   const lotteryPage = useStore<LotteryPage | null>($lotteryPage);
   const regions = useStore<LinkProps[]>($lotteryRegions);
-  const regionsCards = useStore<LotteryCardItem[]>($lotteryInfoItems);
+  const lotteryCardsList = useStore<LotteryCardItem[]>($lotteryInfoItems);
   const lastBreadcrumb = useStore<BreadcrumbsTypes>($breadcrumb);
   const lotteryPagesList = useStore<LinkProps[]>($lotteryPagesList);
 
@@ -53,11 +53,15 @@ const CanadaLotteryPage: NextPage = () => {
         <LotteryRegionItem
           page={lotteryPage}
           regions={regions}
-          regionsCards={regionsCards}
+          lotteryCardsList={lotteryCardsList}
           lotteryPagesList={lotteryPagesList}
         />
       ) : (
-        <LotteryItem lotteryPage={lotteryPage} regions={regions} lotteryInfo={regionsCards[0]} />
+        <LotteryItem
+          lotteryPage={lotteryPage}
+          regions={regions}
+          lotteryInfo={lotteryCardsList[0]}
+        />
       )}
     </>
   );
