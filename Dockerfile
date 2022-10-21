@@ -1,20 +1,38 @@
-FROM node:alpine AS builder
-WORKDIR /app
+FROM node:16-alpine AS deps
 RUN apk add --no-cache libc6-compat
-COPY . .
-RUN yarn install --frozen-lockfile
-RUN yarn build && yarn install --production --ignore-scripts --prefer-offline
-RUN ls -la
-
-FROM node:alpine AS runner
 WORKDIR /app
+
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+RUN \
+  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
+  elif [ -f package-lock.json ]; then npm ci; \
+  elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i; \
+  else echo "Lockfile not found." && exit 1; \
+  fi
+
+FROM node:16-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+RUN yarn build
+
+FROM node:16-alpine AS runner
+WORKDIR /app
+
 ENV NODE_ENV production
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-# USER nextjs
+
+COPY ./docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+
 EXPOSE 80
+
 ENV PORT 80
-ENV NEXT_TELEMETRY_DISABLED 1
-CMD ["node_modules/.bin/next", "start"]
+
+CMD ["node", "server.js"]
