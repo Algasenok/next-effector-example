@@ -19,6 +19,7 @@
       "@/*": [
         "./src/*"
       ],
+      "nextjs-effector": ["./library"]
     },
 
   },
