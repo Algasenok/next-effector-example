@@ -10,31 +10,10 @@ export function BaseLink({
   needHover = false,
   needArrow = false,
   color = '',
-  onClickHandler,
 }: BaseLinkProps) {
-  const isExternalLink = href.includes('http');
 
-  if (isExternalLink) {
-    return (
-      <a
-        target="_blank"
-        href={href}
-        className={cn(
-          styles.link,
-          needHover ? styles.linkNeedHover : '',
-          styles[`link_${color}`],
-          className,
-        )}
-        rel="noreferrer"
-        onClick={onClickHandler}
-      >
-        {children}
-        {needArrow && <div className={styles.linkArrow} />}
-      </a>
-    );
-  }
   return (
-    <Link href={href}>
+    <Link href={href} passHref>
       <a
         className={cn(
           styles.link,
@@ -42,7 +21,6 @@ export function BaseLink({
           styles[`link_${color}`],
           className,
         )}
-        onClick={onClickHandler}
       >
         {children}
         {needArrow && <div className={styles.linkArrow} />}
